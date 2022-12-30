@@ -3,10 +3,15 @@ package com.example.nasaapp.utils
 import java.text.SimpleDateFormat
 import java.util.*
 
-// метод преобразовывает объект Calendar в строковую дату по шаблону "yyyy-MM-dd"
-fun convertDateStringFromCalendar(date:Calendar):String{
-    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
-        return formatter.format(date.time)
+// метод преобразовывает объект Calendar в строковую дату по шаблону "yyyy-MM-dd",
+// при этом время приводится к timeZone "America/New_York" (для NasaAPI)
+fun convertDateStringFromCalendar(calendar:Calendar):String{
+    val timeZone = TimeZone.getTimeZone(TIME_ZONE_NEW_YORK)
+    calendar.timeZone = timeZone
+    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).apply {
+        this.timeZone = timeZone
+    }
+        return formatter.format(calendar.time)
 }
 
 // метод преобразовывает объект Day (enum) в объект Calendar с датой: сегодня, вчера или позавчера

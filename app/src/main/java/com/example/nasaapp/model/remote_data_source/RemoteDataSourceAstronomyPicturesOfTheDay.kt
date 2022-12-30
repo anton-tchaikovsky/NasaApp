@@ -19,6 +19,6 @@ class RemoteDataSourceAstronomyPicturesOfTheDay {
 
     //создаем запрос типа call для любого дня по дате и отправляем его в очередь на получение ответа
     fun callAPIAstronomyPicturesOfTheDay(date:String, callback: Callback<AstronomyPictureOfTheDay>){
-        apiAstronomyPicturesOfTheDay.getAstronomyPicturesOfTheDay(BuildConfig.api_nasa_key, date).enqueue(callback)
+        apiAstronomyPicturesOfTheDay.getAstronomyPicturesOfTheDay(date, BuildConfig.api_nasa_key).enqueue(callback)
     }
 }
