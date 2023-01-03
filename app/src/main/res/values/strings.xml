@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NasaApp</string>
     <string name="action_settings">action_settings</string>
+    <string name="day_before_yesterday">day before yesterday</string>
+    <string name="yesterday">yesterday</string>
+    <string name="today">today</string>
 </resources>

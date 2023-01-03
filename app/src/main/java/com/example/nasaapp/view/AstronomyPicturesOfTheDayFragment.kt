@@ -5,12 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.nasaapp.databinding.AstronomyPictureOfTheDayFragmentBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
-import com.example.nasaapp.utils.Day
+import com.example.nasaapp.utils.*
 import com.example.nasaapp.view_model.AppStateAstronomyPicturesOfTheDay
 import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
 
@@ -18,7 +19,12 @@ import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
 class AstronomyPicturesOfTheDayFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AstronomyPicturesOfTheDayFragment()
+        fun newInstance(day:Day):AstronomyPicturesOfTheDayFragment =
+            AstronomyPicturesOfTheDayFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(DAY,day)
+                }
+            }
     }
 
     private var _binding: AstronomyPictureOfTheDayFragmentBinding? = null
@@ -41,15 +47,30 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
-        viewModel.getAstronomyPicturesOfTheDay(Day.TODAY)
+
+        arguments?.let {
+           viewModel.getAstronomyPicturesOfTheDay(it.getSerializable(DAY) as Day)
+       }
+
     }
 
     private fun renderData(appState: AppStateAstronomyPicturesOfTheDay) {
         when (appState) {
-            is AppStateAstronomyPicturesOfTheDay.Error -> Log.v("@@@", appState.error.toString())
+            is AppStateAstronomyPicturesOfTheDay.Error -> setError(appState.error)
             AppStateAstronomyPicturesOfTheDay.Loading -> showLoading()
             is AppStateAstronomyPicturesOfTheDay.Success -> setAstronomyPicturesOfTheDay(appState.astronomyPicturesOfTheDay)
         }
+    }
+
+    private fun setError(throwable: Throwable){
+        hideLoading()
+        if(!isConnectNetwork(requireContext()))
+            Toast.makeText(requireContext(), DISCONNECT_NETWORK, Toast.LENGTH_SHORT).show()
+        else{
+            Toast.makeText(requireContext(), LOADING_ERROR, Toast.LENGTH_SHORT).show()
+            Log.v(TAG_ERROR_APP, throwable.toString())
+        }
+
     }
 
     private fun showLoading(){

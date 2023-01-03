@@ -1,5 +1,7 @@
 package com.example.nasaapp.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,4 +24,12 @@ fun convertCalendarFromDay(day:Day):Calendar{
         Day.YESTERDAY -> calendar.apply { add(Calendar.DAY_OF_YEAR, -1) }
         Day.DAY_BEFORE_YESTERDAY -> calendar.apply { add(Calendar.DAY_OF_YEAR, -2) }
     }
+}
+
+// метод проверяет наличие интернет-соединения
+@Suppress("DEPRECATION")
+fun isConnectNetwork(context: Context?):Boolean{
+    val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectInfo = connectivityManager.activeNetworkInfo
+    return (connectInfo != null) && connectInfo.isConnectedOrConnecting
 }

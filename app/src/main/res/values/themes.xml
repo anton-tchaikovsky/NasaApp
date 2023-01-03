@@ -3,7 +3,18 @@
     <style name="Base.Theme.NasaApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="chipStyle">@style/ChipStyle</item>
     </style>
 
     <style name="Theme.NasaApp" parent="Base.Theme.NasaApp" />
+
+    <style name="ChipStyle" parent="@style/Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@drawable/chip_background_color</item>
+        <item name="android:textColor">@drawable/chip_text_color</item>
+        <item name="chipStrokeColor">@color/deep_purple_dark</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="rippleColor">@color/deep_purple</item>
+        <item name="checkedIcon">@drawable/checked_icon</item>
+    </style>
+
 </resources>
