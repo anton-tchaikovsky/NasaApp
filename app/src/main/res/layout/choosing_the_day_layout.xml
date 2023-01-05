@@ -38,6 +38,24 @@
 
     </com.google.android.material.chip.ChipGroup>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_text_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_16dp"
+        android:hint="@string/hint_input_text"
+        app:helperText="@string/helper_input_text"
+       >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SearchEditTextStyle"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <FrameLayout
         android:id="@+id/container_for_astronomy_picture_of_the_day"
         android:layout_width="match_parent"

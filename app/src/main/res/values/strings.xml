@@ -4,4 +4,7 @@
     <string name="day_before_yesterday">day before yesterday</string>
     <string name="yesterday">yesterday</string>
     <string name="today">today</string>
+    <string name="hint_input_text">введите текст</string>
+    <string name="helper_input_text">введите текст для поиска</string>
+    <string name="error_counter_input_text">недопустимая длинна текста</string>
 </resources>

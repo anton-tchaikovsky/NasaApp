@@ -1,9 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.NasaApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="chipStyle">@style/ChipStyle</item>
+        <item name="colorError">@color/red</item>
+        <item name="textInputStyle">@style/SearchLayoutStyle</item>
+
     </style>
 
     <style name="Theme.NasaApp" parent="Base.Theme.NasaApp" />
@@ -16,5 +19,47 @@
         <item name="rippleColor">@color/deep_purple</item>
         <item name="checkedIcon">@drawable/checked_icon</item>
     </style>
+
+    <style name="ProgressBarStyle" parent="@style/Widget.Material3.CircularProgressIndicator.Medium">
+        <item name="indicatorColor">@color/deep_purple_dark</item>
+        <item name="indicatorSize">60dp</item>
+        <item name="trackThickness">6dp</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="SearchLayoutStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="startIconDrawable">@drawable/ic_baseline_search_24</item>
+       <item name="endIconMode">clear_text</item>
+        <item name="endIconDrawable">@drawable/ic_baseline_clear_24</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="counterEnabled">true</item>
+        <item name="errorEnabled">true</item>
+        <item name="counterMaxLength">20</item>
+        <item name="boxStrokeColor">@color/deep_purple_dark</item>
+        <item name="boxStrokeWidthFocused">3dp</item>
+        <item name="boxStrokeErrorColor">@color/red</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="android:focusable">false</item>
+        <item name="startIconTint">@color/deep_purple_dark</item>
+        <item name="startIconCheckable">true</item>
+        <item name="hintTextColor">@color/blue_light</item>
+        <item name="endIconTint">@color/deep_purple_dark</item>
+        <item name="helperTextTextColor">@color/blue_light</item>
+        <item name="counterTextColor">@color/blue_light</item>
+        <item name="errorTextColor">@color/red</item>
+        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
+        <item name="errorIconTint">@color/red</item>
+
+    </style>
+
+    <style name="SearchEditTextStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textCursorDrawable">@drawable/edit_text_cursor</item>
+        <item name="android:textColorHighlight">@color/grey</item>
+    </style>
+
 
 </resources>

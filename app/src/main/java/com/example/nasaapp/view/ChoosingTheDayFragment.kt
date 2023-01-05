@@ -1,11 +1,16 @@
 package com.example.nasaapp.view
 
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
 import com.example.nasaapp.utils.*
 
@@ -30,21 +35,65 @@ class ChoosingTheDayFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListenerForChips()
+        settingSearchTextField()
         readChoosingDay().let {
             createAstronomyPicturesOfTheDayFragment(it)
             checkedChoosingDay(it)
         }
     }
 
+    // настройка поиска search_text_field
+    private fun settingSearchTextField() {
+        binding.searchTextField.apply {
+            // слушатель нажатия на иконку поиска
+            setStartIconOnClickListener {
+                binding.searchEditText.text.toString().let {
+                   if (it.length <= counterMaxLength)//проверка допустимой длинны введенного текста
+                        // запрос на открытие браузера на устройстве
+                       startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("$URI_YANDEX_SEARCH${it}")
+                            )
+                        )
+                }
+            }
+            // слушатель ввода текста
+            binding.searchEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                // кастомная настройка ошибки при вводе недопустимо длинного текста
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    error = if (count > counterMaxLength)
+                        getString(R.string.error_counter_input_text)
+                    else null
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
+        }
+    }
+
     // отображение фрагмента AstronomyPicturesOfTheDay
-    private fun createAstronomyPicturesOfTheDayFragment(day:Day){
+    private fun createAstronomyPicturesOfTheDayFragment(day: Day) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(binding.containerForAstronomyPictureOfTheDay.id, AstronomyPicturesOfTheDayFragment.newInstance(day), TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT)
+            .replace(
+                binding.containerForAstronomyPictureOfTheDay.id,
+                AstronomyPicturesOfTheDayFragment.newInstance(day),
+                TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT
+            )
             .commitAllowingStateLoss()
     }
 
     // сохранение выбранного дня в настройках
-    private fun saveChoosingDay(day: Day){
+    private fun saveChoosingDay(day: Day) {
         activity?.apply {
             getPreferences(MODE_PRIVATE).edit().putString(KEY_DAY,day.day).apply()
         }
