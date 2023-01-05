@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/loading_layout"
+        layout="@layout/loading_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/loading_error"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_baseline_file_download_off_24"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/astronomy_pictures_of_the_day"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/padding_16dp"
         tools:context=".view.AstronomyPicturesOfTheDayFragment">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:layout_marginBottom="@dimen/margin_8dp">
-
-            <include
-                android:id="@+id/loadingLayout"
-                layout="@layout/loading_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/astronomy_pictures_of_the_day"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/picture"
-                    android:layout_width="wrap_content"
+                <FrameLayout
+                    android:id="@+id/layout_picture"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.example.nasaapp.utils.CustomImageView
+                        android:id="@+id/picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        />
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/explanation"
@@ -40,13 +54,16 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/picture" />
+                    app:layout_constraintTop_toBottomOf="@+id/layout_picture"
+                    android:layout_marginTop="@dimen/margin_16dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </FrameLayout>
-
     </androidx.core.widget.NestedScrollView>
+</FrameLayout>
+
+
+
 
 
 

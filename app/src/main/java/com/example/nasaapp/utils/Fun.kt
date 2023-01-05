@@ -2,6 +2,7 @@ package com.example.nasaapp.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.view.View
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,4 +33,14 @@ fun isConnectNetwork(context: Context?):Boolean{
     val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val connectInfo = connectivityManager.activeNetworkInfo
     return (connectInfo != null) && connectInfo.isConnectedOrConnecting
+}
+
+// метод показывает и скрывает переданные View
+fun hideShowViews(hideViews:List<View>, showViews: List<View>){
+    hideViews.forEach {
+        it.visibility = View.GONE
+    }
+    showViews.forEach {
+        it.visibility = View.VISIBLE
+    }
 }
