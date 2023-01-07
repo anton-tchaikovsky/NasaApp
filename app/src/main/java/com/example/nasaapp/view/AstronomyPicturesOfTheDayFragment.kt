@@ -1,10 +1,12 @@
 package com.example.nasaapp.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +18,7 @@ import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
 import com.example.nasaapp.view_model.AppStateAstronomyPicturesOfTheDay
 import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
 class AstronomyPicturesOfTheDayFragment : Fragment() {
@@ -31,6 +34,8 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
 
     private var _binding: AstronomyPictureOfTheDayFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var bottomSheetBehavior:BottomSheetBehavior<LinearLayout>
 
     private val viewModel: AstronomyPicturesOfTheDayViewModel by lazy {
         ViewModelProvider(this)[AstronomyPicturesOfTheDayViewModel::class.java]
@@ -50,10 +55,25 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             renderData(it)
         }
 
+        startingSettingBottomSheetBehavior(binding.bottomSheetLayout)
         arguments?.let {
            viewModel.getAstronomyPicturesOfTheDay(it.getSerializable(DAY) as Day)
        }
 
+    }
+
+        // метод устанавливает исходное состояние BottomSheet и устанавливает на него слушателя нажатия
+    private fun startingSettingBottomSheetBehavior(bottomSheetView: LinearLayout){
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView).apply {
+            state = BottomSheetBehavior.STATE_HIDDEN // изначально не виден
+        }
+        binding.bottomSheetLayout.setOnClickListener{
+            @SuppressLint("SwitchIntDef")
+            when(bottomSheetBehavior.state){
+                BottomSheetBehavior.STATE_COLLAPSED -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                BottomSheetBehavior.STATE_EXPANDED -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+        }
     }
 
     private fun renderData(appState: AppStateAstronomyPicturesOfTheDay) {
@@ -86,14 +106,18 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
         binding.run {
             hideShowViews(listOf(loadingLayout.loadingLayout,loadingError), listOf(this@run.astronomyPicturesOfTheDay))
         }
-        astronomyPicturesOfTheDay.let {
-            setPicture(it.url)
-            setExplanation(it.explanation)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // виден, но свернут
+        astronomyPicturesOfTheDay.apply {
+            setPicture(url)
+            setDescription(title, explanation)
         }
     }
 
-    private fun setExplanation(explanation: String) {
-        binding.explanation.text = explanation
+    private fun setDescription(title:String, explanation: String) {
+        binding.run{
+            this@run.title.text = title
+            this@run.explanation.text = explanation
+        }
     }
 
     private fun setPicture(urlPicture: String) {

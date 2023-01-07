@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,6 +13,7 @@
         android:layout_marginTop="@dimen/margin_16dp"
         app:singleLine="true"
         app:singleSelection="true"
+        app:selectionRequired="true"
         android:layout_gravity="center"
         >
 
@@ -42,17 +44,16 @@
         android:id="@+id/search_text_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_16dp"
+        android:paddingStart="@dimen/padding_16dp"
+        android:paddingEnd="@dimen/padding_16dp"
         android:hint="@string/hint_input_text"
-        app:helperText="@string/helper_input_text"
-       >
+        app:helperText="@string/helper_input_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/SearchEditTextStyle"
-            />
+            style="@style/SearchEditTextStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
