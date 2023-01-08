@@ -65,14 +65,15 @@
     <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textIsSelectable">true</item>
         <item name="android:textColorHighlight">@color/grey</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="BottomSheetStyle" parent="@style/Widget.Material3.BottomSheet.Modal">
         <item name="behavior_peekHeight">50dp</item>
+        <item name="backgroundTint">@color/deep_purple_light</item>
     </style>
 
     <style name="BottomSheetDragHandleViewStyle" parent="@style/Widget.Material3.BottomSheet.DragHandle">
-        <item name="backgroundTint">@color/deep_purple_light</item>
         <item name="tint">@color/deep_purple_dark</item>
     </style>
 

@@ -118,6 +118,8 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             this@run.title.text = title
             this@run.explanation.text = explanation
         }
+        // accessibility
+        binding.picture.contentDescription="$title $explanation"
     }
 
     private fun setPicture(urlPicture: String) {

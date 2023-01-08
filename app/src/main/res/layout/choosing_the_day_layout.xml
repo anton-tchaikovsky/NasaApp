@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/day_before_yesterday"
+            android:contentDescription="@string/day_before_yesterday"
             />
 
         <com.google.android.material.chip.Chip
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yesterday"
+            android:contentDescription="@string/yesterday"
             />
 
         <com.google.android.material.chip.Chip
@@ -36,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/today"
+            android:contentDescription="@string/today"
             />
 
     </com.google.android.material.chip.ChipGroup>
@@ -47,7 +50,8 @@
         android:paddingStart="@dimen/padding_16dp"
         android:paddingEnd="@dimen/padding_16dp"
         android:hint="@string/hint_input_text"
-        app:helperText="@string/helper_input_text">
+        app:helperText="@string/helper_input_text"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edit_text"
