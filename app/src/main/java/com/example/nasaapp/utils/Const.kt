@@ -11,9 +11,12 @@ const val LOADING_ERROR = "Ошибка загрузки данных"
 const val TAG_ERROR_APP = "@@@"
 //TAG fragments
 const val TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGAstronomyPicturesOfTheDayFragment"
+const val TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGHdAstronomyPicturesOfTheDayFragment"
 const val TAG_CHOOSING_THE_DAY_FRAGMENT = "TAGChoosingTheDayFragment"
 //All
-const val DAY = "Day"
+const val REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY = "RequireKeyAstronomyPicturesOfTheDayFragment"
+const val KEY_ASTRONOMY_PICTURES_OF_THE_DAY = "KeyAstronomyPicturesOfTheDayFragment"
+const val KEY_DAY = "KeyDay"
 const val TODAY = "Today"
 const val YESTERDAY = "Yesterday"
 const val DAY_BEFORE_YESTERDAY = "DayBeforeYesterday"

@@ -1,7 +1,10 @@
 package com.example.nasaapp.model.dto
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class AstronomyPictureOfTheDay(
     val copyright: String,
     val date: String,
@@ -13,4 +16,4 @@ data class AstronomyPictureOfTheDay(
     val serviceVersion: String,
     val title: String,
     val url: String
-)
+):Parcelable

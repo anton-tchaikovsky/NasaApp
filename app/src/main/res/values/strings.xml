@@ -9,4 +9,8 @@
     <string name="error_counter_input_text">недопустимая длинна текста</string>
     <string name="description_for_astronomy_pictures_of_the_day">описание астрономического изображения дня</string>
     <string name="loading_error">ошибка загрузки данных</string>
+    <string name="save_to_gallery">Сохранить изображение в галерею</string>
+    <string name="back">назад</string>
+    <string name="open_picture">открыть изображение</string>
+    <string name="open_picture_eng">OPEN</string>
 </resources>

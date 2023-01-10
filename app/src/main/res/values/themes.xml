@@ -69,13 +69,38 @@
     </style>
 
     <style name="BottomSheetStyle" parent="@style/Widget.Material3.BottomSheet.Modal">
-        <item name="behavior_peekHeight">50dp</item>
-        <item name="backgroundTint">@color/deep_purple_light</item>
+        <item name="behavior_peekHeight">48dp</item>
+        <item name="backgroundTint">@color/deep_purple_dark</item>
     </style>
 
     <style name="BottomSheetDragHandleViewStyle" parent="@style/Widget.Material3.BottomSheet.DragHandle">
-        <item name="tint">@color/deep_purple_dark</item>
+        <item name="tint">@color/white</item>
     </style>
 
+    <style name="FabStyle" parent="@style/Widget.Material3.FloatingActionButton.Primary">
+        <item name="fabCustomSize">56dp</item>
+        <item name="backgroundTint">@color/deep_purple_dark</item>
+        <item name="rippleColor">@color/deep_purple</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="ExtendedFabStyle" parent= "Base.Widget.Material3.ExtendedFloatingActionButton">
+        <item name="backgroundTint">@color/deep_purple_dark</item>
+        <item name="rippleColor">@color/deep_purple</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/white</item>
+    </style>
+
+    <style name="BottomAppBarStyle" parent="@style/Widget.Material3.BottomAppBar">
+        <item name="backgroundTint">@color/deep_purple_dark</item>
+        <item name="navigationIconTint">@color/white</item>
+        <item name="fabAnchorMode">cradle</item>
+        <item name="fabAlignmentMode">center</item>
+        <item name="fabCradleVerticalOffset">4dp</item>
+        <item name="fabCradleMargin">12dp</item>
+        <item name="fabCradleRoundedCornerRadius">0dp</item>
+    </style>
 
 </resources>

@@ -9,19 +9,22 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
+import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
 
 class ChoosingTheDayFragment:Fragment() {
     companion object {
-        const val KEY_DAY = "Day"
         fun newInstance() = ChoosingTheDayFragment()
     }
 
     private var _binding: ChoosingTheDayLayoutBinding? = null
     private val binding get() = _binding!!
+
+    private var astronomyPictureOfTheDay:AstronomyPictureOfTheDay? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,9 +40,10 @@ class ChoosingTheDayFragment:Fragment() {
         setOnClickListenerForChips()
         settingSearchTextField()
         readChoosingDay().let {
-            createAstronomyPicturesOfTheDayFragment(it)
             checkedChoosingDay(it)
+            createAstronomyPicturesOfTheDayFragment(it)
         }
+        setOnClickListenerForFAB()
     }
 
     // настройка поиска search_text_field
@@ -67,29 +71,36 @@ class ChoosingTheDayFragment:Fragment() {
                     after: Int
                 ) {
                 }
-
                 // кастомная настройка ошибки при вводе недопустимо длинного текста
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     error = if (count > counterMaxLength)
                         getString(R.string.error_counter_input_text)
                     else null
                 }
-
                 override fun afterTextChanged(s: Editable?) {
                 }
             })
         }
     }
 
-    // отображение фрагмента AstronomyPicturesOfTheDay
+    // создаем фрагмент AstronomyPicturesOfTheDay
     private fun createAstronomyPicturesOfTheDayFragment(day: Day) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(
-                binding.containerForAstronomyPictureOfTheDay.id,
-                AstronomyPicturesOfTheDayFragment.newInstance(day),
-                TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT
-            )
-            .commitAllowingStateLoss()
+        requireActivity().supportFragmentManager.run {
+            // отображаем фрагмент AstronomyPicturesOfTheDay
+            beginTransaction()
+                .replace(
+                    binding.containerForAstronomyPictureOfTheDay.id,
+                    AstronomyPicturesOfTheDayFragment.newInstance(day),
+                    TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT
+                )
+                .commitAllowingStateLoss()
+            // вешаем слушателя для получения результата из AstronomyPicturesOfTheDay
+            setFragmentResultListener(
+                REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY, viewLifecycleOwner
+            ) { _, result -> result.getParcelable<AstronomyPictureOfTheDay>(KEY_ASTRONOMY_PICTURES_OF_THE_DAY).let{
+                astronomyPictureOfTheDay = it
+            }}
+        }
     }
 
     // сохранение выбранного дня в настройках
@@ -103,7 +114,7 @@ class ChoosingTheDayFragment:Fragment() {
     private fun readChoosingDay(): Day{
         var day = Day.TODAY
         activity?.let{
-            when (it.getPreferences(MODE_PRIVATE).getString(DAY, TODAY)){
+            when (it.getPreferences(MODE_PRIVATE).getString(KEY_DAY, TODAY)){
                 TODAY -> day=Day.TODAY
                 YESTERDAY -> day=Day.YESTERDAY
                 DAY_BEFORE_YESTERDAY -> day = Day.DAY_BEFORE_YESTERDAY
@@ -137,6 +148,23 @@ class ChoosingTheDayFragment:Fragment() {
             dayBeforeYesterday.setOnClickListener {
                 saveChoosingDay(Day.DAY_BEFORE_YESTERDAY)
                 createAstronomyPicturesOfTheDayFragment(Day.DAY_BEFORE_YESTERDAY)
+            }
+        }
+    }
+
+    // метод устанавливает слушателя на FAB, для отображения соответствующего HdAstronomyPicturesOfTheDay
+    private fun setOnClickListenerForFAB(){
+        binding.fabHd.setOnClickListener {
+            if(isConnectNetwork(context)){
+                astronomyPictureOfTheDay?.let {
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .add(R.id.container_for_choosing_the_day, HdAstronomyPicturesOfTheDayFragment.newInstance(it),
+                            TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT)
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+            } else{
+                Toast.makeText(context, DISCONNECT_NETWORK, Toast.LENGTH_SHORT).show()
             }
         }
     }
