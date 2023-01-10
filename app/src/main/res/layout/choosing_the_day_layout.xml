@@ -78,6 +78,8 @@
         style="@style/BottomAppBarStyle"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_baseline_menu_24"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
         />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

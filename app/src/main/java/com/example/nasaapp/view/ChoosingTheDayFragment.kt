@@ -140,14 +140,17 @@ class ChoosingTheDayFragment:Fragment() {
             today.setOnClickListener{
                 saveChoosingDay(Day.TODAY)
                 createAstronomyPicturesOfTheDayFragment(Day.TODAY)
+                fabHd.extend()
             }
             yesterday.setOnClickListener {
                 saveChoosingDay(Day.YESTERDAY)
                 createAstronomyPicturesOfTheDayFragment(Day.YESTERDAY)
+                fabHd.extend()
             }
             dayBeforeYesterday.setOnClickListener {
                 saveChoosingDay(Day.DAY_BEFORE_YESTERDAY)
                 createAstronomyPicturesOfTheDayFragment(Day.DAY_BEFORE_YESTERDAY)
+                fabHd.extend()
             }
         }
     }
