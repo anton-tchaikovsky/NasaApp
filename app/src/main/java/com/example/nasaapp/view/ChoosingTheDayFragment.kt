@@ -9,7 +9,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
@@ -167,7 +166,7 @@ class ChoosingTheDayFragment:Fragment() {
                         .commitAllowingStateLoss()
                 }
             } else{
-                Toast.makeText(context, DISCONNECT_NETWORK, Toast.LENGTH_SHORT).show()
+                showToast(context, DISCONNECT_NETWORK)
             }
         }
     }

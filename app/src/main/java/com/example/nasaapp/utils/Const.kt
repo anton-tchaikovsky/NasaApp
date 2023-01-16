@@ -1,5 +1,7 @@
 package com.example.nasaapp.utils
 
+import com.example.nasaapp.BuildConfig
+
 //RemoteDataSource
 const val END_POINT = "planetary/apod"
 const val API_NASA_KEY = "api_key"
@@ -9,6 +11,7 @@ const val TIME_ZONE_NEW_YORK = "America/New_York"
 const val DISCONNECT_NETWORK = "Отсутствует подключение к сети"
 const val LOADING_ERROR = "Ошибка загрузки данных"
 const val TAG_ERROR_APP = "@@@"
+val DEBUG = BuildConfig.DEBUG
 //TAG fragments
 const val TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGAstronomyPicturesOfTheDayFragment"
 const val TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGHdAstronomyPicturesOfTheDayFragment"

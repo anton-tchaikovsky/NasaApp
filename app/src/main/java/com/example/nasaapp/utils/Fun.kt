@@ -2,7 +2,9 @@ package com.example.nasaapp.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,5 +44,12 @@ fun hideShowViews(hideViews:List<View>, showViews: List<View>){
     }
     showViews.forEach {
         it.visibility = View.VISIBLE
+    }
+}
+
+fun showToast (context: Context?, message:String){
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).apply {
+        setGravity(Gravity.BOTTOM, 0, 150)
+        show()
     }
 }

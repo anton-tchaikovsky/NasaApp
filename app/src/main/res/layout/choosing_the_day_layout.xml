@@ -13,7 +13,7 @@
             android:id="@+id/choosing_the_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_chip_group"
             app:singleLine="true"
             app:singleSelection="true"
             app:selectionRequired="true"
@@ -50,8 +50,8 @@
             android:id="@+id/search_text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_16dp"
-            android:paddingEnd="@dimen/padding_16dp"
+            android:paddingStart="@dimen/padding_text_input_layout"
+            android:paddingEnd="@dimen/padding_text_input_layout"
             android:hint="@string/hint_input_text"
             app:helperText="@string/helper_input_text"
             >
@@ -74,7 +74,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
        android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/height_bottom_app_bar"
         style="@style/BottomAppBarStyle"
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_baseline_menu_24"

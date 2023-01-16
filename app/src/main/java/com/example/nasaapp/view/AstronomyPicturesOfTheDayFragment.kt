@@ -5,11 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.example.nasaapp.R
@@ -55,8 +53,8 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
            viewModel.getAstronomyPicturesOfTheDay(it.getSerializable(KEY_DAY) as Day)
        }
 
-        // изменяем внешний вид fab_hd при прокручивании NestedScroll с информацией об astronomyPicturesOfTheDay
-        binding.astronomyPicturesOfTheDay.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+        // изменяем внешний вид fab_hd при прокручивании RecyclerView с информацией об astronomyPicturesOfTheDay
+        binding.astronomyPicturesOfTheDay.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
             requireActivity().findViewById<ExtendedFloatingActionButton>(R.id.fab_hd)?.let {
                 it.shrink()
                 if(scrollY==0)
@@ -81,10 +79,11 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             )
         }
         if (!isConnectNetwork(requireContext()))
-            Toast.makeText(context, DISCONNECT_NETWORK, Toast.LENGTH_SHORT).show()
+            showToast(context, DISCONNECT_NETWORK)
         else {
-            Toast.makeText(context, LOADING_ERROR, Toast.LENGTH_SHORT).show()
-            Log.v(TAG_ERROR_APP, throwable.toString())
+            showToast(context, LOADING_ERROR)
+            if (DEBUG)
+                Log.v(TAG_ERROR_APP, throwable.toString())
         }
         setResultForChoosingTheDayFragment(null)
     }
