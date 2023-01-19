@@ -60,7 +60,8 @@
                 android:id="@+id/search_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/SearchEditTextStyle" />
+                style="@style/SearchEditTextStyle"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,6 +81,7 @@
         app:navigationIcon="@drawable/ic_baseline_menu_24"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
+        app:menu="@menu/bottom_app_bar_menu"
         />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

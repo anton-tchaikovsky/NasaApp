@@ -13,4 +13,12 @@
     <string name="back">назад</string>
     <string name="open_picture">открыть изображение</string>
     <string name="open_picture_eng">OPEN</string>
+    <string name="setting">настройки</string>
+    <string name="settingApp">настройки приложения</string>
+    <string name="apply">APPLY</string>
+    <string name="red">red</string>
+    <string name="blue">blue</string>
+    <string name="orange">orange</string>
+    <string name="back_eng">back</string>
+    <string name="choosing_theme">Настройки темы</string>
 </resources>

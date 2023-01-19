@@ -36,6 +36,8 @@ class ChoosingTheDayFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // назначаем bottom_app_bar в качестве view для action bar
+        setBottomAppBarMenu()
         setOnClickListenerForChips()
         settingSearchTextField()
         readChoosingDay().let {
@@ -175,4 +177,24 @@ class ChoosingTheDayFragment:Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    // метод настраивает меню в составе BottomAppBar
+    private fun setBottomAppBarMenu() {
+        binding.bottomAppBar.apply {
+            setOnMenuItemClickListener {
+                return@setOnMenuItemClickListener when (it.itemId) {
+                    R.id.setting -> {
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .add(R.id.container_for_choosing_the_day, ChoosingThemeFragment.newInstance(),
+                                TAG_CHOOSING_THEME_FRAGMENT)
+                            .addToBackStack("")
+                            .commitAllowingStateLoss()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
 }

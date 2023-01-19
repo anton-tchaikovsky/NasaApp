@@ -39,4 +39,11 @@
     <dimen name="margin_top_explanation_description">4dp</dimen>
     <dimen name="margin_bottom_explanation_description">8dp</dimen>
 
+<!--choosing_theme_layout-->
+    <!--    LinearLayout choosing_theme_layout-->
+    <dimen name="padding_choosing_theme_layout">4dp</dimen>
+    <!--    CardView-->
+    <dimen name="margin_card_view">4dp</dimen>
+
+
 </resources>

@@ -16,6 +16,14 @@ val DEBUG = BuildConfig.DEBUG
 const val TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGAstronomyPicturesOfTheDayFragment"
 const val TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGHdAstronomyPicturesOfTheDayFragment"
 const val TAG_CHOOSING_THE_DAY_FRAGMENT = "TAGChoosingTheDayFragment"
+const val TAG_CHOOSING_THEME_FRAGMENT = "TAGChoosingThemeFragment"
+//Theme
+const val THEME_RED_TITLE = "Theme Red"
+const val THEME_BLUE_TITLE = "Theme Blue"
+const val THEME_ORANGE_TITLE = "Theme Orange"
+const val KEY_CHOOSING_THEME = "KeyChoosingTheme"
+const val KEY_CHOSEN_THEME = "KeyChosenTheme"
+const val KEY_SAVED_THEME = "KeySavedTheme"
 //All
 const val REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY = "RequireKeyAstronomyPicturesOfTheDayFragment"
 const val KEY_ASTRONOMY_PICTURES_OF_THE_DAY = "KeyAstronomyPicturesOfTheDayFragment"

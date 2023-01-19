@@ -33,7 +33,6 @@
         <item name="helperTextTextColor">@drawable/helper_counter_text_color</item>
         <item name="counterTextColor">@drawable/helper_counter_text_color</item>
         <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
-
     </style>
 
     <style name="SearchEditTextStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
@@ -62,7 +61,7 @@
 
     <style name="BottomAppBarStyle" parent="@style/Widget.Material3.BottomAppBar">
         <item name="fabAnchorMode">cradle</item>
-        <item name="fabAlignmentMode">center</item>
+        <item name="fabAlignmentMode">end</item>
         <item name="fabCradleVerticalOffset">4dp</item>
         <item name="fabCradleMargin">12dp</item>
         <item name="fabCradleRoundedCornerRadius">0dp</item>
