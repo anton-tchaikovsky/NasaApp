@@ -2,6 +2,7 @@
 <resources>
 
     <color name="error">#FF0101</color>
+    <color name="cardBackgroundColor">#353535</color>
 
     <color name="primary_theme_red">#9A1919</color>
     <color name="primary_container_theme_red">#9C3333</color>

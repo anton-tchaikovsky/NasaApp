@@ -11,7 +11,8 @@
         <item name="textInputStyle">@style/SearchLayoutStyle</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="circularProgressIndicatorStyle">@style/ProgressBarStyle</item>
-        <item name="floatingActionButtonStyle">@style/FabStyle</item>
+        <item name="materialCardViewStyle">@style/CardViewStyle</item>
+        <item name="materialButtonOutlinedStyle">@style/ButtonStyle</item>
 
     </style>
 

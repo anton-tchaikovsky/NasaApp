@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.CardViewForChoosingThemeBinding
 import com.example.nasaapp.databinding.ChoosingThemeLayoutBinding
 import com.example.nasaapp.utils.KEY_CHOOSING_THEME
@@ -52,6 +53,7 @@ class ChoosingThemeFragment : Fragment() {
             buttonApply.apply {
                 tag=theme.title
                 setOnClickListener(onClickListenerButtonApply)
+                contentDescription = "${R.string.apply} ${theme.title}"
             }
             themeTitle.text = theme.title
             viewPrimaryColor.setBackgroundColor(ContextCompat.getColor(requireContext(),theme.idColorPrimary))
