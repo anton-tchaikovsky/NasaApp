@@ -22,10 +22,6 @@
         <item name="errorEnabled">true</item>
         <item name="counterMaxLength">20</item>
         <item name="boxStrokeWidthFocused">3dp</item>
-        <item name="boxCornerRadiusTopStart">8dp</item>
-        <item name="boxCornerRadiusBottomEnd">8dp</item>
-        <item name="boxCornerRadiusTopEnd">8dp</item>
-        <item name="boxCornerRadiusBottomStart">8dp</item>
         <item name="android:focusable">false</item>
         <item name="startIconTint">@drawable/start_end_icon_tint</item>
         <item name="startIconCheckable">true</item>
@@ -73,7 +69,7 @@
         <item name="android:textColor">@drawable/button_text_icon_color</item>
         <item name="backgroundTint">?attr/colorPrimaryContainer</item>
         <item name="iconTint">@drawable/button_text_icon_color</item>
-        <item name="cornerRadius">8dp</item>
+        <item name="shapeAppearance">@style/ButtonFabShapeAppearance</item>
     </style>
 
     <style name="TextStyleAmethysta" parent="@style/TextAppearance.AppCompat.Large">
@@ -89,6 +85,26 @@
     <style name="TextStyleRoboto" parent="@style/TextAppearance.AppCompat.Large">
         <item name="fontFamily">@font/roboto</item>
         <item name="android:textSize">14sp</item>
+    </style>
+    
+    <style name="ButtonFabShapeAppearance" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ChipShapeAppearance" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="SearchLayoutShapeAppearance" parent="ShapeAppearance.Material3.Corner.ExtraSmall">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="SheetBottomShapeAppearance" parent="ShapeAppearance.Material3.Corner.ExtraSmall">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="CardViewShapeAppearance" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerSize">10dp</item>
     </style>
 
 </resources>

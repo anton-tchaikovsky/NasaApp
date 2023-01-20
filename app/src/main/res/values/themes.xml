@@ -14,6 +14,12 @@
         <item name="materialCardViewStyle">@style/CardViewStyle</item>
         <item name="materialButtonOutlinedStyle">@style/ButtonStyle</item>
 
+        <item name="shapeAppearanceCornerLarge">@style/ButtonFabShapeAppearance</item>
+        <item name="shapeAppearanceCornerSmall">@style/ChipShapeAppearance</item>
+        <item name="shapeAppearanceCornerExtraSmall">@style/SearchLayoutShapeAppearance</item>
+        <item name="shapeAppearanceCornerExtraLarge">@style/SheetBottomShapeAppearance</item>
+        <item name="shapeAppearanceCornerMedium">@style/CardViewShapeAppearance</item>
+
     </style>
 
     <style name="Theme.NasaAppRed" parent="Base.Theme.NasaApp" >
