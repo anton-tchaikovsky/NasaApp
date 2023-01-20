@@ -76,4 +76,19 @@
         <item name="cornerRadius">8dp</item>
     </style>
 
+    <style name="TextStyleAmethysta" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="fontFamily">@font/amethysta</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextStyleTelex" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="fontFamily">@font/telex</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextStyleRoboto" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

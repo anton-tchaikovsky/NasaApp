@@ -23,6 +23,7 @@
         <item name="colorSecondary">@color/secondary_theme_red</item>
         <item name="colorSecondaryContainer">@color/secondary_container_theme_red</item>
         <item name="colorSurface">@color/surface_theme_red</item>
+        <item name="textAppearanceLabelLarge">@style/TextStyleRoboto</item>
     </style>
 
     <style name="Theme.NasaAppBlue" parent="Base.Theme.NasaApp" >
@@ -32,6 +33,7 @@
         <item name="colorSecondary">@color/secondary_theme_blue</item>
         <item name="colorSecondaryContainer">@color/secondary_container_theme_blue</item>
         <item name="colorSurface">@color/surface_theme_blue</item>
+        <item name="textAppearanceLabelLarge">@style/TextStyleAmethysta</item>
     </style>
 
     <style name="Theme.NasaAppOrange" parent="Base.Theme.NasaApp" >
@@ -41,6 +43,7 @@
         <item name="colorSecondary">@color/secondary_theme_orange</item>
         <item name="colorSecondaryContainer">@color/secondary_container_theme_orange</item>
         <item name="colorSurface">@color/surface_theme_orange</item>
+        <item name="textAppearanceLabelLarge">@style/TextStyleTelex</item>
     </style>
 
 </resources>

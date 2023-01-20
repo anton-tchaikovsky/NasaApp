@@ -11,26 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
-            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/button_back"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/back_eng"
-            app:icon="@drawable/ic_baseline_arrow_back_24"
+            android:layout_weight="1"
             android:contentDescription="@string/back"
-            />
+            android:text="@string/back_eng"
+            app:icon="@drawable/ic_baseline_arrow_back_24" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1.75"
+            android:fontFamily="More Fonts..."
             android:text="@string/choosing_theme"
             android:textAlignment="center"
-            android:textSize="20sp"
             android:textColor="@android:color/black"
-             />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <include
