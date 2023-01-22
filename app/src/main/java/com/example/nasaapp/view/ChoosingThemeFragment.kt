@@ -1,5 +1,6 @@
 package com.example.nasaapp.view
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,18 +55,20 @@ class ChoosingThemeFragment : Fragment() {
                 tag=theme.title
                 setOnClickListener(onClickListenerButtonApply)
                 contentDescription = "${R.string.apply} ${theme.title}"
+                // не работает
+                // backgroundTintList = ColorStateList(arrayOf(intArrayOf()),intArrayOf(theme.idColorPrimaryContainer))
                 backgroundTintList = when(theme){
                     Theme.THEME_RED -> {
                         setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.button_apply_text_color_theme_red))
-                        ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_red)
+                    ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_red)
                     }
                     Theme.THEME_BLUE ->{
                         setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.button_apply_text_color_theme_blue))
-                        ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_blue)
+                    ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_blue)
                     }
                     Theme.THEME_ORANGE -> {
                         setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.button_apply_text_color_theme_orange))
-                        ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_orange)
+                    ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_orange)
                     }
                 }
             }

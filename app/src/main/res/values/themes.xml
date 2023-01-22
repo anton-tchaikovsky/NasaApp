@@ -30,6 +30,7 @@
         <item name="colorSecondaryContainer">@color/secondary_container_theme_red</item>
         <item name="colorSurface">@color/surface_theme_red</item>
         <item name="textAppearanceLabelLarge">@style/TextStyleRoboto</item>
+
     </style>
 
     <style name="Theme.NasaAppBlue" parent="Base.Theme.NasaApp" >

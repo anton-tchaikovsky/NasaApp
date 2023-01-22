@@ -18,6 +18,7 @@
         tools:targetApi="31">
         <activity
             android:name=".view.ActivityNasaApp"
+            android:configChanges="uiMode"
             android:exported="true"
             android:theme="@style/Theme.NasaAppRed">
             <intent-filter>

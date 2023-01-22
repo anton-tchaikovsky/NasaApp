@@ -83,7 +83,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
         else {
             showToast(context, LOADING_ERROR)
             if (DEBUG)
-                Log.v(TAG_ERROR_APP, throwable.toString())
+                Log.v(TAG_APP, throwable.toString())
         }
         setResultForChoosingTheDayFragment(null)
     }

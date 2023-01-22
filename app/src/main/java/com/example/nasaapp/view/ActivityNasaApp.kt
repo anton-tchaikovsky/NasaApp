@@ -1,5 +1,7 @@
 package com.example.nasaapp.view
 
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nasaapp.databinding.ActivityNasaAppBinding
@@ -18,6 +20,20 @@ class ActivityNasaApp : AppCompatActivity() {
         if (savedInstanceState == null)
             createChoosingTheDayFragment()
         setListenerForChoosingTheme()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        // обрабатываем изменение темы (светлая/темная) пользователем на устройстве
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO ->
+                    showToast(this, LIGHT_THEME_ENABLED)
+                Configuration.UI_MODE_NIGHT_YES ->
+                    showToast(this, DARK_THEME_ENABLED)
+            }
+            recreate()
+        }
+        super.onConfigurationChanged(newConfig)
     }
 
     // метод создает ChoosingTheDayFragment

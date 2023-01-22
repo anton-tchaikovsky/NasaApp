@@ -48,7 +48,7 @@ fun hideShowViews(hideViews:List<View>, showViews: List<View>){
 }
 
 fun showToast (context: Context?, message:String){
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).apply {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).apply {
         setGravity(Gravity.BOTTOM, 0, 150)
         show()
     }
