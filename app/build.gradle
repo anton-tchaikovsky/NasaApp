@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -22,6 +23,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("api_nasa_key.properties").newDataInputStream())
+        def apiKey = properties.getProperty("api_nasa_key")
+        it.buildConfigField "String", "api_nasa_key", apiKey
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,13 +43,26 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.5.0-alpha04'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //Navigation-fragment
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    //Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    //UI
+    implementation 'com.google.android.material:material:1.8.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //Core
+    //noinspection GradleDependency
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    //Coil
+    implementation 'io.coil-kt:coil:0.11.0'
+
 }

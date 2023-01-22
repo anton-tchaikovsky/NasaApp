@@ -1,3 +1,52 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <!--choosing_the_day_layout-->
+    <!--    ChipGroup-->
+    <dimen name="margin_chip_group">16dp</dimen>
+    <!--    TextInputLayout-->
+    <dimen name="padding_text_input_layout">16dp</dimen>
+    <!--    BottomAppBar-->
+    <dimen name="height_bottom_app_bar">48dp</dimen>
+
+    <!--astronomy_picture_of_the_day_fragment-->
+    <!--    AppCompatImageView loading_error-->
+    <dimen name="height_app_compat_image_view_loading_error">60dp</dimen>
+    <dimen name="width_app_compat_image_view_loading_error">60dp</dimen>
+    <!--    NestedScrollView-->
+    <dimen name="padding_nested_scroll_view">16dp</dimen>
+    <!--    ConstraintLayout astronomy_pictures_of_the_day-->
+    <dimen name="padding_bottom_astronomy_pictures_of_the_day">72dp</dimen>
+    <!--    FrameLayout layout_picture-->
+    <dimen name="margin_top_layout_picture">8dp</dimen>
+    <!--    AppCompatTextView title for astronomy_pictures_of_the_day-->
+    <dimen name="margin_start_title_astronomy_pictures_of_the_day">16dp</dimen>
+    <dimen name="margin_end_title_astronomy_pictures_of_the_day">16dp</dimen>
+    <!--    AppCompatTextView explanation for astronomy_pictures_of_the_day-->
+    <dimen name="margin_start_explanation_astronomy_pictures_of_the_day">16dp</dimen>
+    <dimen name="margin_end_explanation_astronomy_pictures_of_the_day">16dp</dimen>
+    <dimen name="margin_top_explanation_astronomy_pictures_of_the_day">8dp</dimen>
+
+    <!--hd_astronomy_picture_of_the_day_fragment-->
+    <!--    FloatingActionButton fab_back-->
+    <dimen name="margin_end_fab_back">24dp</dimen>
+    <dimen name="margin_bottom_fab_back">72dp</dimen>
+    <!--    AppCompatTextView title for description-->
+    <dimen name="margin_start_title_description">16dp</dimen>
+    <dimen name="margin_end_title_description">16dp</dimen>
+    <dimen name="margin_top_title_description">8dp</dimen>
+    <!--    AppCompatTextView explanation for description-->
+    <dimen name="margin_start_explanation_description">16dp</dimen>
+    <dimen name="margin_end_explanation_description">16dp</dimen>
+    <dimen name="margin_top_explanation_description">4dp</dimen>
+    <dimen name="margin_bottom_explanation_description">8dp</dimen>
+
+<!--choosing_theme_layout-->
+    <!--    LinearLayout choosing_theme_layout-->
+    <dimen name="padding_choosing_theme_layout">4dp</dimen>
+
+<!--    card_view_for_choosing_theme-->
+    <!--    CardView-->
+    <dimen name="margin_card_view">4dp</dimen>
+    <dimen name="padding_card_view">16dp</dimen>
+    <dimen name="text_size_button_apply">14sp</dimen>
+
 </resources>
