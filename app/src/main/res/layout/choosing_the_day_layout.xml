@@ -82,7 +82,6 @@
         app:navigationIcon="@drawable/ic_baseline_menu_24"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:menu="@menu/bottom_app_bar_menu"
         />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

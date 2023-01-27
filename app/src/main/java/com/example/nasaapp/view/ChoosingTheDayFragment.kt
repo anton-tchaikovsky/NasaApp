@@ -6,10 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
@@ -36,7 +37,6 @@ class ChoosingTheDayFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // назначаем bottom_app_bar в качестве view для action bar
         setBottomAppBarMenu()
         setOnClickListenerForChips()
         settingSearchTextField()
@@ -180,9 +180,23 @@ class ChoosingTheDayFragment:Fragment() {
 
     // метод настраивает меню в составе BottomAppBar
     private fun setBottomAppBarMenu() {
-        binding.bottomAppBar.apply {
-            setOnMenuItemClickListener {
-                return@setOnMenuItemClickListener when (it.itemId) {
+        // назначаем bottomAppBar в качестве меню
+        (requireActivity() as ActivityNasaApp).setSupportActionBar(binding.bottomAppBar)
+        // обрабатываем нажатие на navigation_menu
+        binding.bottomAppBar.setNavigationOnClickListener {
+            activity?.let {
+                BottomMenuNavigationDrawerFragment.newInstance().show(it.supportFragmentManager,
+                    TAG_BOTTOM_MENU_NAVIGATION_DRAWER_FRAGMENT )
+            }
+        }
+        // создаем меню и настраиваем обработку нажатия
+        val menuHost: MenuHost = requireActivity() as ActivityNasaApp
+        menuHost.addMenuProvider(object :MenuProvider{
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.bottom_app_bar_menu, menu)
+            }
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
                     R.id.setting -> {
                         requireActivity().supportFragmentManager.beginTransaction()
                             .add(R.id.container_for_choosing_the_day, ChoosingThemeFragment.newInstance(),
@@ -194,7 +208,7 @@ class ChoosingTheDayFragment:Fragment() {
                     else -> false
                 }
             }
-        }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
 }

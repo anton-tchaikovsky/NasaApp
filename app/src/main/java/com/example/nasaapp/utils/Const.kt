@@ -1,6 +1,7 @@
 package com.example.nasaapp.utils
 
 import com.example.nasaapp.BuildConfig
+import com.example.nasaapp.view.BottomMenuNavigationDrawerFragment
 
 //RemoteDataSource
 const val END_POINT = "planetary/apod"
@@ -17,6 +18,7 @@ const val TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGAstronomyPicturesOfTh
 const val TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGHdAstronomyPicturesOfTheDayFragment"
 const val TAG_CHOOSING_THE_DAY_FRAGMENT = "TAGChoosingTheDayFragment"
 const val TAG_CHOOSING_THEME_FRAGMENT = "TAGChoosingThemeFragment"
+const val TAG_BOTTOM_MENU_NAVIGATION_DRAWER_FRAGMENT = "TAGBottomMenuNavigationDrawerFragment"
 //Theme
 const val THEME_RED_TITLE = "Theme Red"
 const val THEME_BLUE_TITLE = "Theme Blue"

@@ -80,7 +80,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_start_explanation_description"
                 android:layout_marginTop="@dimen/margin_top_explanation_description"
-                android:layout_marginEnd="@dimen/margin_top_explanation_description"
+                android:layout_marginEnd="@dimen/margin_end_explanation_description"
                 android:layout_marginBottom="@dimen/margin_bottom_explanation_description" />
         </LinearLayout>
 

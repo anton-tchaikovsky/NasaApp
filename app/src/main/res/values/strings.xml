@@ -22,4 +22,7 @@
     <string name="orange">orange</string>
     <string name="back_eng">BACK</string>
     <string name="choosing_theme">Настройки темы</string>
+    <string name="save">save</string>
+    <string name="send">send</string>
+    <string name="to_send">отправить</string>
 </resources>
