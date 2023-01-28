@@ -12,11 +12,12 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
+import com.google.android.material.tabs.TabLayoutMediator
 
 class ChoosingTheDayFragment:Fragment() {
     companion object {
@@ -28,7 +29,7 @@ class ChoosingTheDayFragment:Fragment() {
 
     private val listAstronomyPictureOfTheDay: MutableList<AstronomyPictureOfTheDay?> = mutableListOf(null, null, null)
 
-    private lateinit var viewPager: ViewPager
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +68,7 @@ class ChoosingTheDayFragment:Fragment() {
        viewPager =  binding.containerForAstronomyPictureOfTheDay.apply {
             // привязываем адаптер к ViewPager
             adapter = ViewPagerAdapterForAstronomyPicturesOfTheDay(
-                childFragmentManager,
+                this@ChoosingTheDayFragment,
                 Day.values()
             )
             // устанавливаем текущий фрагмент из сохраненных настроек
@@ -76,14 +77,15 @@ class ChoosingTheDayFragment:Fragment() {
         settingTableLayout()
     }
 
-    // метод привязывает TableLayout к ViewPager и настраивает TableLayout
+    // метод связывает TableLayout и ViewPager и настраивает TableLayout
     private fun settingTableLayout(){
-        binding.choosingLayout.apply {
-            setupWithViewPager(viewPager)
-            Day.values().forEachIndexed { index, day ->
-                getTabAt(index)?.contentDescription = day.day
+        TabLayoutMediator(binding.choosingLayout, viewPager
+        ) { tab, position ->
+            Day.values()[position].day.let {
+                tab.text = it
+                tab.contentDescription = it
             }
-        }
+        }.attach()
     }
 
     // настройка поиска search_text_field

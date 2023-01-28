@@ -74,6 +74,7 @@
 
     <style name="TabStyle" parent="Widget.Material3.TabLayout">
         <item name="tabTextColor">@color/tab_text_color</item>
+        <item name="tabIndicatorColor">@android:color/black</item>
     </style>
 
     <style name="TextStyleAmethysta" parent="@style/TextAppearance.AppCompat.Large">
