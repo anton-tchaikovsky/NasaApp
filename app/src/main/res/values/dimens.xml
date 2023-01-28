@@ -1,11 +1,11 @@
 <resources>
     <!--choosing_the_day_layout-->
-    <!--    ChipGroup-->
-    <dimen name="margin_chip_group">16dp</dimen>
     <!--    TextInputLayout-->
     <dimen name="padding_text_input_layout">16dp</dimen>
     <!--    BottomAppBar-->
     <dimen name="height_bottom_app_bar">48dp</dimen>
+    <!--    TabLayout-->
+    <dimen name="margin_bottom_tab_layout">8dp</dimen>
 
     <!--astronomy_picture_of_the_day_fragment-->
     <!--    AppCompatImageView loading_error-->
@@ -48,5 +48,6 @@
     <dimen name="margin_card_view">4dp</dimen>
     <dimen name="padding_card_view">16dp</dimen>
     <dimen name="text_size_button_apply">14sp</dimen>
+
 
 </resources>

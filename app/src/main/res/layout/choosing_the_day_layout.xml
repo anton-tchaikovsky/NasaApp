@@ -9,43 +9,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/choosing_the_day"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_chip_group"
-                app:singleLine="false"
-                app:singleSelection="true"
-                app:selectionRequired="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                >
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/day_before_yesterday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/day_before_yesterday"
-                    android:contentDescription="@string/day_before_yesterday"
-                    />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/yesterday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/yesterday"
-                    android:contentDescription="@string/yesterday"
-                    />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/today"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/today"
-                    android:contentDescription="@string/today"
-                    />
-            </com.google.android.material.chip.ChipGroup>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/choosing_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_tab_layout"
+            app:tabIndicatorFullWidth="true"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_text_field"
@@ -66,7 +36,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <FrameLayout
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/container_for_astronomy_picture_of_the_day"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

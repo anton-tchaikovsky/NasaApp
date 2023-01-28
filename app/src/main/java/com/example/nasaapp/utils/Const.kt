@@ -1,7 +1,6 @@
 package com.example.nasaapp.utils
 
 import com.example.nasaapp.BuildConfig
-import com.example.nasaapp.view.BottomMenuNavigationDrawerFragment
 
 //RemoteDataSource
 const val END_POINT = "planetary/apod"
@@ -34,5 +33,5 @@ const val KEY_ASTRONOMY_PICTURES_OF_THE_DAY = "KeyAstronomyPicturesOfTheDayFragm
 const val KEY_DAY = "KeyDay"
 const val TODAY = "Today"
 const val YESTERDAY = "Yesterday"
-const val DAY_BEFORE_YESTERDAY = "DayBeforeYesterday"
+const val DAY_BEFORE_YESTERDAY = "Two days ago"
 const val URI_YANDEX_SEARCH = "https://yandex.ru/search/?text="

@@ -32,6 +32,8 @@
         <item name="colorSurface">@color/surface_theme_red</item>
         <item name="textAppearanceLabelLarge">@style/TextStyleRoboto</item>
 
+        <item name="tabStyle">@style/TabStyle</item>
+
     </style>
 
     <style name="Theme.NasaAppBlue" parent="Base.Theme.NasaApp" >

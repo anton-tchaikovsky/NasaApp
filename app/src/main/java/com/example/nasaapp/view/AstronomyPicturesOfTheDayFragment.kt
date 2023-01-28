@@ -21,16 +21,18 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 class AstronomyPicturesOfTheDayFragment : Fragment() {
 
     companion object {
-        fun newInstance(day:Day):AstronomyPicturesOfTheDayFragment =
+        fun newInstance(day: Day): AstronomyPicturesOfTheDayFragment =
             AstronomyPicturesOfTheDayFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_DAY,day)
+                    putSerializable(KEY_DAY, day)
                 }
             }
     }
 
     private var _binding: AstronomyPictureOfTheDayFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var day:Day
 
     private val viewModel: AstronomyPicturesOfTheDayViewModel by lazy {
         ViewModelProvider(this)[AstronomyPicturesOfTheDayViewModel::class.java]
@@ -50,8 +52,9 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             renderData(it)
         }
         arguments?.let {
-           viewModel.getAstronomyPicturesOfTheDay(it.getSerializable(KEY_DAY) as Day)
-       }
+             day = it.getSerializable(KEY_DAY) as Day
+            viewModel.getAstronomyPicturesOfTheDay(day)
+        }
 
         // изменяем внешний вид fab_hd при прокручивании RecyclerView с информацией об astronomyPicturesOfTheDay
         binding.astronomyPicturesOfTheDay.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -128,7 +131,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
 
     private fun setResultForChoosingTheDayFragment(astronomyPictureOfTheDay: AstronomyPictureOfTheDay?) {
         requireActivity().supportFragmentManager.setFragmentResult(
-            REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY,
+            "$REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY ${day.day}",
             Bundle().apply { putParcelable(KEY_ASTRONOMY_PICTURES_OF_THE_DAY, astronomyPictureOfTheDay) })
     }
 

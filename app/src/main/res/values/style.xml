@@ -72,6 +72,10 @@
         <item name="shapeAppearance">@style/ButtonFabShapeAppearance</item>
     </style>
 
+    <style name="TabStyle" parent="Widget.Material3.TabLayout">
+        <item name="tabTextColor">@color/tab_text_color</item>
+    </style>
+
     <style name="TextStyleAmethysta" parent="@style/TextAppearance.AppCompat.Large">
         <item name="fontFamily">@font/amethysta</item>
         <item name="android:textSize">12sp</item>

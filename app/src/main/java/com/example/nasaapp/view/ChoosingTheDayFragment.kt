@@ -6,11 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.viewpager.widget.ViewPager
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
@@ -24,7 +26,9 @@ class ChoosingTheDayFragment:Fragment() {
     private var _binding: ChoosingTheDayLayoutBinding? = null
     private val binding get() = _binding!!
 
-    private var astronomyPictureOfTheDay:AstronomyPictureOfTheDay? = null
+    private val listAstronomyPictureOfTheDay: MutableList<AstronomyPictureOfTheDay?> = mutableListOf(null, null, null)
+
+    private lateinit var viewPager: ViewPager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,13 +42,48 @@ class ChoosingTheDayFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomAppBarMenu()
-        setOnClickListenerForChips()
         settingSearchTextField()
-        readChoosingDay().let {
-            checkedChoosingDay(it)
-            createAstronomyPicturesOfTheDayFragment(it)
-        }
         setOnClickListenerForFAB()
+        settingViewPager(readChoosingDay())
+        setListenerForCurrentAstronomyPicturesOfTheDay()
+
+    }
+
+    // метод получает объект DTO astronomyPictureOfTheDay для созданного фрагмента AstronomyPicturesOfTheDayFragment и сохраняет его в list
+    private fun setListenerForCurrentAstronomyPicturesOfTheDay(){
+        requireActivity().supportFragmentManager.run {
+            Day.values().forEachIndexed { index, day ->
+                setFragmentResultListener("$REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY ${day.day}",
+                    viewLifecycleOwner
+                ) { _, result -> result.getParcelable<AstronomyPictureOfTheDay?>(KEY_ASTRONOMY_PICTURES_OF_THE_DAY).let{
+                    listAstronomyPictureOfTheDay[index] = it
+                } }
+            }
+        }
+    }
+
+    // метод настраивает ViewPager
+    private fun settingViewPager(day: Day) {
+       viewPager =  binding.containerForAstronomyPictureOfTheDay.apply {
+            // привязываем адаптер к ViewPager
+            adapter = ViewPagerAdapterForAstronomyPicturesOfTheDay(
+                childFragmentManager,
+                Day.values()
+            )
+            // устанавливаем текущий фрагмент из сохраненных настроек
+            currentItem = Day.values().indexOf(day)
+        }
+        settingTableLayout()
+    }
+
+    // метод привязывает TableLayout к ViewPager и настраивает TableLayout
+    private fun settingTableLayout(){
+        binding.choosingLayout.apply {
+            setupWithViewPager(viewPager)
+            Day.values().forEachIndexed { index, day ->
+                getTabAt(index)?.contentDescription = day.day
+            }
+        }
     }
 
     // настройка поиска search_text_field
@@ -53,8 +92,8 @@ class ChoosingTheDayFragment:Fragment() {
             // слушатель нажатия на иконку поиска
             setStartIconOnClickListener {
                 binding.searchEditText.text.toString().let {
-                   if (it.length <= counterMaxLength)//проверка допустимой длинны введенного текста
-                        // запрос на открытие браузера на устройстве
+                    if (it.length <= counterMaxLength)//проверка допустимой длинны введенного текста
+                    // запрос на открытие браузера на устройстве
                        startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
@@ -84,26 +123,6 @@ class ChoosingTheDayFragment:Fragment() {
         }
     }
 
-    // создаем фрагмент AstronomyPicturesOfTheDay
-    private fun createAstronomyPicturesOfTheDayFragment(day: Day) {
-        requireActivity().supportFragmentManager.run {
-            // отображаем фрагмент AstronomyPicturesOfTheDay
-            beginTransaction()
-                .replace(
-                    binding.containerForAstronomyPictureOfTheDay.id,
-                    AstronomyPicturesOfTheDayFragment.newInstance(day),
-                    TAG_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT
-                )
-                .commitAllowingStateLoss()
-            // вешаем слушателя для получения результата из AstronomyPicturesOfTheDay
-            setFragmentResultListener(
-                REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY, viewLifecycleOwner
-            ) { _, result -> result.getParcelable<AstronomyPictureOfTheDay>(KEY_ASTRONOMY_PICTURES_OF_THE_DAY).let{
-                astronomyPictureOfTheDay = it
-            }}
-        }
-    }
-
     // сохранение выбранного дня в настройках
     private fun saveChoosingDay(day: Day) {
         activity?.apply {
@@ -124,43 +143,12 @@ class ChoosingTheDayFragment:Fragment() {
         return day
     }
 
-    // метод устанавливает выбранный chip на основании сохраненнго в настройках (используется при запуске ChoosingTheDayFragment)
-    private fun checkedChoosingDay(day: Day){
-        binding.run {
-            when(day){
-                Day.TODAY -> today.isChecked = true
-                Day.YESTERDAY -> yesterday.isChecked = true
-                Day.DAY_BEFORE_YESTERDAY -> dayBeforeYesterday.isChecked = true
-            }
-        }
-    }
-
-    // метод устанавливает слушателей на chips для отображения соответствующего AstronomyPicturesOfTheDay по нажатию и сохранения выбранного дня
-    private fun setOnClickListenerForChips(){
-        binding.run {
-            today.setOnClickListener{
-                saveChoosingDay(Day.TODAY)
-                createAstronomyPicturesOfTheDayFragment(Day.TODAY)
-                fabHd.extend()
-            }
-            yesterday.setOnClickListener {
-                saveChoosingDay(Day.YESTERDAY)
-                createAstronomyPicturesOfTheDayFragment(Day.YESTERDAY)
-                fabHd.extend()
-            }
-            dayBeforeYesterday.setOnClickListener {
-                saveChoosingDay(Day.DAY_BEFORE_YESTERDAY)
-                createAstronomyPicturesOfTheDayFragment(Day.DAY_BEFORE_YESTERDAY)
-                fabHd.extend()
-            }
-        }
-    }
-
     // метод устанавливает слушателя на FAB, для отображения соответствующего HdAstronomyPicturesOfTheDay
     private fun setOnClickListenerForFAB(){
         binding.fabHd.setOnClickListener {
             if(isConnectNetwork(context)){
-                astronomyPictureOfTheDay?.let {
+                Log.v("@@@", listAstronomyPictureOfTheDay.toString())
+                listAstronomyPictureOfTheDay.getOrNull(viewPager.currentItem)?.let {
                     requireActivity().supportFragmentManager.beginTransaction()
                         .add(R.id.container_for_choosing_the_day, HdAstronomyPicturesOfTheDayFragment.newInstance(it),
                             TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT)
@@ -171,6 +159,11 @@ class ChoosingTheDayFragment:Fragment() {
                 showToast(context, DISCONNECT_NETWORK)
             }
         }
+    }
+
+    override fun onPause() {
+        saveChoosingDay(Day.values()[viewPager.currentItem])
+        super.onPause()
     }
 
     override fun onDestroyView() {
