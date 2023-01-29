@@ -13,8 +13,8 @@
     <string name="back">назад</string>
     <string name="open_picture">открыть изображение</string>
     <string name="open_picture_eng">OPEN</string>
-    <string name="setting">настройки</string>
-    <string name="settingApp">настройки приложения</string>
+    <string name="setting">setting</string>
+    <string name="setting_app">настройки приложения</string>
     <string name="apply_eng">APPLY</string>
     <string name="apply">"применить"</string>
     <string name="red">red</string>
@@ -25,4 +25,11 @@
     <string name="save">save</string>
     <string name="send">send</string>
     <string name="to_send">отправить</string>
+    <string name="home">home</string>
+    <string name="picture_of_the_day">астрономическое изображение дня</string>
+    <string name="mars">Mars</string>
+    <string name="picture_mars">изображение Марса</string>
+    <string name="earth">Earth</string>
+    <string name="picture_earth">изображение Земли</string>
+    <string name="hd">HD</string>
 </resources>

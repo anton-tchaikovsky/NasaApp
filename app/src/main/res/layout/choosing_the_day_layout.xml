@@ -31,39 +31,16 @@
                 android:id="@+id/search_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/SearchEditTextStyle"
-                />
+                style="@style/SearchEditTextStyle" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/container_for_astronomy_picture_of_the_day"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-       android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_bottom_app_bar"
-        style="@style/BottomAppBarStyle"
-        android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_baseline_menu_24"
-        app:hideOnScroll="true"
-        app:layout_scrollFlags="scroll|enterAlways"
-        />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fab_hd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/ExtendedFabStyle"
-        android:text="@string/open_picture_eng"
-        app:layout_anchor="@id/bottom_app_bar"
-        app:icon="@drawable/ic_baseline_hd_24"
-        android:contentDescription="@string/open_picture"
-        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

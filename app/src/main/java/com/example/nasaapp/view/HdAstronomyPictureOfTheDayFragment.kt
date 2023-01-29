@@ -2,7 +2,6 @@ package com.example.nasaapp.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +30,8 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
     private var _binding: HdAstronomyPictureOfTheDayFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private var astronomyPictureOfTheDay:AstronomyPictureOfTheDay? = null
+
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     override fun onCreateView(
@@ -43,10 +44,11 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            it.getParcelable<AstronomyPictureOfTheDay>(KEY_ASTRONOMY_PICTURE_OF_THE_DAY)
-                ?.let { astronomy_pictures_of_the_day ->
-                    setHdAstronomyPicturesOfTheDay(astronomy_pictures_of_the_day)
+        arguments?.let { bundle ->
+            bundle.getParcelable<AstronomyPictureOfTheDay>(KEY_ASTRONOMY_PICTURE_OF_THE_DAY)
+                ?.let {
+                    astronomyPictureOfTheDay = it
+                    setHdAstronomyPicturesOfTheDay(it)
                 }
         }
         settingBottomSheetBehavior(binding.bottomSheetLayout)
@@ -101,6 +103,13 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
         }
     }
 
+    fun setHdAstronomyPicturesOfTheDay(){
+        astronomyPictureOfTheDay?.apply {
+            setPicture(hdurl)
+            setDescription(title, explanation)
+        }
+    }
+
     private fun setDescription(title: String, explanation: String) {
         binding.run {
             this@run.title.text = title
@@ -116,6 +125,7 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        ChoosingTheDayFragment.selectedItemMenuHome(requireActivity())
         super.onDestroyView()
         _binding = null
     }

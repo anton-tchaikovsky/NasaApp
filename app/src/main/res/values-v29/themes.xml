@@ -14,6 +14,7 @@
         <item name="circularProgressIndicatorStyle">@style/ProgressBarStyle</item>
         <item name="materialCardViewStyle">@style/CardViewStyle</item>
         <item name="materialButtonOutlinedStyle">@style/ButtonStyle</item>
+        <item name="bottomNavigationStyle">@style/NavigationViewStyle</item>
 
         <item name="shapeAppearanceCornerLarge">@style/ButtonFabShapeAppearance</item>
         <item name="shapeAppearanceCornerSmall">@style/ChipShapeAppearance</item>

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
@@ -16,7 +15,6 @@ import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
 import com.example.nasaapp.view_model.AppStateAstronomyPicturesOfTheDay
 import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 class AstronomyPicturesOfTheDayFragment : Fragment() {
 
@@ -55,15 +53,6 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
              day = it.getSerializable(KEY_DAY) as Day
             viewModel.getAstronomyPicturesOfTheDay(day)
         }
-
-        // изменяем внешний вид fab_hd при прокручивании RecyclerView с информацией об astronomyPicturesOfTheDay
-        binding.astronomyPicturesOfTheDay.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
-            requireActivity().findViewById<ExtendedFloatingActionButton>(R.id.fab_hd)?.let {
-                it.shrink()
-                if(scrollY==0)
-                    it.extend()
-            }
-        })
     }
 
     private fun renderData(appState: AppStateAstronomyPicturesOfTheDay) {

@@ -29,7 +29,10 @@
             android:id="@+id/astronomy_pictures_of_the_day"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/padding_nested_scroll_view"
+            android:paddingBottom="@dimen/padding_bottom_nested_scroll_view"
+            android:paddingStart="@dimen/padding_start_nested_scroll_view"
+            android:paddingEnd="@dimen/padding_end_nested_scroll_view"
+            android:paddingTop="@dimen/padding_top_nested_scroll_view"
             tools:context=".view.AstronomyPicturesOfTheDayFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout

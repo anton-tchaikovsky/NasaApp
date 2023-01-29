@@ -86,6 +86,7 @@ class ChoosingThemeFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        ChoosingTheDayFragment.selectedItemMenuHome(requireActivity())
         super.onDestroyView()
         _binding = null
     }

@@ -77,6 +77,18 @@
         <item name="tabIndicatorColor">@android:color/black</item>
     </style>
 
+    <style name="NavigationViewStyle" parent="Widget.Material3.BottomNavigationView">
+        <item name="labelVisibilityMode">unlabeled</item>
+        <item name="itemActiveIndicatorStyle">@style/ActiveIndicatorStyle</item>
+        <item name="itemIconTint">@color/navigation_view_icon_tint</item>
+        <item name="elevation">0dp</item>
+        <item name="backgroundTint">?attr/colorPrimaryContainer</item>
+
+    </style>
+    <style name="ActiveIndicatorStyle" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+    </style>
+
     <style name="TextStyleAmethysta" parent="@style/TextAppearance.AppCompat.Large">
         <item name="fontFamily">@font/amethysta</item>
         <item name="android:textSize">12sp</item>

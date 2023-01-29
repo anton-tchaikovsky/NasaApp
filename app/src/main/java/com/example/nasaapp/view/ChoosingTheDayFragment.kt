@@ -1,27 +1,32 @@
 package com.example.nasaapp.view
 
+import android.app.Activity
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.*
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ChoosingTheDayFragment:Fragment() {
     companion object {
         fun newInstance() = ChoosingTheDayFragment()
+        fun selectedItemMenuHome(activity: Activity){
+            activity.findViewById<BottomNavigationView>(R.id.navigation_view)?.let{
+                it.selectedItemId = R.id.home
+            }
+        }
     }
 
     private var _binding: ChoosingTheDayLayoutBinding? = null
@@ -42,23 +47,48 @@ class ChoosingTheDayFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomAppBarMenu()
         settingSearchTextField()
-        setOnClickListenerForFAB()
-        settingViewPager(readChoosingDay())
+        settingNavigationView()
         setListenerForCurrentAstronomyPicturesOfTheDay()
-
+        settingViewPager(readChoosingDay())
     }
 
+    private fun settingNavigationView() {
+        requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view)?.let { it ->
+            it.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.hd -> openHdAstronomyPicturesOfTheDayFragment()
+                    R.id.setting -> openChoosingThemeFragment()
+                    R.id.home -> requireActivity().supportFragmentManager.popBackStack()
+                }
+                true
+            }
+            it.setOnItemReselectedListener {item ->
+                when (item.itemId) {
+                    R.id.hd -> (requireActivity().supportFragmentManager.findFragmentByTag(
+                        TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT) as HdAstronomyPicturesOfTheDayFragment).setHdAstronomyPicturesOfTheDay()
+                    R.id.setting ->{}
+                    R.id.home -> settingViewPager(Day.values()[viewPager.currentItem])
+                }
+            }
+        }
+    }
+
+
     // метод получает объект DTO astronomyPictureOfTheDay для созданного фрагмента AstronomyPicturesOfTheDayFragment и сохраняет его в list
-    private fun setListenerForCurrentAstronomyPicturesOfTheDay(){
+    private fun setListenerForCurrentAstronomyPicturesOfTheDay() {
         requireActivity().supportFragmentManager.run {
             Day.values().forEachIndexed { index, day ->
-                setFragmentResultListener("$REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY ${day.day}",
+                setFragmentResultListener(
+                    "$REQUIRE_KEY_ASTRONOMY_PICTURES_OF_THE_DAY ${day.day}",
                     viewLifecycleOwner
-                ) { _, result -> result.getParcelable<AstronomyPictureOfTheDay?>(KEY_ASTRONOMY_PICTURES_OF_THE_DAY).let{
-                    listAstronomyPictureOfTheDay[index] = it
-                } }
+                ) { _, result ->
+                    result.getParcelable<AstronomyPictureOfTheDay?>(
+                        KEY_ASTRONOMY_PICTURES_OF_THE_DAY
+                    ).let {
+                        listAstronomyPictureOfTheDay[index] = it
+                    }
+                }
             }
         }
     }
@@ -133,34 +163,45 @@ class ChoosingTheDayFragment:Fragment() {
     }
 
     // чтение выбранного дня из настроек
-    private fun readChoosingDay(): Day{
+    private fun readChoosingDay(): Day {
         var day = Day.TODAY
-        activity?.let{
-            when (it.getPreferences(MODE_PRIVATE).getString(KEY_DAY, TODAY)){
-                TODAY -> day=Day.TODAY
-                YESTERDAY -> day=Day.YESTERDAY
+        activity?.let {
+            when (it.getPreferences(MODE_PRIVATE).getString(KEY_DAY, TODAY)) {
+                TODAY -> day = Day.TODAY
+                YESTERDAY -> day = Day.YESTERDAY
                 DAY_BEFORE_YESTERDAY -> day = Day.DAY_BEFORE_YESTERDAY
             }
         }
         return day
     }
 
-    // метод устанавливает слушателя на FAB, для отображения соответствующего HdAstronomyPicturesOfTheDay
-    private fun setOnClickListenerForFAB(){
-        binding.fabHd.setOnClickListener {
-            if(isConnectNetwork(context)){
-                Log.v("@@@", listAstronomyPictureOfTheDay.toString())
-                listAstronomyPictureOfTheDay.getOrNull(viewPager.currentItem)?.let {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .add(R.id.container_for_choosing_the_day, HdAstronomyPicturesOfTheDayFragment.newInstance(it),
-                            TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT)
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
-                }
-            } else{
-                showToast(context, DISCONNECT_NETWORK)
+    // метод отображает соответствующий фрагмент HdAstronomyPicturesOfTheDay
+    private fun openHdAstronomyPicturesOfTheDayFragment() {
+        if (isConnectNetwork(context)) {
+            listAstronomyPictureOfTheDay.getOrNull(viewPager.currentItem)?.let {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .add(
+                        R.id.container_for_choosing_the_day,
+                        HdAstronomyPicturesOfTheDayFragment.newInstance(it),
+                        TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT
+                    )
+                    .addToBackStack("")
+                    .commitAllowingStateLoss()
             }
+        } else {
+            showToast(context, DISCONNECT_NETWORK)
         }
+    }
+
+    // метод отображает фрагмент ChoosingThemeFragment
+    private fun openChoosingThemeFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(
+                R.id.container_for_choosing_the_day, ChoosingThemeFragment.newInstance(),
+                TAG_CHOOSING_THEME_FRAGMENT
+            )
+            .addToBackStack("")
+            .commitAllowingStateLoss()
     }
 
     override fun onPause() {
@@ -171,39 +212,6 @@ class ChoosingTheDayFragment:Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    // метод настраивает меню в составе BottomAppBar
-    private fun setBottomAppBarMenu() {
-        // назначаем bottomAppBar в качестве меню
-        (requireActivity() as ActivityNasaApp).setSupportActionBar(binding.bottomAppBar)
-        // обрабатываем нажатие на navigation_menu
-        binding.bottomAppBar.setNavigationOnClickListener {
-            activity?.let {
-                BottomMenuNavigationDrawerFragment.newInstance().show(it.supportFragmentManager,
-                    TAG_BOTTOM_MENU_NAVIGATION_DRAWER_FRAGMENT )
-            }
-        }
-        // создаем меню и настраиваем обработку нажатия
-        val menuHost: MenuHost = requireActivity() as ActivityNasaApp
-        menuHost.addMenuProvider(object :MenuProvider{
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.bottom_app_bar_menu, menu)
-            }
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.setting -> {
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .add(R.id.container_for_choosing_the_day, ChoosingThemeFragment.newInstance(),
-                                TAG_CHOOSING_THEME_FRAGMENT)
-                            .addToBackStack("")
-                            .commitAllowingStateLoss()
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
 }

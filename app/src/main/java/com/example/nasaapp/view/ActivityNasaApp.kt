@@ -13,12 +13,12 @@ class ActivityNasaApp : AppCompatActivity() {
     private lateinit var binding: ActivityNasaAppBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(getPreferences(MODE_PRIVATE).getString(KEY_SAVED_THEME, Theme.THEME_RED.title))
         super.onCreate(savedInstanceState)
         binding = ActivityNasaAppBinding.inflate(layoutInflater)
-        setTheme(getPreferences(MODE_PRIVATE).getString(KEY_SAVED_THEME, Theme.THEME_RED.title))
         setContentView(binding.root)
         if (savedInstanceState == null)
-            createChoosingTheDayFragment()
+            openChoosingTheDayFragment()
         setListenerForChoosingTheme()
     }
 
@@ -37,7 +37,7 @@ class ActivityNasaApp : AppCompatActivity() {
     }
 
     // метод создает ChoosingTheDayFragment
-    private fun createChoosingTheDayFragment(){
+    private fun openChoosingTheDayFragment(){
             supportFragmentManager.beginTransaction()
                 .replace(
                     binding.containerForChoosingTheDay.id,
