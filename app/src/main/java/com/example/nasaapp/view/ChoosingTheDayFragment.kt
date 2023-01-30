@@ -1,6 +1,5 @@
 package com.example.nasaapp.view
 
-import android.app.Activity
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.net.Uri
@@ -16,17 +15,11 @@ import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ChoosingTheDayFragment:Fragment() {
     companion object {
         fun newInstance() = ChoosingTheDayFragment()
-        fun selectedItemMenuHome(activity: Activity){
-            activity.findViewById<BottomNavigationView>(R.id.navigation_view)?.let{
-                it.selectedItemId = R.id.home
-            }
-        }
     }
 
     private var _binding: ChoosingTheDayLayoutBinding? = null
@@ -48,32 +41,9 @@ class ChoosingTheDayFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         settingSearchTextField()
-        settingNavigationView()
         setListenerForCurrentAstronomyPicturesOfTheDay()
         settingViewPager(readChoosingDay())
     }
-
-    private fun settingNavigationView() {
-        requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view)?.let { it ->
-            it.setOnItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.hd -> openHdAstronomyPicturesOfTheDayFragment()
-                    R.id.setting -> openChoosingThemeFragment()
-                    R.id.home -> requireActivity().supportFragmentManager.popBackStack()
-                }
-                true
-            }
-            it.setOnItemReselectedListener {item ->
-                when (item.itemId) {
-                    R.id.hd -> (requireActivity().supportFragmentManager.findFragmentByTag(
-                        TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT) as HdAstronomyPicturesOfTheDayFragment).setHdAstronomyPicturesOfTheDay()
-                    R.id.setting ->{}
-                    R.id.home -> settingViewPager(Day.values()[viewPager.currentItem])
-                }
-            }
-        }
-    }
-
 
     // метод получает объект DTO astronomyPictureOfTheDay для созданного фрагмента AstronomyPicturesOfTheDayFragment и сохраняет его в list
     private fun setListenerForCurrentAstronomyPicturesOfTheDay() {
@@ -105,6 +75,10 @@ class ChoosingTheDayFragment:Fragment() {
             currentItem = Day.values().indexOf(day)
         }
         settingTableLayout()
+    }
+
+    fun  settingViewPager(){
+        settingViewPager(Day.values()[viewPager.currentItem])
     }
 
     // метод связывает TableLayout и ViewPager и настраивает TableLayout
@@ -176,7 +150,7 @@ class ChoosingTheDayFragment:Fragment() {
     }
 
     // метод отображает соответствующий фрагмент HdAstronomyPicturesOfTheDay
-    private fun openHdAstronomyPicturesOfTheDayFragment() {
+   fun openHdAstronomyPicturesOfTheDayFragment() {
         if (isConnectNetwork(context)) {
             listAstronomyPictureOfTheDay.getOrNull(viewPager.currentItem)?.let {
                 requireActivity().supportFragmentManager.beginTransaction()
@@ -191,17 +165,6 @@ class ChoosingTheDayFragment:Fragment() {
         } else {
             showToast(context, DISCONNECT_NETWORK)
         }
-    }
-
-    // метод отображает фрагмент ChoosingThemeFragment
-    private fun openChoosingThemeFragment() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .add(
-                R.id.container_for_choosing_the_day, ChoosingThemeFragment.newInstance(),
-                TAG_CHOOSING_THEME_FRAGMENT
-            )
-            .addToBackStack("")
-            .commitAllowingStateLoss()
     }
 
     override fun onPause() {

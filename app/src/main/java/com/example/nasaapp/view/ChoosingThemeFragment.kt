@@ -81,12 +81,11 @@ class ChoosingThemeFragment : Fragment() {
     // метод устанавливает слушателя на ButtonBack
     private fun settingButtonBack(){
         binding.buttonBack.setOnClickListener{
-            requireActivity().supportFragmentManager.popBackStack()
+            requireActivity().onBackPressed()
         }
     }
 
     override fun onDestroyView() {
-        ChoosingTheDayFragment.selectedItemMenuHome(requireActivity())
         super.onDestroyView()
         _binding = null
     }

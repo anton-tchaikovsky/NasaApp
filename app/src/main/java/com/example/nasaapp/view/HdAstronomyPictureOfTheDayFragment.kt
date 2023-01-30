@@ -53,7 +53,7 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
         }
         settingBottomSheetBehavior(binding.bottomSheetLayout)
         // вешаем на fab_back popBackStack
-        binding.fabBack.setOnClickListener { activity?.supportFragmentManager?.popBackStack() }
+        binding.fabBack.setOnClickListener { requireActivity().onBackPressed() }
     }
 
     // метод настраивает BottomSheet и устанавливает на него слушателя нажатия
@@ -125,7 +125,6 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        ChoosingTheDayFragment.selectedItemMenuHome(requireActivity())
         super.onDestroyView()
         _binding = null
     }
