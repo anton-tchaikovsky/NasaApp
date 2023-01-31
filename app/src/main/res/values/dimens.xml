@@ -35,6 +35,7 @@
     <!--    FloatingActionButton fab_back-->
     <dimen name="margin_end_fab_back">24dp</dimen>
     <dimen name="margin_bottom_fab_back">72dp</dimen>
+    <dimen name="margin_bottom_fab_back_24">24dp</dimen>
     <!--    AppCompatTextView title for description-->
     <dimen name="margin_start_title_description">16dp</dimen>
     <dimen name="margin_end_title_description">16dp</dimen>
@@ -44,6 +45,11 @@
     <dimen name="margin_end_explanation_description">16dp</dimen>
     <dimen name="margin_top_explanation_description">4dp</dimen>
     <dimen name="margin_bottom_explanation_description">8dp</dimen>
+
+    <!--mars_rover_photos_fragment-->
+    <!--    FloatingActionButton fab_back_mars-->
+    <dimen name="margin_end_fab_mars_back">24dp</dimen>
+    <dimen name="margin_bottom_fab_mars_back">24dp</dimen>
 
 <!--choosing_theme_layout-->
     <!--    LinearLayout choosing_theme_layout-->

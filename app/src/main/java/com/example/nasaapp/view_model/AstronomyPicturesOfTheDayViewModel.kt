@@ -3,7 +3,7 @@ package com.example.nasaapp.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
-import com.example.nasaapp.model.repository.RepositoryAstronomyPictureOfTheDayImplRemote
+import com.example.nasaapp.model.repository.RepositoryAstronomyPictureOfTheDayImpl
 import com.example.nasaapp.utils.Day
 import com.example.nasaapp.utils.convertCalendarFromDay
 import retrofit2.Call
@@ -36,6 +36,6 @@ class AstronomyPicturesOfTheDayViewModel(private val liveData: MutableLiveData<A
         }
 
     }
-    private val repository = RepositoryAstronomyPictureOfTheDayImplRemote(callback)
+    private val repository = RepositoryAstronomyPictureOfTheDayImpl(callback)
 
 }

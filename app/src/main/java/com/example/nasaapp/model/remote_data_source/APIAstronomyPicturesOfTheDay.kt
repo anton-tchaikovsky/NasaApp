@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface APIAstronomyPicturesOfTheDay {
-    @GET(END_POINT)
+    @GET(END_POINT_ASTRONOMY_PICTURE_OF_THE_DAY)
     fun getAstronomyPicturesOfTheDay(
         @Query(DATE) date:String,
         @Query(API_NASA_KEY) apiNasaKey:String

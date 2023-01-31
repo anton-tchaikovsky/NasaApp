@@ -38,6 +38,7 @@ class ActivityNasaApp : AppCompatActivity() {
                         if (backStackEntryCount > 0)
                             popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     }
+                    R.id.mars -> openMarsRoverPhotosFragment()
                 }
                 true
             }
@@ -50,9 +51,18 @@ class ActivityNasaApp : AppCompatActivity() {
                     R.id.home -> (supportFragmentManager.findFragmentByTag(
                         TAG_CHOOSING_THE_DAY_FRAGMENT
                     ) as ChoosingTheDayFragment).settingViewPager()
+                    R.id.mars -> {}
                 }
             }
         }
+    }
+
+    // метод открывает фрагмент MarsRoverPhotosFragment
+    private fun openMarsRoverPhotosFragment() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container_for_choosing_the_day,MarsRoverPhotosFragment.newInstance(Day.YESTERDAY), TAG_MARS_ROVER_PHOTOS_FRAGMENT)
+            .addToBackStack("")
+            .commitAllowingStateLoss()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

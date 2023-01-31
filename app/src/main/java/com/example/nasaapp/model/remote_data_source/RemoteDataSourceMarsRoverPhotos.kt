@@ -9,16 +9,16 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RemoteDataSourceAstronomyPicturesOfTheDay {
+class RemoteDataSourceMarsRoverPhotos {
 
-    //строим ретрофит и создаем объект класса APIAstronomyPicturesOfTheDay
-    private val apiAstronomyPicturesOfTheDay by lazy { Retrofit.Builder()
+    //строим ретрофит и создаем объект класса APIMarsRoverPhotos
+    private val apiMarsRoverPhotos by lazy { Retrofit.Builder()
         .baseUrl(URL_API_NASA)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-        .build().create(APIAstronomyPicturesOfTheDay::class.java) }
+        .build().create(APIMarsRoverPhotos::class.java) }
 
     //создаем запрос типа call для любого дня по дате и отправляем его в очередь на получение ответа
-    fun callAPIAstronomyPicturesOfTheDay(date:String, callback: Callback<AstronomyPictureOfTheDay>){
-        apiAstronomyPicturesOfTheDay.getAstronomyPicturesOfTheDay(date, BuildConfig.api_nasa_key).enqueue(callback)
+    fun callAPIMarsRoverPhotos(date:String, callback: Callback<MarsRoverPhotos>){
+        apiMarsRoverPhotos.getMarsRoverPhotos(date, BuildConfig.api_nasa_key).enqueue(callback)
     }
 }

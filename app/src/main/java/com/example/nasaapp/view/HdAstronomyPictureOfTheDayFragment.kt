@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import coil.api.load
 import com.example.nasaapp.R
@@ -44,6 +45,8 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // вешаем на fab_back popBackStack
+        binding.fabBack.setOnClickListener { requireActivity().onBackPressed() }
         arguments?.let { bundle ->
             bundle.getParcelable<AstronomyPictureOfTheDay>(KEY_ASTRONOMY_PICTURE_OF_THE_DAY)
                 ?.let {
@@ -52,8 +55,6 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
                 }
         }
         settingBottomSheetBehavior(binding.bottomSheetLayout)
-        // вешаем на fab_back popBackStack
-        binding.fabBack.setOnClickListener { requireActivity().onBackPressed() }
     }
 
     // метод настраивает BottomSheet и устанавливает на него слушателя нажатия
@@ -73,6 +74,12 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
                             Theme.THEME_RED.title ->bottomSheetView.setBackgroundColor(ContextCompat.getColor(requireContext(), Theme.THEME_RED.idColorSurface))
                             Theme.THEME_BLUE.title ->bottomSheetView.setBackgroundColor(ContextCompat.getColor(requireContext(), Theme.THEME_BLUE.idColorSurface))
                             Theme.THEME_ORANGE.title ->bottomSheetView.setBackgroundColor(ContextCompat.getColor(requireContext(), Theme.THEME_ORANGE.idColorSurface))
+                        }
+                    }
+                    // когда скрываем BottomSheet перемещаем FAB ниже
+                    if (newState == BottomSheetBehavior.STATE_HIDDEN){
+                        binding.fabBack.updateLayoutParams <ViewGroup.MarginLayoutParams> {
+                            setMargins(0,0, resources.getDimension(R.dimen.margin_end_fab_back).toInt(), resources.getDimension(R.dimen.margin_bottom_fab_back_24).toInt())
                         }
                     }
                 }

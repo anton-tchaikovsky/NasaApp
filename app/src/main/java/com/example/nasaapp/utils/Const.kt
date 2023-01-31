@@ -3,9 +3,11 @@ package com.example.nasaapp.utils
 import com.example.nasaapp.BuildConfig
 
 //RemoteDataSource
-const val END_POINT = "planetary/apod"
+const val END_POINT_ASTRONOMY_PICTURE_OF_THE_DAY = "planetary/apod"
+const val END_POINT_MARS_ROVER_PHOTOS = "mars-photos/api/v1/rovers/curiosity/photos"
 const val API_NASA_KEY = "api_key"
 const val DATE = "date"
+const val EARTH_DATE = "earth_date"
 const val URL_API_NASA ="https://api.nasa.gov"
 const val TIME_ZONE_NEW_YORK = "America/New_York"
 const val DISCONNECT_NETWORK = "Отсутствует подключение к сети"
@@ -18,6 +20,7 @@ const val TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT = "TAGHdAstronomyPicture
 const val TAG_CHOOSING_THE_DAY_FRAGMENT = "TAGChoosingTheDayFragment"
 const val TAG_CHOOSING_THEME_FRAGMENT = "TAGChoosingThemeFragment"
 const val TAG_BOTTOM_MENU_NAVIGATION_DRAWER_FRAGMENT = "TAGBottomMenuNavigationDrawerFragment"
+const val TAG_MARS_ROVER_PHOTOS_FRAGMENT = "TAGMarsRoverPhotos_Fragment"
 //Theme
 const val THEME_RED_TITLE = "Theme Red"
 const val THEME_BLUE_TITLE = "Theme Blue"

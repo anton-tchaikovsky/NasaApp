@@ -6,7 +6,7 @@ import com.example.nasaapp.utils.convertDateStringFromCalendar
 import retrofit2.Callback
 import java.util.*
 
-class RepositoryAstronomyPictureOfTheDayImplRemote(private val callback: Callback<AstronomyPictureOfTheDay>):RepositoryAstronomyPictureOfTheDay {
+class RepositoryAstronomyPictureOfTheDayImpl(private val callback: Callback<AstronomyPictureOfTheDay>):RepositoryAstronomyPictureOfTheDay {
     override fun getAstronomyPictureOfTheDay(date: Calendar) =
         RemoteDataSourceAstronomyPicturesOfTheDay().callAPIAstronomyPicturesOfTheDay(convertDateStringFromCalendar(date), callback)
 }
