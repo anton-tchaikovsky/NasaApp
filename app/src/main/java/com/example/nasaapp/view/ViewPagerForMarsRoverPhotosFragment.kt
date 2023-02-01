@@ -20,6 +20,7 @@ class ViewPagerForMarsRoverPhotosFragment : Fragment() {
     companion object {
         fun newInstance(): ViewPagerForMarsRoverPhotosFragment =
             ViewPagerForMarsRoverPhotosFragment()
+        val day = Day.YESTERDAY
     }
 
     private var _binding: ViewPagerForMarsRoverPhotosFragmentBinding? = null
@@ -32,7 +33,7 @@ class ViewPagerForMarsRoverPhotosFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var adapterForMarsRoverPhotos:ViewPagerAdapterForMarsRoverPhotos
 
-    private var marsRoverPhotos: MarsRoverPhotos?=null
+     var marsRoverPhotos: MarsRoverPhotos?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +52,7 @@ class ViewPagerForMarsRoverPhotosFragment : Fragment() {
     }
 
     fun getMarsRoverPhotos(){
-         viewModel.getMarsRoverPhotos(Day.YESTERDAY)
+         viewModel.getMarsRoverPhotos(day)
     }
 
     fun hasMarsRoverPhotos() = marsRoverPhotos!=null

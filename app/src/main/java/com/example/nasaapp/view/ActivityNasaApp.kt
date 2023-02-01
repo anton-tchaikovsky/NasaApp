@@ -5,14 +5,20 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ActivityNasaAppBinding
 import com.example.nasaapp.utils.*
+import com.example.nasaapp.view_model.MarsRoverPhotosViewModel
 
 
 class ActivityNasaApp : AppCompatActivity() {
 
     private lateinit var binding: ActivityNasaAppBinding
+
+    private val viewModel: MarsRoverPhotosViewModel by lazy {
+        ViewModelProvider(this)[MarsRoverPhotosViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(getPreferences(MODE_PRIVATE).getString(KEY_SAVED_THEME, Theme.THEME_RED.title))
@@ -20,8 +26,9 @@ class ActivityNasaApp : AppCompatActivity() {
         binding = ActivityNasaAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
         settingNavigationView()
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             openChoosingTheDayFragment()
+        }
         setListenerForChoosingTheme()
     }
 
@@ -40,11 +47,17 @@ class ActivityNasaApp : AppCompatActivity() {
                         TAG_CHOOSING_THE_DAY_FRAGMENT
                     ) as ChoosingTheDayFragment).run {
                         if (supportFragmentManager.backStackEntryCount > 0)
-                            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                        if(!hasAstronomyPicturesOfTheDay())
+                            supportFragmentManager.popBackStack(
+                                null,
+                                FragmentManager.POP_BACK_STACK_INCLUSIVE
+                            )
+                        if (!hasAstronomyPicturesOfTheDay())
                             settingViewPager()
                     }
-                    R.id.mars -> openViewPagerForMarsRoverPhotosFragment()
+                    R.id.mars -> {
+                        openViewPagerForMarsRoverPhotosFragment()
+                        removeBadge(R.id.mars)
+                    }
                     R.id.earth -> {
                         openEatherPhotosFragment()
                         removeBadge(R.id.earth)
@@ -75,10 +88,23 @@ class ActivityNasaApp : AppCompatActivity() {
                 }
             }
         }
-        createBadge()
+        createBadgeEarth()
+        createBadgeMars()
     }
 
-    private fun createBadge() {
+    private fun createBadgeMars() {
+        viewModel.run {
+            getLiveDataCountMarsRoverPhotos().observe(this@ActivityNasaApp) {
+                binding.navigationView.getOrCreateBadge(R.id.mars).apply {
+                    if (it > 0)
+                        number = it
+                }
+            }
+            getCountMarsRoverPhotos(ViewPagerForMarsRoverPhotosFragment.day)
+        }
+    }
+
+    private fun createBadgeEarth() {
         binding.navigationView.getOrCreateBadge(R.id.earth).apply {
             number = 1
         }
