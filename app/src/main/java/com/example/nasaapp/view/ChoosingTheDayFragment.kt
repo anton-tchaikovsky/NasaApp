@@ -25,9 +25,14 @@ class ChoosingTheDayFragment:Fragment() {
     private var _binding: ChoosingTheDayLayoutBinding? = null
     private val binding get() = _binding!!
 
-    private val listAstronomyPictureOfTheDay: MutableList<AstronomyPictureOfTheDay?> = mutableListOf(null, null, null)
+    private val listAstronomyPictureOfTheDay: MutableList<AstronomyPictureOfTheDay?> = mutableListOf<AstronomyPictureOfTheDay?>().apply {
+        Day.values().forEach { _ ->
+            add(null)
+        }
+    }
 
     private lateinit var viewPager: ViewPager2
+    private lateinit var adapterForAstronomyPicturesOfTheDay: ViewPagerAdapterForAstronomyPicturesOfTheDay
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,12 +70,13 @@ class ChoosingTheDayFragment:Fragment() {
 
     // метод настраивает ViewPager
     private fun settingViewPager(day: Day) {
-       viewPager =  binding.containerForAstronomyPictureOfTheDay.apply {
+       adapterForAstronomyPicturesOfTheDay = ViewPagerAdapterForAstronomyPicturesOfTheDay(
+           this@ChoosingTheDayFragment,
+           Day.values()
+       )
+        viewPager =  binding.containerForAstronomyPictureOfTheDay.apply {
             // привязываем адаптер к ViewPager
-            adapter = ViewPagerAdapterForAstronomyPicturesOfTheDay(
-                this@ChoosingTheDayFragment,
-                Day.values()
-            )
+            adapter = adapterForAstronomyPicturesOfTheDay
             // устанавливаем текущий фрагмент из сохраненных настроек
             currentItem = Day.values().indexOf(day)
         }
@@ -149,10 +155,14 @@ class ChoosingTheDayFragment:Fragment() {
         return day
     }
 
+    // метод указывает, успешно ли произошла загрузка astronomyPicturesOfTheDay для текущего фрагмента в составе viewPager
+    fun hasAstronomyPicturesOfTheDay():Boolean {
+        return listAstronomyPictureOfTheDay[viewPager.currentItem] != null
+    }
+
     // метод отображает соответствующий фрагмент HdAstronomyPicturesOfTheDay
    fun openHdAstronomyPicturesOfTheDayFragment() {
-        if (isConnectNetwork(context)) {
-            listAstronomyPictureOfTheDay.getOrNull(viewPager.currentItem)?.let {
+            listAstronomyPictureOfTheDay[viewPager.currentItem].let {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .add(
                         R.id.container_for_choosing_the_day,
@@ -162,9 +172,6 @@ class ChoosingTheDayFragment:Fragment() {
                     .addToBackStack("")
                     .commitAllowingStateLoss()
             }
-        } else {
-            showToast(context, DISCONNECT_NETWORK)
-        }
     }
 
     override fun onPause() {

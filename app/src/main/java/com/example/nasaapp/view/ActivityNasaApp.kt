@@ -32,13 +32,23 @@ class ActivityNasaApp : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.hd -> (supportFragmentManager.findFragmentByTag(
                         TAG_CHOOSING_THE_DAY_FRAGMENT
-                    ) as ChoosingTheDayFragment).openHdAstronomyPicturesOfTheDayFragment()
-                    R.id.setting -> openChoosingThemeFragment()
-                    R.id.home -> supportFragmentManager.run {
-                        if (backStackEntryCount > 0)
-                            popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    ) as ChoosingTheDayFragment).run{
+                        openHdAstronomyPicturesOfTheDayFragment()
                     }
-                    R.id.mars -> openMarsRoverPhotosFragment()
+                    R.id.setting -> openChoosingThemeFragment()
+                    R.id.home -> (supportFragmentManager.findFragmentByTag(
+                        TAG_CHOOSING_THE_DAY_FRAGMENT
+                    ) as ChoosingTheDayFragment).run {
+                        if (supportFragmentManager.backStackEntryCount > 0)
+                            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                        if(!hasAstronomyPicturesOfTheDay())
+                            settingViewPager()
+                    }
+                    R.id.mars -> openViewPagerForMarsRoverPhotosFragment()
+                    R.id.earth -> {
+                        openEatherPhotosFragment()
+                        removeBadge(R.id.earth)
+                    }
                 }
                 true
             }
@@ -51,16 +61,49 @@ class ActivityNasaApp : AppCompatActivity() {
                     R.id.home -> (supportFragmentManager.findFragmentByTag(
                         TAG_CHOOSING_THE_DAY_FRAGMENT
                     ) as ChoosingTheDayFragment).settingViewPager()
-                    R.id.mars -> {}
+                    R.id.mars -> (supportFragmentManager.findFragmentByTag(
+                      TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT
+                  ) as ViewPagerForMarsRoverPhotosFragment).run {
+                        if (hasMarsRoverPhotos())
+                            updateItem()
+                        else
+                            getMarsRoverPhotos()
+                    }
+                    R.id.earth -> (supportFragmentManager.findFragmentByTag(
+                        TAG_EARTH_PHOTOS_FRAGMENT
+                    ) as EarthPhotosFragment).getEarthPhotos()
                 }
             }
         }
+        createBadge()
     }
 
-    // метод открывает фрагмент MarsRoverPhotosFragment
-    private fun openMarsRoverPhotosFragment() {
+    private fun createBadge() {
+        binding.navigationView.getOrCreateBadge(R.id.earth).apply {
+            number = 1
+        }
+    }
+
+    // метод открывает фрагмент EatherPhotosFragment
+    private fun openEatherPhotosFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.container_for_choosing_the_day,MarsRoverPhotosFragment.newInstance(Day.YESTERDAY), TAG_MARS_ROVER_PHOTOS_FRAGMENT)
+            .add(
+                R.id.container_for_choosing_the_day,
+                EarthPhotosFragment.newInstance(),
+                TAG_EARTH_PHOTOS_FRAGMENT
+            )
+            .addToBackStack("")
+            .commitAllowingStateLoss()
+    }
+
+    // метод открывает фрагмент ViewPagerMarsRoverPhotosFragment
+    private fun openViewPagerForMarsRoverPhotosFragment() {
+        supportFragmentManager.beginTransaction()
+            .add(
+                R.id.container_for_choosing_the_day,
+                ViewPagerForMarsRoverPhotosFragment.newInstance(),
+                TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT
+            )
             .addToBackStack("")
             .commitAllowingStateLoss()
     }
@@ -85,14 +128,23 @@ class ActivityNasaApp : AppCompatActivity() {
     }
 
     // метод выделяет элемент меню в соответствии с видимым на экране фрагментом (необходимо после работы popBackStack)
+    // и перезагружает viewPager для AstronomyPicturesOfTheDay, если до этого не было данных
     private fun bindBackStackWithNavigationView() {
         binding.navigationView.menu.run {
-            if (supportFragmentManager.backStackEntryCount == 0)
+            if (supportFragmentManager.backStackEntryCount == 0) {
                 getItem(0).isChecked = true
+                (supportFragmentManager.findFragmentByTag(
+                    TAG_CHOOSING_THE_DAY_FRAGMENT
+                ) as ChoosingTheDayFragment).settingViewPager()
+            }
             else {
                 when (supportFragmentManager.fragments.last().tag) {
                     TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT ->
                         getItem(1).isChecked = true
+                    TAG_EARTH_PHOTOS_FRAGMENT ->
+                        getItem(2).isChecked = true
+                    TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT ->
+                        getItem(3).isChecked = true
                     TAG_CHOOSING_THEME_FRAGMENT -> getItem(4).isChecked = true
                 }
             }

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
-import com.example.nasaapp.R
 import com.example.nasaapp.databinding.AstronomyPictureOfTheDayFragmentBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
@@ -67,7 +66,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
         binding.run {
             hideShowViews(
                 listOf(loadingLayout.loadingLayout, astronomyPicturesOfTheDay),
-                listOf(loadingError)
+                listOf(loadingError.loadingError)
             )
         }
         if (!isConnectNetwork(requireContext()))
@@ -83,7 +82,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
     private fun setLoading() {
         binding.run {
             hideShowViews(
-                listOf(loadingError, astronomyPicturesOfTheDay),
+                listOf(loadingError.loadingError, astronomyPicturesOfTheDay),
                 listOf(loadingLayout.loadingLayout)
             )
         }
@@ -92,8 +91,8 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
     private fun setAstronomyPictureOfTheDay(astronomyPicturesOfTheDay: AstronomyPictureOfTheDay) {
         binding.run {
             hideShowViews(
-                listOf(loadingLayout.loadingLayout, loadingError),
-                listOf(this@run.astronomyPicturesOfTheDay)
+                listOf(loadingLayout.loadingLayout, loadingError.loadingError,loadingErrorPicture.loadingError),
+                listOf(this@run.astronomyPicturesOfTheDay,picture)
             )
         }
         astronomyPicturesOfTheDay.apply {
@@ -114,7 +113,24 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
         binding.picture.load(urlPicture) {
             lifecycle(this@AstronomyPicturesOfTheDayFragment)
             transformations(RoundedCornersTransformation(40f))
-            error(R.drawable.ic_baseline_file_download_off_24)
+            listener(
+                onSuccess = {_, _ ->
+                    binding.run {
+                        hideShowViews(
+                            listOf(loadingErrorPicture.loadingError, loadingLayoutPicture.loadingLayout),
+                            listOf(picture)
+                        )
+                    }
+                },
+                onError = { _, _ ->
+                    binding.run {
+                        hideShowViews(
+                            listOf(picture, loadingLayoutPicture.loadingLayout),
+                            listOf(loadingErrorPicture.loadingError)
+                        )
+                    }
+                }
+            )
         }
     }
 

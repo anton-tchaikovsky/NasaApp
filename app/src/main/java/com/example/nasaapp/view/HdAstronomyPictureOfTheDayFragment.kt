@@ -15,12 +15,13 @@ import com.example.nasaapp.R
 import com.example.nasaapp.databinding.HdAstronomyPictureOfTheDayFragmentBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.Theme
+import com.example.nasaapp.utils.hideShowViews
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class HdAstronomyPicturesOfTheDayFragment : Fragment() {
     companion object {
         private const val KEY_ASTRONOMY_PICTURE_OF_THE_DAY = "KeyAstronomyPictureOfTheDay"
-        fun newInstance(astronomyPictureOfTheDay: AstronomyPictureOfTheDay): HdAstronomyPicturesOfTheDayFragment =
+        fun newInstance(astronomyPictureOfTheDay: AstronomyPictureOfTheDay?): HdAstronomyPicturesOfTheDayFragment =
             HdAstronomyPicturesOfTheDayFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(KEY_ASTRONOMY_PICTURE_OF_THE_DAY, astronomyPictureOfTheDay)
@@ -47,14 +48,14 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // вешаем на fab_back popBackStack
         binding.fabBack.setOnClickListener { requireActivity().onBackPressed() }
+        settingBottomSheetBehavior(binding.bottomSheetLayout)
         arguments?.let { bundle ->
             bundle.getParcelable<AstronomyPictureOfTheDay>(KEY_ASTRONOMY_PICTURE_OF_THE_DAY)
-                ?.let {
+                .let {
                     astronomyPictureOfTheDay = it
                     setHdAstronomyPicturesOfTheDay(it)
                 }
         }
-        settingBottomSheetBehavior(binding.bottomSheetLayout)
     }
 
     // метод настраивает BottomSheet и устанавливает на него слушателя нажатия
@@ -103,18 +104,29 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
         }
     }
 
-    private fun setHdAstronomyPicturesOfTheDay(astronomyPictureOfTheDay: AstronomyPictureOfTheDay) {
-        astronomyPictureOfTheDay.apply {
-            setPicture(hdurl)
-            setDescription(title, explanation)
-        }
+    private fun setHdAstronomyPicturesOfTheDay(astronomyPictureOfTheDay: AstronomyPictureOfTheDay?) {
+        if(astronomyPictureOfTheDay!=null){
+            astronomyPictureOfTheDay.apply {
+                setPicture(hdurl)
+                setDescription(title, explanation)
+            }
+        } else
+            setError()
     }
 
     fun setHdAstronomyPicturesOfTheDay(){
-        astronomyPictureOfTheDay?.apply {
-            setPicture(hdurl)
-            setDescription(title, explanation)
+        setHdAstronomyPicturesOfTheDay(astronomyPictureOfTheDay)
+    }
+
+    private fun setError() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        binding.fabBack.updateLayoutParams <ViewGroup.MarginLayoutParams> {
+            setMargins(0,0, resources.getDimension(R.dimen.margin_end_fab_back).toInt(), resources.getDimension(R.dimen.margin_bottom_fab_back_24).toInt())
         }
+        hideShowViews(
+            listOf(binding.hdPicture, binding.loadingLayout.loadingLayout),
+            listOf(binding.loadingError.loadingError)
+        )
     }
 
     private fun setDescription(title: String, explanation: String) {
@@ -127,7 +139,32 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
     private fun setPicture(urlPicture: String) {
         binding.hdPicture.load(urlPicture) {
             lifecycle(this@HdAstronomyPicturesOfTheDayFragment)
-            error(R.drawable.ic_baseline_file_download_off_24)
+            listener(
+                onStart = {
+                    binding.run {
+                        hideShowViews(
+                            listOf(loadingError.loadingError, hdPicture),
+                            listOf(loadingLayout.loadingLayout)
+                        )
+                    }
+                },
+                onSuccess = { _, _ ->
+                    binding.run {
+                        hideShowViews(
+                            listOf(loadingError.loadingError, loadingLayout.loadingLayout),
+                            listOf(hdPicture)
+                        )
+                    }
+                },
+                onError = { _, _ ->
+                    binding.run {
+                        hideShowViews(
+                            listOf(hdPicture, loadingLayout.loadingLayout),
+                            listOf(loadingError.loadingError)
+                        )
+                    }
+                }
+            )
         }
     }
 

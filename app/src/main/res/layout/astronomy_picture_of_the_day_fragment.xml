@@ -12,18 +12,11 @@
 
         <include
             android:id="@+id/loading_layout"
-            layout="@layout/loading_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            layout="@layout/loading_layout"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <include
             android:id="@+id/loading_error"
-            android:layout_width="@dimen/width_app_compat_image_view_loading_error"
-            android:layout_height="@dimen/height_app_compat_image_view_loading_error"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_file_download_off_24"
-            android:contentDescription="@string/loading_error"/>
+            layout="@layout/loading_error"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/astronomy_pictures_of_the_day"
@@ -49,6 +42,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title"
                     android:layout_marginTop="@dimen/margin_top_layout_picture">
+
+                    <include
+                        android:id="@+id/loading_layout_picture"
+                        layout="@layout/loading_layout"/>
+
+                    <include
+                        android:id="@+id/loading_error_picture"
+                        layout="@layout/loading_error" />
 
                     <com.example.nasaapp.utils.CustomImageView
                         android:id="@+id/picture"
