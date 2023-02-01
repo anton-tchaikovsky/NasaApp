@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ExtendedFabStyle" parent="Base.Widget.Material3.ExtendedFloatingActionButton">
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@android:color/white</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+
+    <style name="ChipStyle" parent="@style/Widget.Material3.Chip.Filter">
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="checkedIcon">@drawable/checked_icon</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+
+    <style name="ButtonStyle" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@android:color/white</item>
+        <item name="android:textColor">@color/button_text_icon_color</item>
+        <item name="backgroundTint">?attr/colorPrimaryContainer</item>
+        <item name="iconTint">@color/button_text_icon_color</item>
+        <item name="shapeAppearance">@style/ButtonFabShapeAppearance</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+</resources>

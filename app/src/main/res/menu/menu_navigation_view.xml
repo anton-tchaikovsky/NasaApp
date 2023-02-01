@@ -1,0 +1,44 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:contentDescription="@string/picture_of_the_day"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/hd"
+        android:title="@string/hd"
+        android:icon="@drawable/ic_baseline_hd_24"
+        android:contentDescription="@string/open_picture"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/earth"
+        android:title="@string/earth"
+        android:icon="@drawable/earth"
+        android:contentDescription="@string/picture_earth"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/mars"
+        android:title="@string/mars"
+        android:icon="@drawable/mars"
+        android:contentDescription="@string/picture_mars"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/setting"
+        android:title="@string/setting"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:contentDescription="@string/setting_app"
+        app:showAsAction="ifRoom"
+        />
+
+</menu>

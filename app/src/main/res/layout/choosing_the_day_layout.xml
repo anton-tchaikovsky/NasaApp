@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/choosing_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_tab_layout"
+            app:tabIndicatorFullWidth="true"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_text_input_layout"
+            android:paddingEnd="@dimen/padding_text_input_layout"
+            android:hint="@string/hint_input_text"
+            app:helperText="@string/helper_input_text"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SearchEditTextStyle" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/container_for_astronomy_picture_of_the_day"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
