@@ -19,7 +19,6 @@
             layout="@layout/loading_error"/>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/astronomy_pictures_of_the_day"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/padding_bottom_nested_scroll_view"
@@ -29,10 +28,32 @@
             tools:context=".view.AstronomyPicturesOfTheDayFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_astronomy_pictures_of_the_day"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/padding_bottom_astronomy_pictures_of_the_day">
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_astronomy_pictures_of_the_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:constraint_referenced_ids="title,layout_picture,explanation"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    android:layout_marginStart="@dimen/margin_start_title_astronomy_pictures_of_the_day"
+                    android:layout_marginEnd="@dimen/margin_end_title_astronomy_pictures_of_the_day"
+                    android:textStyle="bold"
+                    tools:text="title"/>
 
                 <FrameLayout
                     android:id="@+id/layout_picture"
@@ -61,18 +82,6 @@
                 </FrameLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="@dimen/margin_start_title_astronomy_pictures_of_the_day"
-                    android:layout_marginEnd="@dimen/margin_end_title_astronomy_pictures_of_the_day"
-                    android:textStyle="bold"
-                    tools:text="title"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/explanation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,6 +91,7 @@
                     android:layout_marginStart="@dimen/margin_start_explanation_astronomy_pictures_of_the_day"
                     android:layout_marginTop="@dimen/margin_top_explanation_astronomy_pictures_of_the_day"
                     android:layout_marginEnd="@dimen/margin_end_explanation_astronomy_pictures_of_the_day"
+                    app:layout_constraintHorizontal_bias="0.5"
                     tools:text="explanation"
                     />
 

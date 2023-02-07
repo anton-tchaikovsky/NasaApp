@@ -9,5 +9,5 @@ class ViewPagerAdapterForMarsRoverPhotos(fragment: Fragment, private val marsRov
 
     override fun getItemCount(): Int = marsRoverPhotos.photos.size
 
-    override fun createFragment(position: Int): Fragment = MarsRoverPhotosFragment.newInstance(marsRoverPhotos.photos[position].imgSrc)
+    override fun createFragment(position: Int): Fragment = MarsRoverPhotosFragment.newInstance(marsRoverPhotos.photos[position])
 }

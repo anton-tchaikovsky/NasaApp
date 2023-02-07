@@ -20,7 +20,7 @@ class ViewPagerForMarsRoverPhotosFragment : Fragment() {
     companion object {
         fun newInstance(): ViewPagerForMarsRoverPhotosFragment =
             ViewPagerForMarsRoverPhotosFragment()
-        val day = Day.YESTERDAY
+        val day = Day.DAY_BEFORE_YESTERDAY
     }
 
     private var _binding: ViewPagerForMarsRoverPhotosFragmentBinding? = null

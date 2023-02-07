@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Photo(
-    @field:SerializedName("earth_date") val earthDate: String,
-    @field:SerializedName("img_src") val imgSrc: String,
-    val camera: Camera
-):Parcelable
+data class Camera(
+    @field:SerializedName("full_name")val fullName: String,
+): Parcelable

@@ -7,17 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import coil.api.load
 import com.example.nasaapp.databinding.MarsPhotosFragmentBinding
-import com.example.nasaapp.utils.KEY_URL_MARS_ROVER_PHOTO
+import com.example.nasaapp.model.dto.mars.Photo
+import com.example.nasaapp.utils.KEY_MARS_ROVER_PHOTO
 import com.example.nasaapp.utils.hideShowViews
 
 
 class MarsRoverPhotosFragment : Fragment() {
 
     companion object {
-        fun newInstance(urlPicture: String): MarsRoverPhotosFragment =
+        fun newInstance(marsPhoto: Photo): MarsRoverPhotosFragment =
             MarsRoverPhotosFragment().apply {
                 arguments = Bundle().apply {
-                    putString(KEY_URL_MARS_ROVER_PHOTO, urlPicture)
+                    putParcelable(KEY_MARS_ROVER_PHOTO, marsPhoto)
                 }
             }
     }
@@ -29,41 +30,45 @@ class MarsRoverPhotosFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = MarsPhotosFragmentBinding.inflate(inflater, container, false)
+       _binding = MarsPhotosFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         arguments?.let {bundle ->
-            bundle.getString(KEY_URL_MARS_ROVER_PHOTO)?.let { setPicture(it) }
+            bundle.getParcelable<Photo>(KEY_MARS_ROVER_PHOTO)?.let { setMarsPhoto(it) }
         }
     }
 
-    private fun setPicture(urlPicture: String) {
-        binding.photo.load(urlPicture) {
+    private fun setMarsPhoto(marsPhoto: Photo) {
+        binding.marsPhoto.load(marsPhoto.imgSrc) {
             lifecycle(this@MarsRoverPhotosFragment)
             listener(
                     onStart = {
                         binding.run {
                             hideShowViews(
-                                listOf(loadingError.loadingError, photo),
+                                listOf(loadingError.loadingError, groupMarsPhoto),
                                 listOf(loadingLayout.loadingLayout)
                             )
                         }
                     },
                     onSuccess = {_, _ ->
                         binding.run {
+                            camera.text = marsPhoto.camera.fullName
+                            earthDate.text = marsPhoto.earthDate
+
                             hideShowViews(
                                 listOf(loadingError.loadingError, loadingLayout.loadingLayout),
-                                listOf(photo)
+                                listOf(groupMarsPhoto)
                             )
                         }
                     },
                     onError = {_, _ ->
                         binding.run {
                             hideShowViews(
-                                listOf(photo, loadingLayout.loadingLayout),
+                                listOf(groupMarsPhoto, loadingLayout.loadingLayout),
                                 listOf(loadingError.loadingError)
                             )
                         }

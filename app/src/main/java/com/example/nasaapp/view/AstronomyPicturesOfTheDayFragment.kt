@@ -65,7 +65,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
     private fun setError(throwable: Throwable) {
         binding.run {
             hideShowViews(
-                listOf(loadingLayout.loadingLayout, astronomyPicturesOfTheDay),
+                listOf(loadingLayout.loadingLayout, groupAstronomyPicturesOfTheDay),
                 listOf(loadingError.loadingError)
             )
         }
@@ -82,7 +82,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
     private fun setLoading() {
         binding.run {
             hideShowViews(
-                listOf(loadingError.loadingError, astronomyPicturesOfTheDay),
+                listOf(loadingError.loadingError, groupAstronomyPicturesOfTheDay),
                 listOf(loadingLayout.loadingLayout)
             )
         }
@@ -92,7 +92,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
         binding.run {
             hideShowViews(
                 listOf(loadingLayout.loadingLayout, loadingError.loadingError,loadingErrorPicture.loadingError),
-                listOf(this@run.astronomyPicturesOfTheDay,picture)
+                listOf(this@run.groupAstronomyPicturesOfTheDay,picture)
             )
         }
         astronomyPicturesOfTheDay.apply {

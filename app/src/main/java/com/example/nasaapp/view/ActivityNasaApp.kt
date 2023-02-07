@@ -159,9 +159,13 @@ class ActivityNasaApp : AppCompatActivity() {
         binding.navigationView.menu.run {
             if (supportFragmentManager.backStackEntryCount == 0) {
                 getItem(0).isChecked = true
+
                 (supportFragmentManager.findFragmentByTag(
                     TAG_CHOOSING_THE_DAY_FRAGMENT
-                ) as ChoosingTheDayFragment).settingViewPager()
+                ) as ChoosingTheDayFragment).run {
+                    if (!hasAstronomyPicturesOfTheDay())
+                        settingViewPager()
+                }
             }
             else {
                 when (supportFragmentManager.fragments.last().tag) {
