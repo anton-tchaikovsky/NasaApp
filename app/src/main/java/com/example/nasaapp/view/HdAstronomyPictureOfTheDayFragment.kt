@@ -77,12 +77,6 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
                             Theme.THEME_ORANGE.title ->bottomSheetView.setBackgroundColor(ContextCompat.getColor(requireContext(), Theme.THEME_ORANGE.idColorSurface))
                         }
                     }
-                    // когда скрываем BottomSheet перемещаем FAB ниже
-                    if (newState == BottomSheetBehavior.STATE_HIDDEN){
-                        binding.fabBack.updateLayoutParams <ViewGroup.MarginLayoutParams> {
-                            setMargins(0,0, resources.getDimension(R.dimen.margin_end_fab_back).toInt(), resources.getDimension(R.dimen.margin_bottom_fab_back_24).toInt())
-                        }
-                    }
                 }
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     when (themeTitle){

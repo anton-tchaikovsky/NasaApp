@@ -1,7 +1,9 @@
 package com.example.nasaapp.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.net.ConnectivityManager
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
@@ -52,4 +54,12 @@ fun showToast (context: Context?, message:String){
         setGravity(Gravity.BOTTOM, 0, 150)
         show()
     }
+}
+
+fun dpToPixels(dipValue: Float): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dipValue,
+        Resources.getSystem().displayMetrics
+    )
 }
