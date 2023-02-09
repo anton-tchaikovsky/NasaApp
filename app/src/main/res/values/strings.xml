@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NasaApp</string>
+    <string name="app_name">Nasa App</string>
     <string name="action_settings">action_settings</string>
     <string name="day_before_yesterday">day before yesterday</string>
     <string name="yesterday">yesterday</string>
@@ -32,4 +32,5 @@
     <string name="earth">Earth</string>
     <string name="picture_earth">изображение Земли</string>
     <string name="hd">HD</string>
+    <string name="search">search</string>
 </resources>

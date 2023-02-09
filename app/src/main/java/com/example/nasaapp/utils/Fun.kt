@@ -56,10 +56,10 @@ fun showToast (context: Context?, message:String){
     }
 }
 
-fun dpToPixels(dipValue: Float): Float {
+fun dpToPixels(dpValue: Float): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
-        dipValue,
+        dpValue,
         Resources.getSystem().displayMetrics
-    )
+    ).toInt()
 }

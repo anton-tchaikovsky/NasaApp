@@ -2,7 +2,7 @@ package com.example.nasaapp.view.behavior
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.nasaapp.R
@@ -32,7 +32,7 @@ class BehaviorForFAB(val context: Context, attrs: AttributeSet? = null):Coordina
     ): Boolean {
         if (dependency.id== R.id.bottom_sheet_layout)
             child.y = dependency.y - context.resources.getDimension(R.dimen.margin_bottom_fab_back)
-        cofAlfa.let { child.alpha = dependency.y/it }
+        child.alpha = dependency.y/cofAlfa
         return super.onDependentViewChanged(parent, child, dependency)
     }
 

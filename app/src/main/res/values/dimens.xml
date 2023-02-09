@@ -2,6 +2,12 @@
     <!--activity_nasa_app-->
     <!--    NavigationView-->
     <dimen name="height_navigation_view">48dp</dimen>
+    <!--    FrameLayout container-->
+    <dimen name="margin_bottom_container_48" >48dp</dimen>
+    <dimen name="margin_bottom_container_96">96dp</dimen>
+    <!--    Toolbar-->
+    <dimen name="height_toolbar">48dp</dimen>
+
     <!--choosing_the_day_layout-->
     <!--    TextInputLayout-->
     <dimen name="padding_text_input_layout">16dp</dimen>
@@ -60,6 +66,5 @@
     <dimen name="margin_card_view">4dp</dimen>
     <dimen name="padding_card_view">16dp</dimen>
     <dimen name="text_size_button_apply">14sp</dimen>
-
 
 </resources>

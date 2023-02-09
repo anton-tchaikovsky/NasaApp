@@ -3,6 +3,10 @@ package com.example.nasaapp.view
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +14,6 @@ import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ActivityNasaAppBinding
 import com.example.nasaapp.utils.*
 import com.example.nasaapp.view_model.MarsRoverPhotosViewModel
-
 
 class ActivityNasaApp : AppCompatActivity() {
 
@@ -25,11 +28,34 @@ class ActivityNasaApp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNasaAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         settingNavigationView()
         if (savedInstanceState == null) {
             openChoosingTheDayFragment()
         }
         setListenerForChoosingTheme()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.setting -> {
+                if (supportFragmentManager.fragments.last().tag != TAG_CHOOSING_THEME_FRAGMENT) {
+                    openChoosingThemeFragment()
+                    // изменяем margin_bottom для контейнера (т.к. скрывается NavigationView)
+                    (binding.containerForChoosingTheDay.layoutParams as ViewGroup.MarginLayoutParams)
+                        .setMargins(0, 0, 0, resources.getDimensionPixelSize(R.dimen.margin_bottom_container_48))
+                    // скрываем NavigationView (показываем после закрытия фрагмента ChoosingThemeFragment)
+                    binding.navigationView.visibility = View.GONE
+                    true
+                } else false
+            }
+            else -> false
+        }
     }
 
     // метод настраивает меню NavigationView
@@ -39,10 +65,9 @@ class ActivityNasaApp : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.hd -> (supportFragmentManager.findFragmentByTag(
                         TAG_CHOOSING_THE_DAY_FRAGMENT
-                    ) as ChoosingTheDayFragment).run{
+                    ) as ChoosingTheDayFragment).run {
                         openHdAstronomyPicturesOfTheDayFragment()
                     }
-                    R.id.setting -> openChoosingThemeFragment()
                     R.id.home -> (supportFragmentManager.findFragmentByTag(
                         TAG_CHOOSING_THE_DAY_FRAGMENT
                     ) as ChoosingTheDayFragment).run {
@@ -53,6 +78,7 @@ class ActivityNasaApp : AppCompatActivity() {
                             )
                         if (!hasAstronomyPicturesOfTheDay())
                             settingViewPager()
+                        setTitleToolbar(TAG_CHOOSING_THE_DAY_FRAGMENT)
                     }
                     R.id.mars -> {
                         openViewPagerForMarsRoverPhotosFragment()
@@ -70,7 +96,6 @@ class ActivityNasaApp : AppCompatActivity() {
                     R.id.hd -> (supportFragmentManager.findFragmentByTag(
                         TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT
                     ) as HdAstronomyPicturesOfTheDayFragment).setHdAstronomyPicturesOfTheDay()
-                    R.id.setting -> {}
                     R.id.home -> (supportFragmentManager.findFragmentByTag(
                         TAG_CHOOSING_THE_DAY_FRAGMENT
                     ) as ChoosingTheDayFragment).settingViewPager()
@@ -120,6 +145,7 @@ class ActivityNasaApp : AppCompatActivity() {
             )
             .addToBackStack("")
             .commitAllowingStateLoss()
+        setTitleToolbar(TAG_EARTH_PHOTOS_FRAGMENT)
     }
 
     // метод открывает фрагмент ViewPagerMarsRoverPhotosFragment
@@ -132,6 +158,7 @@ class ActivityNasaApp : AppCompatActivity() {
             )
             .addToBackStack("")
             .commitAllowingStateLoss()
+        setTitleToolbar(TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -149,33 +176,49 @@ class ActivityNasaApp : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (supportFragmentManager.fragments.last().tag == TAG_CHOOSING_THEME_FRAGMENT) {
+            // изменяем margin_bottom для контейнера (т.к. показывается NavigationView)
+            (binding.containerForChoosingTheDay.layoutParams as ViewGroup.MarginLayoutParams)
+                .setMargins(0, 0, 0, resources.getDimensionPixelSize(R.dimen.margin_bottom_container_96))
+            // показываем navigationView, при закрытии фрагмента CHOOSING_THEME_FRAGMENT
+            binding.navigationView.visibility = View.VISIBLE
+        }
         super.onBackPressed()
-        bindBackStackWithNavigationView()
+        settingBackStack()
     }
 
     // метод выделяет элемент меню в соответствии с видимым на экране фрагментом (необходимо после работы popBackStack)
     // и перезагружает viewPager для AstronomyPicturesOfTheDay, если до этого не было данных
-    private fun bindBackStackWithNavigationView() {
+    // и устанавливает соответствующий title для toolbar
+    private fun settingBackStack() {
         binding.navigationView.menu.run {
             if (supportFragmentManager.backStackEntryCount == 0) {
                 getItem(0).isChecked = true
-
                 (supportFragmentManager.findFragmentByTag(
                     TAG_CHOOSING_THE_DAY_FRAGMENT
                 ) as ChoosingTheDayFragment).run {
                     if (!hasAstronomyPicturesOfTheDay())
                         settingViewPager()
                 }
+                setTitleToolbar(TAG_CHOOSING_THE_DAY_FRAGMENT)
             }
             else {
                 when (supportFragmentManager.fragments.last().tag) {
-                    TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT ->
+                    TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT -> {
                         getItem(1).isChecked = true
-                    TAG_EARTH_PHOTOS_FRAGMENT ->
+                        setTitleToolbar(TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT)
+                    }
+                    TAG_EARTH_PHOTOS_FRAGMENT -> {
                         getItem(2).isChecked = true
-                    TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT ->
+                        setTitleToolbar(TAG_EARTH_PHOTOS_FRAGMENT)
+                    }
+
+                    TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT -> {
                         getItem(3).isChecked = true
-                    TAG_CHOOSING_THEME_FRAGMENT -> getItem(4).isChecked = true
+                        setTitleToolbar(TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT)
+                    }
+                    TAG_CHOOSING_THEME_FRAGMENT ->
+                        setTitleToolbar(TAG_CHOOSING_THEME_FRAGMENT)
                 }
             }
         }
@@ -190,6 +233,7 @@ class ActivityNasaApp : AppCompatActivity() {
                     TAG_CHOOSING_THE_DAY_FRAGMENT
                 )
                 .commitAllowingStateLoss()
+        setTitleToolbar(TAG_CHOOSING_THE_DAY_FRAGMENT)
     }
 
     // метод отображает фрагмент ChoosingThemeFragment
@@ -201,6 +245,7 @@ class ActivityNasaApp : AppCompatActivity() {
                 )
                 .addToBackStack("")
                 .commitAllowingStateLoss()
+        setTitleToolbar(TAG_CHOOSING_THEME_FRAGMENT)
     }
 
     // метод устанавливает тему приложения
@@ -220,13 +265,26 @@ class ActivityNasaApp : AppCompatActivity() {
         ) { _, result ->
             result.getString(KEY_CHOSEN_THEME)?.let {
                 getPreferences(MODE_PRIVATE).apply {
-                    if(getString(KEY_SAVED_THEME, Theme.THEME_RED.title)!=it){
+                    if (getString(KEY_SAVED_THEME, Theme.THEME_RED.title) != it) {
                         edit().putString(KEY_SAVED_THEME, it).apply()
                         recreate()
                     }
                 }
             }
         }
+    }
+
+    // метод устанавливает title для Toolbar по тегу фрагмента
+    private fun setTitleToolbar(tagFragment: String) {
+        binding.toolbarLayout.title =
+            when (tagFragment) {
+                TAG_CHOOSING_THE_DAY_FRAGMENT -> ASTRONOMY_PICTURE_OF_THE_DAY
+                TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT -> ASTRONOMY_PICTURE_OF_THE_DAY
+                TAG_EARTH_PHOTOS_FRAGMENT -> EARTH_PHOTO
+                TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT -> MARS_ROVER_PHOTO
+                TAG_CHOOSING_THEME_FRAGMENT -> CHOOSING_THEME
+                else -> null
+            }
     }
 
 }

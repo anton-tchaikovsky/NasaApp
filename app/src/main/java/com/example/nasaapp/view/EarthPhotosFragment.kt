@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.nasaapp.BuildConfig
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.EarthPhotosFragmentBinding
 import com.example.nasaapp.model.dto.earth.EarthPolychromaticImagingCamera
 import com.example.nasaapp.model.dto.earth.EarthPolychromaticImagingCameraItem
 import com.example.nasaapp.utils.*
 import com.example.nasaapp.view_model.AppStateEarthPhotos
 import com.example.nasaapp.view_model.EarthPhotosViewModel
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 
 class EarthPhotosFragment : Fragment() {

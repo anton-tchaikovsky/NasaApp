@@ -24,6 +24,11 @@ const val TAG_CHOOSING_THEME_FRAGMENT = "TAGChoosingThemeFragment"
 const val TAG_BOTTOM_MENU_NAVIGATION_DRAWER_FRAGMENT = "TAGBottomMenuNavigationDrawerFragment"
 const val TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT = "TAGViewPagerForMarsRoverPhotosFragment"
 const val TAG_EARTH_PHOTOS_FRAGMENT = "TAGEatherPhotosFragment"
+//Name fragment
+const val ASTRONOMY_PICTURE_OF_THE_DAY= "Astronomy pictures of the day"
+const val EARTH_PHOTO = "Eather photo"
+const val MARS_ROVER_PHOTO = "Mars rover photo"
+const val CHOOSING_THEME = "Choosing theme"
 //Theme
 const val THEME_RED_TITLE = "Theme Red"
 const val THEME_BLUE_TITLE = "Theme Blue"
