@@ -23,6 +23,40 @@ class ActivityNasaApp : AppCompatActivity() {
         ViewModelProvider(this)[MarsRoverPhotosViewModel::class.java]
     }
 
+    private var expandedToolbar = true
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        // сохраняем информацию о текущем фрагменте
+        outState.apply {
+            putString(KEY_TAG_CURRENT_FRAGMENT, supportFragmentManager.fragments.last().tag)
+            putBoolean(KEY_EXPANDED_TOOLBAR, expandedToolbar)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        // получив информацию о текущем фрагменте, настраиваем toolbar и container для фрагментов
+        savedInstanceState.run {
+            binding.appBar.setExpanded(getBoolean(KEY_EXPANDED_TOOLBAR))
+            getString(KEY_TAG_CURRENT_FRAGMENT)?.let {
+                setTitleToolbar(it)
+                if (it == TAG_CHOOSING_THEME_FRAGMENT) {
+                    // изменяем margin_bottom для контейнера (т.к. скрывается NavigationView)
+                    (binding.container.layoutParams as ViewGroup.MarginLayoutParams)
+                        .setMargins(
+                            0,
+                            0,
+                            0,
+                            resources.getDimensionPixelSize(R.dimen.margin_bottom_container_48)
+                        )
+                    // скрываем NavigationView (показываем после закрытия фрагмента ChoosingThemeFragment)
+                    binding.navigationView.visibility = View.GONE
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(getPreferences(MODE_PRIVATE).getString(KEY_SAVED_THEME, Theme.THEME_RED.title))
         super.onCreate(savedInstanceState)
@@ -34,6 +68,10 @@ class ActivityNasaApp : AppCompatActivity() {
             openChoosingTheDayFragment()
         }
         setListenerForChoosingTheme()
+        // вешаем слушатель на appBar для сохранения его текущего состояния (используется при пересоздании активити):
+        binding.appBar.addOnOffsetChangedListener { _, verticalOffset ->
+            expandedToolbar = verticalOffset == 0
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,7 +85,7 @@ class ActivityNasaApp : AppCompatActivity() {
                 if (supportFragmentManager.fragments.last().tag != TAG_CHOOSING_THEME_FRAGMENT) {
                     openChoosingThemeFragment()
                     // изменяем margin_bottom для контейнера (т.к. скрывается NavigationView)
-                    (binding.containerForChoosingTheDay.layoutParams as ViewGroup.MarginLayoutParams)
+                    (binding.container.layoutParams as ViewGroup.MarginLayoutParams)
                         .setMargins(0, 0, 0, resources.getDimensionPixelSize(R.dimen.margin_bottom_container_48))
                     // скрываем NavigationView (показываем после закрытия фрагмента ChoosingThemeFragment)
                     binding.navigationView.visibility = View.GONE
@@ -139,7 +177,7 @@ class ActivityNasaApp : AppCompatActivity() {
     private fun openEatherPhotosFragment() {
         supportFragmentManager.beginTransaction()
             .add(
-                R.id.container_for_choosing_the_day,
+                R.id.container,
                 EarthPhotosFragment.newInstance(),
                 TAG_EARTH_PHOTOS_FRAGMENT
             )
@@ -152,7 +190,7 @@ class ActivityNasaApp : AppCompatActivity() {
     private fun openViewPagerForMarsRoverPhotosFragment() {
         supportFragmentManager.beginTransaction()
             .add(
-                R.id.container_for_choosing_the_day,
+                R.id.container,
                 ViewPagerForMarsRoverPhotosFragment.newInstance(),
                 TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT
             )
@@ -178,7 +216,7 @@ class ActivityNasaApp : AppCompatActivity() {
     override fun onBackPressed() {
         if (supportFragmentManager.fragments.last().tag == TAG_CHOOSING_THEME_FRAGMENT) {
             // изменяем margin_bottom для контейнера (т.к. показывается NavigationView)
-            (binding.containerForChoosingTheDay.layoutParams as ViewGroup.MarginLayoutParams)
+            (binding.container.layoutParams as ViewGroup.MarginLayoutParams)
                 .setMargins(0, 0, 0, resources.getDimensionPixelSize(R.dimen.margin_bottom_container_96))
             // показываем navigationView, при закрытии фрагмента CHOOSING_THEME_FRAGMENT
             binding.navigationView.visibility = View.VISIBLE
@@ -228,7 +266,7 @@ class ActivityNasaApp : AppCompatActivity() {
     private fun openChoosingTheDayFragment() {
             supportFragmentManager.beginTransaction()
                 .replace(
-                    binding.containerForChoosingTheDay.id,
+                    binding.container.id,
                     ChoosingTheDayFragment.newInstance(),
                     TAG_CHOOSING_THE_DAY_FRAGMENT
                 )
@@ -240,7 +278,7 @@ class ActivityNasaApp : AppCompatActivity() {
     private fun openChoosingThemeFragment() {
             supportFragmentManager.beginTransaction()
                 .add(
-                    R.id.container_for_choosing_the_day, ChoosingThemeFragment.newInstance(),
+                    R.id.container, ChoosingThemeFragment.newInstance(),
                     TAG_CHOOSING_THEME_FRAGMENT
                 )
                 .addToBackStack("")

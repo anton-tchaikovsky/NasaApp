@@ -9,14 +9,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ChoosingTheDayLayoutBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ChoosingTheDayFragment:Fragment() {
@@ -167,7 +165,7 @@ class ChoosingTheDayFragment:Fragment() {
             listAstronomyPictureOfTheDay[viewPager.currentItem].let {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .add(
-                        R.id.container_for_choosing_the_day,
+                        R.id.container,
                         HdAstronomyPicturesOfTheDayFragment.newInstance(it),
                         TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT
                     )

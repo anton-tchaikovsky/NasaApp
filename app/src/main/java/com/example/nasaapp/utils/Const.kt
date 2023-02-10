@@ -24,7 +24,9 @@ const val TAG_CHOOSING_THEME_FRAGMENT = "TAGChoosingThemeFragment"
 const val TAG_BOTTOM_MENU_NAVIGATION_DRAWER_FRAGMENT = "TAGBottomMenuNavigationDrawerFragment"
 const val TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT = "TAGViewPagerForMarsRoverPhotosFragment"
 const val TAG_EARTH_PHOTOS_FRAGMENT = "TAGEatherPhotosFragment"
+const val KEY_TAG_CURRENT_FRAGMENT = "KeyTagCurrentFragment"
 //Name fragment
+
 const val ASTRONOMY_PICTURE_OF_THE_DAY= "Astronomy pictures of the day"
 const val EARTH_PHOTO = "Eather photo"
 const val MARS_ROVER_PHOTO = "Mars rover photo"
@@ -47,3 +49,5 @@ const val TODAY = "Today"
 const val YESTERDAY = "Yesterday"
 const val DAY_BEFORE_YESTERDAY = "Two days ago"
 const val URI_YANDEX_SEARCH = "https://yandex.ru/search/?text="
+const val KEY_EXPANDED_TOOLBAR = "KeyExpandedToolbar"
+
