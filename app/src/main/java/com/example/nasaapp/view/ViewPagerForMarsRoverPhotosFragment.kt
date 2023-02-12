@@ -33,7 +33,7 @@ class ViewPagerForMarsRoverPhotosFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var adapterForMarsRoverPhotos:ViewPagerAdapterForMarsRoverPhotos
 
-     var marsRoverPhotos: MarsRoverPhotos?=null
+     private var marsRoverPhotos: MarsRoverPhotos?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +49,7 @@ class ViewPagerForMarsRoverPhotosFragment : Fragment() {
             renderData(it)
         }
         getMarsRoverPhotos()
+        prepareMenu(requireActivity() as ActivityNasaApp, viewLifecycleOwner)
     }
 
     fun getMarsRoverPhotos(){

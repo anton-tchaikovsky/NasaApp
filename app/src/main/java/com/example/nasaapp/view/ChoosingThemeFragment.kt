@@ -12,6 +12,7 @@ import com.example.nasaapp.databinding.ChoosingThemeLayoutBinding
 import com.example.nasaapp.utils.KEY_CHOOSING_THEME
 import com.example.nasaapp.utils.KEY_CHOSEN_THEME
 import com.example.nasaapp.utils.Theme
+import com.example.nasaapp.utils.prepareMenu
 
 class ChoosingThemeFragment : Fragment() {
 
@@ -45,6 +46,7 @@ class ChoosingThemeFragment : Fragment() {
         settingCardChoosingTheme(binding.cardBlue, Theme.THEME_BLUE)
         settingCardChoosingTheme(binding.cardOrange, Theme.THEME_ORANGE)
         settingButtonBack()
+        prepareMenu(requireActivity() as ActivityNasaApp, viewLifecycleOwner)
     }
 
     // метод настраивает отображение cardView и вешает слушателя на buttonApply в составе cardView

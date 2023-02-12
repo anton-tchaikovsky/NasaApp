@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.nasaapp.R
@@ -86,11 +87,25 @@ class ActivityNasaApp : AppCompatActivity() {
                     openChoosingThemeFragment()
                     // изменяем margin_bottom для контейнера (т.к. скрывается NavigationView)
                     (binding.container.layoutParams as ViewGroup.MarginLayoutParams)
-                        .setMargins(0, 0, 0, resources.getDimensionPixelSize(R.dimen.margin_bottom_container_48))
+                        .setMargins(
+                            0,
+                            0,
+                            0,
+                            resources.getDimensionPixelSize(R.dimen.margin_bottom_container_48)
+                        )
                     // скрываем NavigationView (показываем после закрытия фрагмента ChoosingThemeFragment)
                     binding.navigationView.visibility = View.GONE
                     true
                 } else false
+            }
+            R.id.search -> {
+                // запускаем анимацию для ChoosingTheDayFragment (поиск Яндекс)
+                val motionLayout = findViewById<MotionLayout>(R.id.motion_layout)
+                    when (motionLayout.currentState) {
+                        R.id.hide -> motionLayout.transitionToState(R.id.show)
+                        R.id.show -> motionLayout.transitionToState(R.id.hide)
+                    }
+                true
             }
             else -> false
         }
@@ -227,7 +242,7 @@ class ActivityNasaApp : AppCompatActivity() {
 
     // метод выделяет элемент меню в соответствии с видимым на экране фрагментом (необходимо после работы popBackStack)
     // и перезагружает viewPager для AstronomyPicturesOfTheDay, если до этого не было данных
-    // и устанавливает соответствующий title для toolbar
+    // и настраивает список элементов меню и устанавливает соответствующий title для toolbar
     private fun settingBackStack() {
         binding.navigationView.menu.run {
             if (supportFragmentManager.backStackEntryCount == 0) {
@@ -255,8 +270,9 @@ class ActivityNasaApp : AppCompatActivity() {
                         getItem(3).isChecked = true
                         setTitleToolbar(TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT)
                     }
-                    TAG_CHOOSING_THEME_FRAGMENT ->
+                    TAG_CHOOSING_THEME_FRAGMENT ->{
                         setTitleToolbar(TAG_CHOOSING_THEME_FRAGMENT)
+                    }
                 }
             }
         }

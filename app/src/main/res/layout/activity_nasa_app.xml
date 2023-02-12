@@ -3,55 +3,56 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
-            style="@style/Widget.Material3.CollapsingToolbar.Medium"
-            android:background="?attr/colorPrimaryContainer"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-            app:expandedTitleTextColor="@android:color/white"
-            app:collapsedTitleTextColor="@android:color/white"
-            app:collapsedTitleTextAppearance="?textAppearanceTitleMedium"
+            android:layout_height="wrap_content"
             >
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_toolbar"
-                style="@style/Widget.Material3.Toolbar.Surface"
+                android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
+                style="@style/Widget.Material3.CollapsingToolbar.Medium"
                 android:background="?attr/colorPrimaryContainer"
-                app:layout_collapseMode="pin"
-                />
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar"
+                app:expandedTitleTextColor="@android:color/white"
+                app:collapsedTitleTextColor="@android:color/white"
+                app:collapsedTitleTextAppearance="?textAppearanceTitleMedium"
+                >
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_toolbar"
+                    style="@style/Widget.Material3.Toolbar.Surface"
+                    android:background="?attr/colorPrimaryContainer"
+                    app:layout_collapseMode="pin"
+                    />
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_bottom_container_96"
-        app:layout_behavior=".view.behavior.BehaviorForFragment"
-        />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_navigation_view"
-       android:layout_gravity="bottom"
-        app:menu="@menu/menu_navigation_view"/>
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_bottom_container_96"
+            app:layout_behavior=".view.behavior.BehaviorForFragment"
+            />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_navigation_view"
+            android:layout_gravity="bottom"
+            app:menu="@menu/menu_navigation_view"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 
 

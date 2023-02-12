@@ -4,9 +4,13 @@ import android.content.Context
 import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.View
+import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import com.example.nasaapp.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -62,4 +66,19 @@ fun dpToPixels(dpValue: Float): Int {
         dpValue,
         Resources.getSystem().displayMetrics
     ).toInt()
+}
+
+// метод подгатавливает меню фрагментов: скрывает элемент search
+fun prepareMenu(menuHost: MenuHost, viewLifecycleOwner:LifecycleOwner) {
+    menuHost.addMenuProvider(object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        }
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return true
+        }
+        override fun onPrepareMenu(menu: Menu) {
+            menu.findItem(R.id.search).isVisible = false
+            super.onPrepareMenu(menu)
+        }
+    }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 }

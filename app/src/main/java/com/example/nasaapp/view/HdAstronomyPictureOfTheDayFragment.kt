@@ -16,6 +16,7 @@ import com.example.nasaapp.databinding.HdAstronomyPictureOfTheDayFragmentBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.Theme
 import com.example.nasaapp.utils.hideShowViews
+import com.example.nasaapp.utils.prepareMenu
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class HdAstronomyPicturesOfTheDayFragment : Fragment() {
@@ -56,6 +57,7 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
                     setHdAstronomyPicturesOfTheDay(it)
                 }
         }
+        prepareMenu(requireActivity() as ActivityNasaApp, viewLifecycleOwner)
     }
 
     // метод настраивает BottomSheet и устанавливает на него слушателя нажатия
