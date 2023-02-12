@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ChipStyle" parent="@style/Widget.Material3.Chip.Filter">
+        <item name="chipStrokeColor">@color/chip_stroke_color</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="checkedIcon">@drawable/checked_icon</item>
+    </style>
+
+    <style name="ProgressBarStyle" parent="@style/Widget.Material3.CircularProgressIndicator.Medium">
+        <item name="indicatorSize">60dp</item>
+        <item name="trackThickness">6dp</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="SearchLayoutStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="startIconDrawable">@drawable/ic_baseline_search_24</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconDrawable">@drawable/ic_baseline_clear_24</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="counterEnabled">true</item>
+        <item name="errorEnabled">true</item>
+        <item name="counterMaxLength">20</item>
+        <item name="boxStrokeWidthFocused">3dp</item>
+        <item name="android:focusable">false</item>
+        <item name="startIconTint">@color/start_end_icon_tint</item>
+        <item name="startIconCheckable">true</item>
+        <item name="endIconTint">@color/start_end_icon_tint</item>
+        <item name="helperTextTextColor">@color/helper_counter_text_color</item>
+        <item name="counterTextColor">@color/helper_counter_text_color</item>
+        <item name="errorIconDrawable">@drawable/ic_baseline_error_outline_24</item>
+    </style>
+
+    <style name="SearchEditTextStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/edit_text_color</item>
+        <item name="android:textColorHighlight">?attr/colorSurface</item>
+    </style>
+
+    <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:textColorHighlight">?attr/colorSurface</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="@style/Widget.Material3.BottomSheet.Modal">
+        <item name="behavior_peekHeight">48dp</item>
+    </style>
+
+    <style name="ExtendedFabStyle" parent= "Base.Widget.Material3.ExtendedFloatingActionButton">
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@android:color/white</item>
+    </style>
+
+    <style name="BottomAppBarStyle" parent="@style/Widget.Material3.BottomAppBar">
+        <item name="fabAnchorMode">cradle</item>
+        <item name="fabAlignmentMode">end</item>
+        <item name="fabCradleVerticalOffset">4dp</item>
+        <item name="fabCradleMargin">12dp</item>
+        <item name="fabCradleRoundedCornerRadius">0dp</item>
+    </style>
+
+    <style name="CardViewStyle" parent = "@style/Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/cardBackgroundColor</item>
+    </style>
+
+    <style name="ButtonStyle" parent = "@style/Widget.Material3.Button.OutlinedButton">
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@android:color/white</item>
+        <item name="android:textColor">@color/button_text_icon_color</item>
+        <item name="backgroundTint">?attr/colorPrimaryContainer</item>
+        <item name="iconTint">@color/button_text_icon_color</item>
+        <item name="shapeAppearance">@style/ButtonFabShapeAppearance</item>
+    </style>
+
+    <style name="TabStyle" parent="Widget.Material3.TabLayout">
+        <item name="tabTextColor">@color/tab_text_color</item>
+        <item name="tabIndicatorColor">@android:color/black</item>
+    </style>
+
+    <style name="NavigationViewStyle" parent="Widget.Material3.BottomNavigationView">
+        <item name="labelVisibilityMode">unlabeled</item>
+        <item name="itemActiveIndicatorStyle">@style/ActiveIndicatorStyle</item>
+        <item name="itemIconTint">@color/navigation_view_icon_tint</item>
+        <item name="elevation">0dp</item>
+        <item name="backgroundTint">?attr/colorPrimaryContainer</item>
+
+    </style>
+    <style name="ActiveIndicatorStyle" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <style name="TextStyleAmethysta" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="fontFamily">@font/amethysta</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextStyleTelex" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="fontFamily">@font/telex</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextStyleRoboto" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ButtonFabShapeAppearance" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ChipShapeAppearance" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="SearchLayoutShapeAppearance" parent="ShapeAppearance.Material3.Corner.ExtraSmall">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="SheetBottomShapeAppearance" parent="ShapeAppearance.Material3.Corner.ExtraSmall">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="CardViewShapeAppearance" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+</resources>

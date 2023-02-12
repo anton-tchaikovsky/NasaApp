@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.appcompat.widget.AppCompatImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/loading_error"
+        android:layout_width="@dimen/width_app_compat_image_view_loading_error"
+        android:layout_height="@dimen/height_app_compat_image_view_loading_error"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_baseline_file_download_off_24"
+        android:contentDescription="@string/loading_error"/>

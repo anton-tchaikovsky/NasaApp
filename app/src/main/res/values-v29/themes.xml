@@ -1,9 +1,27 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
 
-    <style name="Theme.NasaApp" parent="Base.Theme.NasaApp">
-        <!-- Transparent system bars for edge-to-edge. -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+<!--    наследуемся от Light, а не от DayNight, чтобы срабатывала автоматическая подборка цветов от Android-->
+    <style name="Base.Theme.NasaApp" parent="Theme.Material3.Light.NoActionBar">
+
+        <item name="colorOnSurfaceVariant">@android:color/black</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnPrimaryContainer">?attr/colorOnContainerNasaApp</item>
+        <item name="colorOnSecondaryContainer">?attr/colorOnContainerNasaApp</item>
+
+        <item name="chipStyle">@style/ChipStyle</item>
+        <item name="textInputStyle">@style/SearchLayoutStyle</item>
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="circularProgressIndicatorStyle">@style/ProgressBarStyle</item>
+        <item name="materialCardViewStyle">@style/CardViewStyle</item>
+        <item name="materialButtonOutlinedStyle">@style/ButtonStyle</item>
+        <item name="bottomNavigationStyle">@style/NavigationViewStyle</item>
+
+        <item name="shapeAppearanceCornerLarge">@style/ButtonFabShapeAppearance</item>
+        <item name="shapeAppearanceCornerSmall">@style/ChipShapeAppearance</item>
+        <item name="shapeAppearanceCornerExtraSmall">@style/SearchLayoutShapeAppearance</item>
+        <item name="shapeAppearanceCornerExtraLarge">@style/SheetBottomShapeAppearance</item>
+        <item name="shapeAppearanceCornerMedium">@style/CardViewShapeAppearance</item>
+        <item name="android:forceDarkAllowed">true</item>
+
     </style>
 </resources>
