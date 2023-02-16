@@ -5,8 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.*
 import coil.api.load
 import com.example.nasaapp.BuildConfig
 import com.example.nasaapp.databinding.EarthPhotosFragmentBinding
@@ -119,6 +123,7 @@ class EarthPhotosFragment : Fragment() {
                 },
                 onSuccess = {_, _ ->
                     binding.run {
+                        settingAnimationFade()
                         hideShowViews(
                             listOf(loadingError.loadingError, loadingLayout.loadingLayout),
                             listOf(earthPhoto)
@@ -134,6 +139,41 @@ class EarthPhotosFragment : Fragment() {
                     }
                 }
             )
+        }
+    }
+
+    private fun settingAnimationFade(){
+        val transitionSet = TransitionSet()
+            .addTransition(Fade(
+                Fade.IN).apply {
+                duration = DURATION
+            })
+            .addListener(object : TransitionListenerAdapter() {
+                override fun onTransitionEnd(transition: Transition) {
+                    super.onTransitionEnd(transition)
+                    settingAnimationChangeBounds()
+                }
+                })
+        TransitionManager.beginDelayedTransition(binding.containerForEarthPhoto, transitionSet)
+    }
+
+    private fun settingAnimationChangeBounds() {
+        binding.earthPhoto.setOnClickListener {
+            TransitionManager.beginDelayedTransition(binding.containerForEarthPhoto,
+            TransitionSet()
+                .addTransition(ChangeBounds())
+                .addTransition(ChangeImageTransform())
+                .setDuration(DURATION)
+            )
+            val layoutParams: FrameLayout.LayoutParams = it.layoutParams as FrameLayout.LayoutParams
+            if ((it as AppCompatImageView).scaleType == ImageView.ScaleType.FIT_CENTER){
+                it.scaleType = ImageView.ScaleType.CENTER_CROP
+                layoutParams.height = FrameLayout.LayoutParams.MATCH_PARENT
+            } else{
+                it.scaleType = ImageView.ScaleType.FIT_CENTER
+                layoutParams.height = FrameLayout.LayoutParams.WRAP_CONTENT
+            }
+            it.layoutParams = layoutParams
         }
     }
 

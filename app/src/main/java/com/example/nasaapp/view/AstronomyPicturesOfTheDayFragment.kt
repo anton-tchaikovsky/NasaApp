@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.example.nasaapp.databinding.AstronomyPictureOfTheDayFragmentBinding
@@ -90,9 +92,12 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
 
     private fun setAstronomyPictureOfTheDay(astronomyPicturesOfTheDay: AstronomyPictureOfTheDay) {
         binding.run {
+            TransitionManager.beginDelayedTransition(containerForTitlePictureDescription, Fade(Fade.IN).apply {
+                duration = DURATION
+            })
             hideShowViews(
-                listOf(loadingLayout.loadingLayout, loadingError.loadingError,loadingErrorPicture.loadingError),
-                listOf(this@run.groupAstronomyPicturesOfTheDay,picture)
+                listOf(loadingLayout.loadingLayout, loadingError.loadingError),
+                listOf(this@run.groupAstronomyPicturesOfTheDay)
             )
         }
         astronomyPicturesOfTheDay.apply {
@@ -110,22 +115,32 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
     }
 
     private fun setPicture(urlPicture: String) {
-        binding.picture.load(urlPicture) {
+        binding.image.load(urlPicture) {
             lifecycle(this@AstronomyPicturesOfTheDayFragment)
             transformations(RoundedCornersTransformation(40f))
             listener(
+                onStart = {
+                    Log.v("@@@", "onStart")
+                    binding.run{
+                        hideShowViews(
+                            listOf(loadingErrorPicture.loadingError, image),
+                            listOf(loadingLayoutPicture.loadingLayout)
+                        )
+                    }
+                },
                 onSuccess = {_, _ ->
+                    Log.v("@@@", "onSuccess")
                     binding.run {
                         hideShowViews(
                             listOf(loadingErrorPicture.loadingError, loadingLayoutPicture.loadingLayout),
-                            listOf(picture)
+                            listOf(image)
                         )
                     }
                 },
                 onError = { _, _ ->
                     binding.run {
                         hideShowViews(
-                            listOf(picture, loadingLayoutPicture.loadingLayout),
+                            listOf(image, loadingLayoutPicture.loadingLayout),
                             listOf(loadingErrorPicture.loadingError)
                         )
                     }

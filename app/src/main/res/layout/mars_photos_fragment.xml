@@ -16,6 +16,7 @@
         layout="@layout/loading_error"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_for_mars_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

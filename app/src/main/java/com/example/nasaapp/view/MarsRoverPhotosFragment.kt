@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
 import coil.api.load
 import com.example.nasaapp.databinding.MarsPhotosFragmentBinding
 import com.example.nasaapp.model.dto.mars.Photo
+import com.example.nasaapp.utils.DURATION
 import com.example.nasaapp.utils.KEY_MARS_ROVER_PHOTO
 import com.example.nasaapp.utils.hideShowViews
 
@@ -58,7 +61,10 @@ class MarsRoverPhotosFragment : Fragment() {
                         binding.run {
                             camera.text = marsPhoto.camera.fullName
                             earthDate.text = marsPhoto.earthDate
-
+                            TransitionManager.beginDelayedTransition(containerForMarsPhoto, Fade(
+                                Fade.IN).apply {
+                                duration = DURATION
+                            })
                             hideShowViews(
                                 listOf(loadingError.loadingError, loadingLayout.loadingLayout),
                                 listOf(groupMarsPhoto)

@@ -10,6 +10,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.transition.TransitionManager
 import com.example.nasaapp.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,7 +47,7 @@ fun isConnectNetwork(context: Context?):Boolean{
 // метод показывает и скрывает переданные View
 fun hideShowViews(hideViews:List<View>, showViews: List<View>){
     hideViews.forEach {
-        it.visibility = View.GONE
+        it.visibility = View.INVISIBLE
     }
     showViews.forEach {
         it.visibility = View.VISIBLE

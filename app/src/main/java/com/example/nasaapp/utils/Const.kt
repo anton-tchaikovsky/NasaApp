@@ -50,4 +50,5 @@ const val YESTERDAY = "Yesterday"
 const val DAY_BEFORE_YESTERDAY = "Two days ago"
 const val URI_YANDEX_SEARCH = "https://yandex.ru/search/?text="
 const val KEY_EXPANDED_TOOLBAR = "KeyExpandedToolbar"
+const val DURATION = 1000L
 

@@ -10,10 +10,13 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
 import coil.api.load
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.HdAstronomyPictureOfTheDayFragmentBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
+import com.example.nasaapp.utils.DURATION
 import com.example.nasaapp.utils.Theme
 import com.example.nasaapp.utils.hideShowViews
 import com.example.nasaapp.utils.prepareMenu
@@ -47,6 +50,7 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // вешаем на fab_back popBackStack
         binding.fabBack.setOnClickListener { requireActivity().onBackPressed() }
         settingBottomSheetBehavior(binding.bottomSheetLayout)
@@ -135,6 +139,7 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
     private fun setPicture(urlPicture: String) {
         binding.hdPicture.load(urlPicture) {
             lifecycle(this@HdAstronomyPicturesOfTheDayFragment)
+
             listener(
                 onStart = {
                     binding.run {
@@ -146,6 +151,9 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
                 },
                 onSuccess = { _, _ ->
                     binding.run {
+                        TransitionManager.beginDelayedTransition(containerForHdAstronomyPictureOfTheDay, Fade(Fade.IN).apply {
+                            duration = DURATION
+                        })
                         hideShowViews(
                             listOf(loadingError.loadingError, loadingLayout.loadingLayout),
                             listOf(hdPicture)
