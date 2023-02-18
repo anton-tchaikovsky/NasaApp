@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ExtendedFabStyle" parent="Base.Widget.Material3.ExtendedFloatingActionButton">
+    <style name="FabStyle" parent="Base.Widget.Material3.ExtendedFloatingActionButton">
         <item name="strokeWidth">2dp</item>
         <item name="strokeColor">@android:color/white</item>
         <item name="android:forceDarkAllowed">false</item>

@@ -120,6 +120,7 @@ class ActivityNasaApp : AppCompatActivity() {
                         TAG_CHOOSING_THE_DAY_FRAGMENT
                     ) as ChoosingTheDayFragment).run {
                         openHdAstronomyPicturesOfTheDayFragment()
+                        setTitleToolbar(TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT)
                     }
                     R.id.home -> (supportFragmentManager.findFragmentByTag(
                         TAG_CHOOSING_THE_DAY_FRAGMENT

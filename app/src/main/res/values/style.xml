@@ -46,11 +46,6 @@
         <item name="behavior_peekHeight">48dp</item>
     </style>
 
-    <style name="ExtendedFabStyle" parent= "Base.Widget.Material3.ExtendedFloatingActionButton">
-        <item name="strokeWidth">2dp</item>
-        <item name="strokeColor">@android:color/white</item>
-    </style>
-
     <style name="BottomAppBarStyle" parent="@style/Widget.Material3.BottomAppBar">
         <item name="fabAnchorMode">cradle</item>
         <item name="fabAlignmentMode">end</item>

@@ -120,7 +120,6 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             transformations(RoundedCornersTransformation(40f))
             listener(
                 onStart = {
-                    Log.v("@@@", "onStart")
                     binding.run{
                         hideShowViews(
                             listOf(loadingErrorPicture.loadingError, image),
@@ -129,7 +128,6 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
                     }
                 },
                 onSuccess = {_, _ ->
-                    Log.v("@@@", "onSuccess")
                     binding.run {
                         hideShowViews(
                             listOf(loadingErrorPicture.loadingError, loadingLayoutPicture.loadingLayout),

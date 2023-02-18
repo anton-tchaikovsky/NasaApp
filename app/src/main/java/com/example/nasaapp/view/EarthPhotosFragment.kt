@@ -1,5 +1,8 @@
 package com.example.nasaapp.view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.*
@@ -34,6 +38,67 @@ class EarthPhotosFragment : Fragment() {
         ViewModelProvider(this)[EarthPhotosViewModel::class.java]
     }
 
+    private var isOpenEarthMenu = false
+
+    // слушатель на fab
+    private val earthMenuAnimationListener:View.OnClickListener by lazy{
+        View.OnClickListener{
+            if (!isOpenEarthMenu){
+                isOpenEarthMenu = true
+                // вращение иконки
+                ObjectAnimator.ofFloat(binding.iconEarthMenu, View.ROTATION, 0f, 405f)
+                        .setDuration(DURATION)
+                        .start()
+                // изменение прозрачности и кликабельности фото
+                binding.earthPhoto.animate()
+                    .alpha(0.5f)
+                    .setDuration(DURATION)
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            super.onAnimationEnd(animation)
+                            binding.earthPhoto.isClickable = false
+                        }
+                    })
+                    .start()
+
+                // перемещение меню
+                TransitionManager.beginDelayedTransition(binding.containerForEarthPhoto, ChangeBounds().setDuration(DURATION))
+                binding.guideLineMenuHorizontal.run {
+                    val layoutParams = layoutParams as ConstraintLayout.LayoutParams
+                    layoutParams.guidePercent = 0.5f
+                    this.layoutParams = layoutParams
+                }
+
+            } else{
+                isOpenEarthMenu = false
+                // вращение иконки
+                ObjectAnimator.ofFloat(binding.iconEarthMenu, View.ROTATION, 405f, 0f)
+                    .setDuration(DURATION)
+                    .start()
+                // изменение прозрачности и кликабельности фото
+                binding.earthPhoto.animate()
+                    .alpha(1f)
+                    .setDuration(DURATION)
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            super.onAnimationEnd(animation)
+                            binding.earthPhoto.isClickable = true
+                        }
+                    })
+                    .start()
+                // перемещение меню
+                TransitionManager.beginDelayedTransition(binding.containerForEarthPhoto, ChangeBounds().setDuration(DURATION))
+                binding.guideLineMenuHorizontal.run {
+                    val layoutParams = layoutParams as ConstraintLayout.LayoutParams
+                    layoutParams.guidePercent = 1f
+                    this.layoutParams = layoutParams
+                }
+            }
+
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +114,7 @@ class EarthPhotosFragment : Fragment() {
         }
         getEarthPhotos()
         prepareMenu(requireActivity() as ActivityNasaApp, viewLifecycleOwner)
+        binding.fabEarthPhoto.setOnClickListener(earthMenuAnimationListener)
     }
 
     private fun renderData(appState: AppStateEarthPhotos) {
@@ -165,7 +231,7 @@ class EarthPhotosFragment : Fragment() {
                 .addTransition(ChangeImageTransform())
                 .setDuration(DURATION)
             )
-            val layoutParams: FrameLayout.LayoutParams = it.layoutParams as FrameLayout.LayoutParams
+            val layoutParams: ConstraintLayout.LayoutParams = it.layoutParams as ConstraintLayout.LayoutParams
             if ((it as AppCompatImageView).scaleType == ImageView.ScaleType.FIT_CENTER){
                 it.scaleType = ImageView.ScaleType.CENTER_CROP
                 layoutParams.height = FrameLayout.LayoutParams.MATCH_PARENT
