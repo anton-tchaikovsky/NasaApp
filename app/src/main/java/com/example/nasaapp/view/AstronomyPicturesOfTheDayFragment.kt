@@ -5,17 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.AstronomyPictureOfTheDayFragmentBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.utils.*
 import com.example.nasaapp.view_model.AppStateAstronomyPicturesOfTheDay
 import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
+import com.google.android.material.tabs.TabLayout
 
 class AstronomyPicturesOfTheDayFragment : Fragment() {
 
@@ -51,9 +54,15 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             renderData(it)
         }
         arguments?.let {
-             day = it.getSerializable(KEY_DAY) as Day
+            day = it.getSerializable(KEY_DAY) as Day
             viewModel.getAstronomyPicturesOfTheDay(day)
         }
+        // вешаем слушатель на scroll для изменения elevation TabLayout в ChoosingTheDayFragment
+        binding.scrollForTitlePictureDescription.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            requireActivity().findViewById<TabLayout>(
+                R.id.choosing_layout
+            ).isSelected = v.canScrollVertically(-1)
+        })
     }
 
     private fun renderData(appState: AppStateAstronomyPicturesOfTheDay) {

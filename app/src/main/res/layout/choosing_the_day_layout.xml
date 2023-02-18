@@ -14,7 +14,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorFullWidth="true" />
+        app:tabIndicatorFullWidth="true"
+        android:stateListAnimator="@animator/elevation_animator"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_text_field"
