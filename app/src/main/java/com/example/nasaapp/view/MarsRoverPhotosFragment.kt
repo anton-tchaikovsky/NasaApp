@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateOvershootInterpolator
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
-import androidx.transition.Fade
-import androidx.transition.TransitionManager
+import androidx.transition.*
 import coil.api.load
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.MarsPhotosFragmentBinding
 import com.example.nasaapp.model.dto.mars.Photo
 import com.example.nasaapp.utils.DURATION
@@ -29,6 +31,19 @@ class MarsRoverPhotosFragment : Fragment() {
     private var _binding: MarsPhotosFragmentBinding? = null
     private val binding get() = _binding!!
 
+    // слушатель на mars_photo
+    private val marsAnimatorListener = View.OnClickListener {
+        val constraintSetZoom = ConstraintSet().apply { clone(context, R.layout.mars_photos_zoom) }
+        TransitionManager.beginDelayedTransition(binding.containerForMarsPhoto,
+            TransitionSet()
+            .addTransition(ChangeBounds().apply {
+                interpolator = AnticipateOvershootInterpolator(1.0f)
+            })
+            .addTransition(ChangeImageTransform())
+            .setDuration(DURATION))
+        constraintSetZoom.applyTo(binding.containerForMarsPhoto)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +54,7 @@ class MarsRoverPhotosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.marsPhoto.setOnClickListener(marsAnimatorListener)
         arguments?.let {bundle ->
             bundle.getParcelable<Photo>(KEY_MARS_ROVER_PHOTO)?.let { setMarsPhoto(it) }
         }

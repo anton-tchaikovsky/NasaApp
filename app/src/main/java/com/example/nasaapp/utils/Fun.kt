@@ -10,7 +10,6 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.transition.TransitionManager
 import com.example.nasaapp.R
 import java.text.SimpleDateFormat
 import java.util.*

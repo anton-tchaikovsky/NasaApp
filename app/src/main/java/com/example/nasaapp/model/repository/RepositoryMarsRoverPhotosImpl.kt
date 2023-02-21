@@ -8,6 +8,6 @@ import java.util.*
 
 class RepositoryMarsRoverPhotosImpl(private val callback: Callback<MarsRoverPhotos>):RepositoryMarsRoverPhotos {
     override fun getMarsRoverPhotos(date: Calendar) {
-        RemoteDataSourceMarsRoverPhotos().callAPIMarsRoverPhotos(convertDateStringFromCalendar(date), callback)
+        RemoteDataSourceMarsRoverPhotos().callAPIMarsRoverPhotos("2023-02-15", callback)
     }
 }
