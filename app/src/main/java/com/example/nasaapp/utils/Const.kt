@@ -27,7 +27,6 @@ const val TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT = "TAGMarsRoverPhotosRecy
 const val TAG_EARTH_PHOTOS_FRAGMENT = "TAGEatherPhotosFragment"
 const val KEY_TAG_CURRENT_FRAGMENT = "KeyTagCurrentFragment"
 //Name fragment
-
 const val ASTRONOMY_PICTURE_OF_THE_DAY= "Astronomy pictures of the day"
 const val EARTH_PHOTO = "Eather photo"
 const val MARS_ROVER_PHOTO = "Mars rover photo"
@@ -52,4 +51,7 @@ const val DAY_BEFORE_YESTERDAY = "Two days ago"
 const val URI_YANDEX_SEARCH = "https://yandex.ru/search/?text="
 const val KEY_EXPANDED_TOOLBAR = "KeyExpandedToolbar"
 const val DURATION = 1000L
+const val MAST = "Mast Camera"
+const val FHAC = "Front Hazard Avoidance Camera"
+const val RHAZ = "Rear Hazard Avoidance Camera"
 
