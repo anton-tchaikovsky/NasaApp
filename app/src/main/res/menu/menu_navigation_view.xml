@@ -33,4 +33,12 @@
         app:showAsAction="ifRoom"
         />
 
+    <item
+        android:id="@+id/mars_list"
+        android:title="@string/mars"
+        android:icon="@drawable/mars"
+        android:contentDescription="@string/picture_mars"
+        app:showAsAction="ifRoom"
+        />
+
 </menu>

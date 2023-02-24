@@ -138,6 +138,7 @@ class ActivityNasaApp : AppCompatActivity() {
                         openViewPagerForMarsRoverPhotosFragment()
                         removeBadge(R.id.mars)
                     }
+                    R.id.mars_list -> openMarsRoverPhotosRecyclerViewFragment()
                     R.id.earth -> {
                         openEatherPhotosFragment()
                         removeBadge(R.id.earth)
@@ -161,6 +162,7 @@ class ActivityNasaApp : AppCompatActivity() {
                         else
                             getMarsRoverPhotos()
                     }
+                    R.id.mars_list ->{}
                     R.id.earth -> (supportFragmentManager.findFragmentByTag(
                         TAG_EARTH_PHOTOS_FRAGMENT
                     ) as EarthPhotosFragment).getEarthPhotos()
@@ -214,6 +216,15 @@ class ActivityNasaApp : AppCompatActivity() {
             .commitAllowingStateLoss()
         setTitleToolbar(TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT)
     }
+
+    private fun openMarsRoverPhotosRecyclerViewFragment() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container, MarsRoverPhotosRecyclerViewFragment(), TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT)
+            .addToBackStack("")
+            .commitAllowingStateLoss()
+        setTitleToolbar(TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT)
+    }
+
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         // обрабатываем изменение темы (светлая/темная) пользователем на устройстве
@@ -270,6 +281,10 @@ class ActivityNasaApp : AppCompatActivity() {
                     TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT -> {
                         getItem(3).isChecked = true
                         setTitleToolbar(TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT)
+                    }
+                    TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT -> {
+                        getItem(4).isChecked = true
+                        setTitleToolbar(TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT)
                     }
                     TAG_CHOOSING_THEME_FRAGMENT ->{
                         setTitleToolbar(TAG_CHOOSING_THEME_FRAGMENT)
@@ -337,6 +352,7 @@ class ActivityNasaApp : AppCompatActivity() {
                 TAG_HD_ASTRONOMY_PICTURES_OF_THE_DAY_FRAGMENT -> ASTRONOMY_PICTURE_OF_THE_DAY
                 TAG_EARTH_PHOTOS_FRAGMENT -> EARTH_PHOTO
                 TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT -> MARS_ROVER_PHOTO
+                TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT -> MARS_ROVER_PHOTO
                 TAG_CHOOSING_THEME_FRAGMENT -> CHOOSING_THEME
                 else -> null
             }

@@ -23,6 +23,7 @@ const val TAG_CHOOSING_THE_DAY_FRAGMENT = "TAGChoosingTheDayFragment"
 const val TAG_CHOOSING_THEME_FRAGMENT = "TAGChoosingThemeFragment"
 const val TAG_BOTTOM_MENU_NAVIGATION_DRAWER_FRAGMENT = "TAGBottomMenuNavigationDrawerFragment"
 const val TAG_VIEW_PAGER_FOR_MARS_ROVER_PHOTOS_FRAGMENT = "TAGViewPagerForMarsRoverPhotosFragment"
+const val TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT = "TAGMarsRoverPhotosRecyclerViewFragment"
 const val TAG_EARTH_PHOTOS_FRAGMENT = "TAGEatherPhotosFragment"
 const val KEY_TAG_CURRENT_FRAGMENT = "KeyTagCurrentFragment"
 //Name fragment

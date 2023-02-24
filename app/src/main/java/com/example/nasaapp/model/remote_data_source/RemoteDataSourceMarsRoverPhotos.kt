@@ -1,7 +1,6 @@
 package com.example.nasaapp.model.remote_data_source
 
 import com.example.nasaapp.BuildConfig
-import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
 import com.example.nasaapp.model.dto.mars.MarsRoverPhotos
 import com.example.nasaapp.utils.URL_API_NASA
 import com.google.gson.GsonBuilder

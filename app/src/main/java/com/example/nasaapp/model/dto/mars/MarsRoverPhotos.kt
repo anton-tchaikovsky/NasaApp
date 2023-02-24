@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MarsRoverPhotos(
-    val photos: List<Photo>
+    var photos: List<Photo>
 ):Parcelable

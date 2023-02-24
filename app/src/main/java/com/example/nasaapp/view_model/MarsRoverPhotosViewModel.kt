@@ -3,6 +3,7 @@ package com.example.nasaapp.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nasaapp.model.dto.mars.MarsRoverPhotos
+import com.example.nasaapp.model.dto.mars.Photo
 import com.example.nasaapp.model.repository.RepositoryMarsRoverPhotosImpl
 import com.example.nasaapp.utils.Day
 import com.example.nasaapp.utils.convertCalendarFromDay
@@ -13,6 +14,11 @@ import retrofit2.Response
 class MarsRoverPhotosViewModel(private val liveData: MutableLiveData<AppStateMarsRoverPhotos> = MutableLiveData<AppStateMarsRoverPhotos>(),
                                private val liveDataCountMarsRoverPhotos:MutableLiveData<Int> = MutableLiveData<Int>()) :
     ViewModel() {
+
+   companion object{
+       var marsRoverPhotos:MarsRoverPhotos? = null
+       var listPhoto: MutableList<Photo> = mutableListOf()
+   }
 
     fun getLiveData() = liveData
 
@@ -50,8 +56,10 @@ class MarsRoverPhotosViewModel(private val liveData: MutableLiveData<AppStateMar
             response: Response<MarsRoverPhotos>
         ) {
             if (response.isSuccessful && response.body() != null)
-
-                liveDataCountMarsRoverPhotos.postValue((response.body() as MarsRoverPhotos).photos.size)
+                (response.body() as MarsRoverPhotos).run {
+                    marsRoverPhotos = this
+                    liveDataCountMarsRoverPhotos.postValue(photos.size)
+                }
             else
                 liveDataCountMarsRoverPhotos.postValue(0)
         }
@@ -64,4 +72,13 @@ class MarsRoverPhotosViewModel(private val liveData: MutableLiveData<AppStateMar
     private val repository = RepositoryMarsRoverPhotosImpl(callback)
     private val repositoryCountMarsRoverPhotos = RepositoryMarsRoverPhotosImpl(callbackCountMarsRoverPhotos)
 
+    fun getListPhoto():List<Photo>{
+        marsRoverPhotos?.photos?.let{
+            it.forEach {photo->
+                if (listPhoto.size<10)
+                    listPhoto.add(photo)
+            }
+        }
+        return listPhoto
+    }
 }
