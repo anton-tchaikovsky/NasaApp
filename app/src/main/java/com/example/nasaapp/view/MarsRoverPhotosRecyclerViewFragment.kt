@@ -20,6 +20,23 @@ class MarsRoverPhotosRecyclerViewFragment : Fragment() {
     private var _binding: MarsPhotosRecyclerViewFragmentBinding? = null
     private val binding get() = _binding!!
 
+   private lateinit var adapter: AdapterForMarsRoverPhotosRecyclerViewFragment
+
+    interface AddRemove{
+        fun addItem(position: Int)
+        fun removeItem(position: Int)
+    }
+
+    private val addRemoveCallback:AddRemove = object : AddRemove{
+        override fun addItem(position: Int) {
+           adapter.setListPhotoAfterAdd(viewModel.addPhoto(position), position)
+        }
+
+        override fun removeItem(position: Int) {
+            adapter.setListPhotoAfterRemove(viewModel.addPhoto(position), position)
+        }
+    }
+
     private val viewModel: MarsRoverPhotosViewModel by lazy {
         ViewModelProvider(this)[MarsRoverPhotosViewModel::class.java]
     }
@@ -34,7 +51,8 @@ class MarsRoverPhotosRecyclerViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.marsPhotosRecyclerView.adapter = AdapterForMarsRoverPhotosRecyclerViewFragment(viewModel.getListPhoto())
+        adapter = AdapterForMarsRoverPhotosRecyclerViewFragment(viewModel.getListPhoto(),addRemoveCallback)
+        binding.marsPhotosRecyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {

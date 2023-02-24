@@ -32,6 +32,29 @@
         tools:text="camera"
         />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/add"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@id/remove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+       android:layout_margin="16dp"
+       android:src="@drawable/ic_baseline_add_circle_24"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/remove"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_remove_circle_24"
+        />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"

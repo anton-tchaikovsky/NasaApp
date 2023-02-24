@@ -13,8 +13,18 @@ import com.example.nasaapp.utils.FHAC
 import com.example.nasaapp.utils.MAST
 import com.example.nasaapp.utils.RHAZ
 
-class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List<Photo> ):
+class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List<Photo>, private val addRemoveCallback: MarsRoverPhotosRecyclerViewFragment.AddRemove ):
     RecyclerView.Adapter<AdapterForMarsRoverPhotosRecyclerViewFragment.MarsViewHolder>() {
+
+    fun setListPhotoAfterAdd(newListPhoto: List<Photo>, position: Int){
+        listPhoto = newListPhoto
+        notifyItemInserted(position)
+    }
+
+    fun setListPhotoAfterRemove(newListPhoto: List<Photo>, position: Int){
+        listPhoto = newListPhoto
+        notifyItemRemoved(position)
+    }
 
     override fun getItemViewType(position: Int): Int {
        return when (listPhoto[position].camera.fullName){
@@ -44,11 +54,14 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
       abstract fun bind(photo: Photo)
     }
 
-    class MarsPhotoMastViewHolder (override val binding: ItemMarsPhotoMastBinding):MarsViewHolder(binding) {
+    inner class MarsPhotoMastViewHolder (override val binding: ItemMarsPhotoMastBinding):MarsViewHolder(binding) {
         override fun bind(photo: Photo) {
             binding.run {
                 camera.text = photo.camera.fullName
                 marsPhoto.load(photo.imgSrc)
+                add.setOnClickListener{addRemoveCallback.addItem(layoutPosition)}
+                remove.setOnClickListener{
+                   addRemoveCallback.removeItem(layoutPosition)}
             }
         }
     }

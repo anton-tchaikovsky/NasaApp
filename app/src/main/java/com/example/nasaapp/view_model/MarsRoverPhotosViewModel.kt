@@ -77,8 +77,23 @@ class MarsRoverPhotosViewModel(private val liveData: MutableLiveData<AppStateMar
             it.forEach {photo->
                 if (listPhoto.size<10)
                     listPhoto.add(photo)
+                else return listPhoto
             }
         }
+        return listPhoto
+    }
+
+    fun addPhoto(position:Int): List<Photo>{
+        marsRoverPhotos?.photos?.let {
+            if (it.size> listPhoto.size){
+                listPhoto.add(position, it[listPhoto.size])
+            }
+        }
+        return listPhoto
+    }
+
+    fun removePhoto(position:Int): List<Photo>{
+        listPhoto.removeAt(position)
         return listPhoto
     }
 }
