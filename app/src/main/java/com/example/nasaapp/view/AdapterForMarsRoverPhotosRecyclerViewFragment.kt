@@ -13,7 +13,7 @@ import com.example.nasaapp.utils.FHAC
 import com.example.nasaapp.utils.MAST
 import com.example.nasaapp.utils.RHAZ
 
-class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List<Photo>, private val addRemoveCallback: MarsRoverPhotosRecyclerViewFragment.AddRemove ):
+class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List<Photo>, private val callback: MarsRoverPhotosRecyclerViewFragment.AddRemove ):
     RecyclerView.Adapter<AdapterForMarsRoverPhotosRecyclerViewFragment.MarsViewHolder>() {
 
     fun setListPhotoAfterAdd(newListPhoto: List<Photo>, position: Int){
@@ -24,6 +24,16 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
     fun setListPhotoAfterRemove(newListPhoto: List<Photo>, position: Int){
         listPhoto = newListPhoto
         notifyItemRemoved(position)
+    }
+
+    fun setListPhotoAfterMoveUp(newListPhoto: List<Photo>, position: Int){
+        listPhoto = newListPhoto
+        notifyItemMoved(position, position-1)
+    }
+
+    fun setListPhotoAfterMoveDown(newListPhoto: List<Photo>, position: Int){
+        listPhoto = newListPhoto
+        notifyItemMoved(position, position+1)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -59,27 +69,45 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
             binding.run {
                 camera.text = photo.camera.fullName
                 marsPhoto.load(photo.imgSrc)
-                add.setOnClickListener{addRemoveCallback.addItem(layoutPosition)}
+                add.setOnClickListener{callback.addItem(layoutPosition)}
                 remove.setOnClickListener{
-                   addRemoveCallback.removeItem(layoutPosition)}
+                   callback.removeItem(layoutPosition)}
+                up.setOnClickListener { if (layoutPosition>0)
+                    callback.moveUpItem(layoutPosition) }
+                down.setOnClickListener { if (layoutPosition<listPhoto.size-1)
+                    callback.moveDownItem(layoutPosition) }
             }
         }
     }
 
-    class MarsPhotoFhacViewHolder (override val binding: ItemMarsPhotoFhacBinding):MarsViewHolder(binding) {
+    inner class MarsPhotoFhacViewHolder (override val binding: ItemMarsPhotoFhacBinding):MarsViewHolder(binding) {
         override fun bind(photo: Photo) {
             binding.run {
                 camera.text = photo.camera.fullName
                 marsPhoto.load(photo.imgSrc)
+                add.setOnClickListener{callback.addItem(layoutPosition)}
+                remove.setOnClickListener{
+                    callback.removeItem(layoutPosition)}
+                up.setOnClickListener { if (layoutPosition>0)
+                    callback.moveUpItem(layoutPosition) }
+                down.setOnClickListener { if (layoutPosition<listPhoto.size-1)
+                    callback.moveDownItem(layoutPosition) }
             }
         }
     }
 
-    class MarsPhotoRhacViewHolder (override val binding: ItemMarsPhotoRhacBinding):MarsViewHolder(binding) {
+    inner class MarsPhotoRhacViewHolder (override val binding: ItemMarsPhotoRhacBinding):MarsViewHolder(binding) {
         override fun bind(photo: Photo) {
             binding.run {
                 camera.text = photo.camera.fullName
                 marsPhoto.load(photo.imgSrc)
+                add.setOnClickListener{callback.addItem(layoutPosition)}
+                remove.setOnClickListener{
+                    callback.removeItem(layoutPosition)}
+                up.setOnClickListener { if (layoutPosition>0)
+                    callback.moveUpItem(layoutPosition) }
+                down.setOnClickListener { if (layoutPosition<listPhoto.size-1)
+                    callback.moveDownItem(layoutPosition) }
             }
         }
     }

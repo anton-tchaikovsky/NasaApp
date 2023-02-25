@@ -25,6 +25,8 @@ class MarsRoverPhotosRecyclerViewFragment : Fragment() {
     interface AddRemove{
         fun addItem(position: Int)
         fun removeItem(position: Int)
+        fun moveUpItem(position: Int)
+        fun moveDownItem(position: Int)
     }
 
     private val addRemoveCallback:AddRemove = object : AddRemove{
@@ -33,7 +35,15 @@ class MarsRoverPhotosRecyclerViewFragment : Fragment() {
         }
 
         override fun removeItem(position: Int) {
-            adapter.setListPhotoAfterRemove(viewModel.addPhoto(position), position)
+            adapter.setListPhotoAfterRemove(viewModel.removePhoto(position), position)
+        }
+
+        override fun moveUpItem(position: Int) {
+            adapter.setListPhotoAfterMoveUp(viewModel.moveUpPhoto(position), position)
+        }
+
+        override fun moveDownItem(position: Int) {
+            adapter.setListPhotoAfterMoveDown(viewModel.moveDownPhoto(position), position)
         }
     }
 

@@ -55,6 +55,29 @@
         android:src="@drawable/ic_baseline_remove_circle_24"
         />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/up"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@id/down"
+        app:layout_constraintEnd_toStartOf="@id/add"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_arrow_circle_up_24"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/down"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove"
+        app:layout_constraintTop_toBottomOf="@id/up"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_arrow_circle_down_24"
+        />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
