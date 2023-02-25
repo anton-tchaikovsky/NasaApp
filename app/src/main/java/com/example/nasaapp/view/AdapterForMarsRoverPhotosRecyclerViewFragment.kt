@@ -13,8 +13,8 @@ import com.example.nasaapp.utils.FHAC
 import com.example.nasaapp.utils.MAST
 import com.example.nasaapp.utils.RHAZ
 
-class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List<Photo>, private val callback: MarsRoverPhotosRecyclerViewFragment.AddRemove ):
-    RecyclerView.Adapter<AdapterForMarsRoverPhotosRecyclerViewFragment.MarsViewHolder>() {
+class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List<Photo>, private val callback: MarsRoverPhotosRecyclerViewFragment.AddRemoveMove ):
+    RecyclerView.Adapter<AdapterForMarsRoverPhotosRecyclerViewFragment.MarsViewHolder>(), MarsRoverPhotosRecyclerViewFragment.ItemTouchHelperAdapter {
 
     fun setListPhotoAfterAdd(newListPhoto: List<Photo>, position: Int){
         listPhoto = newListPhoto
@@ -26,14 +26,9 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
         notifyItemRemoved(position)
     }
 
-    fun setListPhotoAfterMoveUp(newListPhoto: List<Photo>, position: Int){
+    fun setListPhotoAfterMove(newListPhoto: List<Photo>, fromPosition: Int, toPosition: Int){
         listPhoto = newListPhoto
-        notifyItemMoved(position, position-1)
-    }
-
-    fun setListPhotoAfterMoveDown(newListPhoto: List<Photo>, position: Int){
-        listPhoto = newListPhoto
-        notifyItemMoved(position, position+1)
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -60,7 +55,7 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
 
     override fun getItemCount(): Int = listPhoto.size
 
-    abstract class MarsViewHolder(open val binding: ViewBinding):RecyclerView.ViewHolder(binding.root){
+    abstract class MarsViewHolder(open val binding: ViewBinding):RecyclerView.ViewHolder(binding.root), MarsRoverPhotosRecyclerViewFragment.ItemTouchHelperViewHolder{
       abstract fun bind(photo: Photo)
     }
 
@@ -71,16 +66,30 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
                 marsPhoto.load(photo.imgSrc)
                 add.setOnClickListener{callback.addItem(layoutPosition)}
                 remove.setOnClickListener{
-                   callback.removeItem(layoutPosition)}
+                  callback.removeItem(layoutPosition)}
                 up.setOnClickListener { if (layoutPosition>0)
-                    callback.moveUpItem(layoutPosition) }
+                    callback.moveItem(layoutPosition, layoutPosition-1)
+                }
                 down.setOnClickListener { if (layoutPosition<listPhoto.size-1)
-                    callback.moveDownItem(layoutPosition) }
+                    callback.moveItem(layoutPosition, layoutPosition+1)
+                }
+            }
+        }
+
+        override fun selectedItem(position: Int) {
+            binding.root.apply {
+                setBackgroundColor(this.context.getColor(android.R.color.holo_blue_light))
+            }
+        }
+
+        override fun unSelectedItem() {
+            binding.root.apply {
+                setBackgroundColor(this.context.getColor(android.R.color.white))
             }
         }
     }
 
-    inner class MarsPhotoFhacViewHolder (override val binding: ItemMarsPhotoFhacBinding):MarsViewHolder(binding) {
+    inner class MarsPhotoFhacViewHolder (override val binding: ItemMarsPhotoFhacBinding):MarsViewHolder(binding)  {
         override fun bind(photo: Photo) {
             binding.run {
                 camera.text = photo.camera.fullName
@@ -89,14 +98,28 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
                 remove.setOnClickListener{
                     callback.removeItem(layoutPosition)}
                 up.setOnClickListener { if (layoutPosition>0)
-                    callback.moveUpItem(layoutPosition) }
+                    callback.moveItem(layoutPosition, layoutPosition-1)
+                    }
                 down.setOnClickListener { if (layoutPosition<listPhoto.size-1)
-                    callback.moveDownItem(layoutPosition) }
+                    callback.moveItem(layoutPosition, layoutPosition+1)
+                }
+            }
+        }
+
+        override fun selectedItem(position: Int) {
+            binding.root.apply {
+                setBackgroundColor(this.context.getColor(android.R.color.holo_blue_light))
+            }
+        }
+
+        override fun unSelectedItem() {
+            binding.root.apply {
+                setBackgroundColor(this.context.getColor(android.R.color.darker_gray))
             }
         }
     }
 
-    inner class MarsPhotoRhacViewHolder (override val binding: ItemMarsPhotoRhacBinding):MarsViewHolder(binding) {
+    inner class MarsPhotoRhacViewHolder (override val binding: ItemMarsPhotoRhacBinding):MarsViewHolder(binding)  {
         override fun bind(photo: Photo) {
             binding.run {
                 camera.text = photo.camera.fullName
@@ -105,10 +128,32 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
                 remove.setOnClickListener{
                     callback.removeItem(layoutPosition)}
                 up.setOnClickListener { if (layoutPosition>0)
-                    callback.moveUpItem(layoutPosition) }
+                    callback.moveItem(layoutPosition, layoutPosition-1)
+                }
                 down.setOnClickListener { if (layoutPosition<listPhoto.size-1)
-                    callback.moveDownItem(layoutPosition) }
+                    callback.moveItem(layoutPosition, layoutPosition+1)
+                }
             }
         }
+
+        override fun selectedItem(position: Int) {
+            binding.root.apply {
+                setBackgroundColor(this.context.getColor(android.R.color.holo_blue_light))
+            }
+        }
+
+        override fun unSelectedItem() {
+            binding.root.apply {
+                setBackgroundColor(this.context.getColor(android.R.color.transparent))
+            }
+        }
+    }
+
+    override fun moveItem(fromPosition: Int, toPosition: Int) {
+        callback.moveItem(fromPosition, toPosition)
+    }
+
+    override fun dismissItem(position: Int) {
+       callback.removeItem(position)
     }
 }

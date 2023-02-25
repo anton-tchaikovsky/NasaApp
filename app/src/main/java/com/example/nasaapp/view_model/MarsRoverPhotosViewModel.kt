@@ -97,17 +97,11 @@ class MarsRoverPhotosViewModel(private val liveData: MutableLiveData<AppStateMar
         return listPhoto
     }
 
-    fun moveUpPhoto(position: Int):List<Photo>{
-      listPhoto.removeAt(position).apply {
-            listPhoto.add(position-1, this)
+    fun movePhoto(fromPosition: Int, toPosition: Int):List<Photo>{
+        listPhoto.removeAt(fromPosition).apply {
+            listPhoto.add(toPosition, this)
         }
         return listPhoto
     }
 
-    fun moveDownPhoto(position: Int):List<Photo>{
-        listPhoto.removeAt(position).apply {
-            listPhoto.add(position+1, this)
-        }
-        return listPhoto
-    }
 }
