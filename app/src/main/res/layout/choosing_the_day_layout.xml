@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/motion_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layoutDescription="@xml/choosing_the_day_layout_scene">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/choosing_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorFullWidth="true"
+        android:stateListAnimator="@animator/elevation_animator"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_input_text"
+        android:paddingStart="@dimen/padding_text_input_layout"
+        android:paddingEnd="@dimen/padding_text_input_layout"
+        app:helperText="@string/helper_input_text"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choosing_layout"
+       >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_edit_text"
+            style="@style/SearchEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/container_for_astronomy_picture_of_the_day"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choosing_layout" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
+

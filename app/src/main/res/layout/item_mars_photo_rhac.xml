@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/transparent"
+    >
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/mars_photo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/camera"
+        android:layout_margin="8dp"
+        tools:src="@drawable/cosmos" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="8dp"
+        tools:text="camera"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/add"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@id/remove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/camera"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_add_circle_24"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/remove"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_remove_circle_24"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/up"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@id/down"
+        app:layout_constraintEnd_toStartOf="@id/add"
+        app:layout_constraintTop_toBottomOf="@id/camera"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_arrow_circle_up_24"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/down"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove"
+        app:layout_constraintTop_toBottomOf="@id/up"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_arrow_circle_down_24"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

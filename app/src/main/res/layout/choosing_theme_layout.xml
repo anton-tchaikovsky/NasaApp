@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_choosing_theme_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_back"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/back"
+            android:text="@string/back_eng"
+            app:icon="@drawable/ic_baseline_arrow_back_24"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.75"
+            android:fontFamily="More Fonts..."
+            android:text="@string/choosing_theme"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/card_red"
+        layout="@layout/card_view_for_choosing_theme" />
+
+    <include
+        android:id="@+id/card_blue"
+        layout="@layout/card_view_for_choosing_theme" />
+
+    <include
+        android:id="@+id/card_orange"
+        layout="@layout/card_view_for_choosing_theme" />
+
+</LinearLayout>

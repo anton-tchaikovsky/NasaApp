@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/loading_layout"
+            layout="@layout/loading_layout"/>
+
+        <include
+            android:id="@+id/loading_error"
+            layout="@layout/loading_error"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_for_title_picture_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/padding_bottom_nested_scroll_view"
+            android:paddingStart="@dimen/padding_start_nested_scroll_view"
+            android:paddingEnd="@dimen/padding_end_nested_scroll_view"
+            tools:context=".view.AstronomyPicturesOfTheDayFragment">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_for_title_picture_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/padding_bottom_astronomy_pictures_of_the_day">
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_astronomy_pictures_of_the_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:constraint_referenced_ids="title,container_for_picture,explanation"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    android:layout_marginStart="@dimen/margin_start_title_astronomy_pictures_of_the_day"
+                    android:layout_marginEnd="@dimen/margin_end_title_astronomy_pictures_of_the_day"
+                    android:layout_marginTop="@dimen/margin_top_title_astronomy_pictures_of_the_day"
+                    android:textStyle="bold"
+                    tools:text="title"/>
+
+                <FrameLayout
+                    android:id="@+id/container_for_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    android:layout_marginTop="@dimen/margin_top_layout_picture">
+
+                    <include
+                        android:id="@+id/loading_layout_picture"
+                        layout="@layout/loading_layout"/>
+
+                    <include
+                        android:id="@+id/loading_error_picture"
+                        layout="@layout/loading_error" />
+
+                        <com.example.nasaapp.utils.CustomImageView
+                            android:id="@+id/image"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/cosmos"
+                            />
+
+                </FrameLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/explanation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container_for_picture"
+                    android:layout_marginStart="@dimen/margin_start_explanation_astronomy_pictures_of_the_day"
+                    android:layout_marginTop="@dimen/margin_top_explanation_astronomy_pictures_of_the_day"
+                    android:layout_marginEnd="@dimen/margin_end_explanation_astronomy_pictures_of_the_day"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    tools:text="explanation"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+
+
