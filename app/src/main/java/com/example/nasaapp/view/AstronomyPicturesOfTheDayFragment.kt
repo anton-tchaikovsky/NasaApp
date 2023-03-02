@@ -1,7 +1,6 @@
 package com.example.nasaapp.view
 
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -60,7 +59,7 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             viewModel.getAstronomyPicturesOfTheDay(day)
         }
         // вешаем слушатель на scroll для изменения elevation TabLayout в ChoosingTheDayFragment
-        binding.scrollForTitlePictureDescription.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        binding.scrollForTitlePictureDescription.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, _, _, _ ->
             requireActivity().findViewById<TabLayout>(
                 R.id.choosing_layout
             ).isSelected = v.canScrollVertically(-1)
@@ -119,9 +118,21 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
     }
 
     private fun setDescription(title: String, explanation: String) {
-        binding.run {
-            this@run.title.text = title
-            this@run.explanation.text = explanation
+        setTitle(title)
+        setExplanation(explanation)
+    }
+
+    private fun setTitle(title: String){
+        binding.title.apply {
+            setTypeface(Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf"), Typeface.BOLD)
+            text = title
+        }
+    }
+
+    private fun setExplanation(explanation: String){
+        binding.explanation.apply {
+            typeface = Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf")
+            text = explanation
         }
     }
 
