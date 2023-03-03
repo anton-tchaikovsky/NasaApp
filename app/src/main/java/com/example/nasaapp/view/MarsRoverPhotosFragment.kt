@@ -1,9 +1,8 @@
 package com.example.nasaapp.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.SpannableString
-import android.text.style.AbsoluteSizeSpan
-import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +29,19 @@ class MarsRoverPhotosFragment : Fragment() {
             MarsRoverPhotosFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(KEY_MARS_ROVER_PHOTO, marsPhoto)
+                }
+            }
+
+        // метод возвращает SpannableString, в котором 'o' преобразовано в изображение
+        fun spannableStringForCamera(context: Context, nameCamera:String): SpannableString =
+            SpannableString(nameCamera).apply {
+                val bitmapCamera = ContextCompat.getDrawable(context, R.drawable.ic_round_camera_24)
+                    ?.toBitmap()
+                bitmapCamera?.let {
+                    for (i in nameCamera.indices){
+                        if (nameCamera[i]=='o')
+                            setSpan(ImageSpan(context,it), i, i+1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
                 }
             }
     }
@@ -80,17 +92,7 @@ class MarsRoverPhotosFragment : Fragment() {
                     },
                     onSuccess = {_, _ ->
                         binding.run {
-                            camera.text = SpannableString(marsPhoto.camera.fullName).apply {
-                                val bitmapCamera = ContextCompat.getDrawable(requireContext(), R.drawable.ic_round_camera_24)
-                                    ?.toBitmap()
-                                bitmapCamera?.let {
-                                    for (i in marsPhoto.camera.fullName.indices){
-                                        if (marsPhoto.camera.fullName[i]=='o')
-                                            setSpan(ImageSpan(requireContext(),it), i, i+1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
-                                    }
-                                }
-                            }
-
+                            camera.text = spannableStringForCamera(requireContext(), marsPhoto.camera.fullName)
                             earthDate.text = marsPhoto.earthDate
 
                             TransitionManager.beginDelayedTransition(containerForMarsPhoto, Fade(

@@ -1,11 +1,7 @@
 package com.example.nasaapp.view
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.Layout
-import android.text.SpannableString
-import android.text.style.*
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +16,10 @@ import coil.api.load
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.HdAstronomyPictureOfTheDayFragmentBinding
 import com.example.nasaapp.model.dto.AstronomyPictureOfTheDay
-import com.example.nasaapp.utils.*
+import com.example.nasaapp.utils.DURATION
+import com.example.nasaapp.utils.Theme
+import com.example.nasaapp.utils.hideShowViews
+import com.example.nasaapp.utils.prepareMenu
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class HdAstronomyPicturesOfTheDayFragment : Fragment() {
@@ -131,30 +130,8 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
     }
 
     private fun setDescription(title: String, explanation: String) {
-        setTitle(title)
-        setExplanation(explanation)
-    }
-
-    private fun setTitle(title: String){
-        binding.title.apply {
-            typeface = Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf")
-            text = SpannableString(title).apply {
-                setSpan(AbsoluteSizeSpan(24, true), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(ForegroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorPrimary)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(BackgroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorSurface)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(StyleSpan(Typeface.BOLD), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE )
-            }
-        }
-    }
-
-    private fun setExplanation(explanation: String){
-        binding.explanation.apply {
-            typeface = Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf")
-            text = SpannableString(explanation).apply {
-                setSpan(StyleSpan(Typeface.ITALIC), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-            }
-        }
+        AstronomyPicturesOfTheDayFragment.setTitle(requireActivity(), requireContext(), binding.title, title)
+        AstronomyPicturesOfTheDayFragment.setExplanation(requireActivity(), binding.explanation, explanation)
     }
 
     private fun setPicture(urlPicture: String) {

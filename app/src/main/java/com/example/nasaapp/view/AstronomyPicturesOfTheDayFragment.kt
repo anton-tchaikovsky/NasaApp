@@ -1,5 +1,7 @@
 package com.example.nasaapp.view
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Layout
@@ -9,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +27,6 @@ import com.example.nasaapp.view_model.AppStateAstronomyPicturesOfTheDay
 import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
 import com.google.android.material.tabs.TabLayout
 
-
 class AstronomyPicturesOfTheDayFragment : Fragment() {
 
     companion object {
@@ -34,6 +36,30 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
                     putSerializable(KEY_DAY, day)
                 }
             }
+
+        // метод настраивает отображение title
+        fun setTitle(activity: Activity, context:Context, textView: AppCompatTextView, title: String){
+            textView.apply {
+                typeface = Typeface.createFromAsset(activity.assets, FONT_VOLKHOV)
+                text = SpannableString(title).apply {
+                    setSpan(AbsoluteSizeSpan(24, true), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                    setSpan(ForegroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorPrimary)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                    setSpan(BackgroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorSurface)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                    setSpan(StyleSpan(Typeface.BOLD), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                    setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE )
+                }
+            }
+        }
+
+        // метод настраивает отображение explanation
+        fun setExplanation(activity: Activity, textView: AppCompatTextView, explanation: String){
+            textView.apply {
+                typeface = Typeface.createFromAsset(activity.assets, FONT_VOLKHOV)
+                text = SpannableString(explanation).apply {
+                    setSpan(StyleSpan(Typeface.ITALIC), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                }
+            }
+        }
     }
 
     private var _binding: AstronomyPictureOfTheDayFragmentBinding? = null
@@ -122,30 +148,8 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
     }
 
     private fun setDescription(title: String, explanation: String) {
-        setTitle(title)
-        setExplanation(explanation)
-    }
-
-    private fun setTitle(title: String){
-        binding.title.apply {
-            typeface = Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf")
-            text = SpannableString(title).apply {
-                setSpan(AbsoluteSizeSpan(24, true), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(ForegroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorPrimary)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(BackgroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorSurface)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(StyleSpan(Typeface.BOLD), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE )
-            }
-        }
-    }
-
-    private fun setExplanation(explanation: String){
-        binding.explanation.apply {
-            typeface = Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf")
-            text = SpannableString(explanation).apply {
-                setSpan(StyleSpan(Typeface.ITALIC), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-            }
-        }
+        setTitle(requireActivity(), requireContext(), binding.title, title)
+        setExplanation(requireActivity(), binding.explanation, explanation)
     }
 
     private fun setPicture(urlPicture: String) {

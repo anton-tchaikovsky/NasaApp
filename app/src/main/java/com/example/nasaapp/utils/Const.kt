@@ -54,4 +54,5 @@ const val DURATION = 1000L
 const val MAST = "Mast Camera"
 const val FHAC = "Front Hazard Avoidance Camera"
 const val RHAZ = "Rear Hazard Avoidance Camera"
+const val FONT_VOLKHOV = "fonts/volkhov.ttf"
 
