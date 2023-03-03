@@ -1,11 +1,17 @@
 package com.example.nasaapp.view
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.DynamicDrawableSpan
+import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.transition.*
 import coil.api.load
@@ -74,8 +80,19 @@ class MarsRoverPhotosFragment : Fragment() {
                     },
                     onSuccess = {_, _ ->
                         binding.run {
-                            camera.text = marsPhoto.camera.fullName
+                            camera.text = SpannableString(marsPhoto.camera.fullName).apply {
+                                val bitmapCamera = ContextCompat.getDrawable(requireContext(), R.drawable.ic_round_camera_24)
+                                    ?.toBitmap()
+                                bitmapCamera?.let {
+                                    for (i in marsPhoto.camera.fullName.indices){
+                                        if (marsPhoto.camera.fullName[i]=='o')
+                                            setSpan(ImageSpan(requireContext(),it), i, i+1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+                                }
+                            }
+
                             earthDate.text = marsPhoto.earthDate
+
                             TransitionManager.beginDelayedTransition(containerForMarsPhoto, Fade(
                                 Fade.IN).apply {
                                 duration = DURATION

@@ -1,10 +1,15 @@
 package com.example.nasaapp.view
 
+import android.text.SpannableString
+import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import coil.api.load
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ItemMarsPhotoFhacBinding
 import com.example.nasaapp.databinding.ItemMarsPhotoMastBinding
 import com.example.nasaapp.databinding.ItemMarsPhotoRhacBinding
@@ -62,7 +67,16 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
     inner class MarsPhotoMastViewHolder (override val binding: ItemMarsPhotoMastBinding):MarsViewHolder(binding) {
         override fun bind(photo: Photo) {
             binding.run {
-                camera.text = photo.camera.fullName
+                camera.text = SpannableString(photo.camera.fullName).apply {
+                    val bitmapCamera = ContextCompat.getDrawable(itemView.context, R.drawable.ic_round_camera_24)
+                        ?.toBitmap()
+                    bitmapCamera?.let {
+                        for (i in photo.camera.fullName.indices){
+                            if (photo.camera.fullName[i]=='o')
+                                setSpan(ImageSpan(itemView.context,it), i, i+1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
                 marsPhoto.load(photo.imgSrc)
                 add.setOnClickListener{callback.addItem(layoutPosition)}
                 remove.setOnClickListener{
@@ -92,7 +106,16 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
     inner class MarsPhotoFhacViewHolder (override val binding: ItemMarsPhotoFhacBinding):MarsViewHolder(binding)  {
         override fun bind(photo: Photo) {
             binding.run {
-                camera.text = photo.camera.fullName
+                camera.text = SpannableString(photo.camera.fullName).apply {
+                    val bitmapCamera = ContextCompat.getDrawable(itemView.context, R.drawable.ic_round_camera_24)
+                        ?.toBitmap()
+                    bitmapCamera?.let {
+                        for (i in photo.camera.fullName.indices){
+                            if (photo.camera.fullName[i]=='o')
+                                setSpan(ImageSpan(itemView.context,it), i, i+1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
                 marsPhoto.load(photo.imgSrc)
                 add.setOnClickListener{callback.addItem(layoutPosition)}
                 remove.setOnClickListener{
@@ -122,7 +145,16 @@ class AdapterForMarsRoverPhotosRecyclerViewFragment( private var listPhoto: List
     inner class MarsPhotoRhacViewHolder (override val binding: ItemMarsPhotoRhacBinding):MarsViewHolder(binding)  {
         override fun bind(photo: Photo) {
             binding.run {
-                camera.text = photo.camera.fullName
+                camera.text = SpannableString(photo.camera.fullName).apply {
+                    val bitmapCamera = ContextCompat.getDrawable(itemView.context, R.drawable.ic_round_camera_24)
+                        ?.toBitmap()
+                    bitmapCamera?.let {
+                        for (i in photo.camera.fullName.indices){
+                            if (photo.camera.fullName[i]=='o')
+                                setSpan(ImageSpan(itemView.context,it), i, i+1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
                 marsPhoto.load(photo.imgSrc)
                 add.setOnClickListener{callback.addItem(layoutPosition)}
                 remove.setOnClickListener{
