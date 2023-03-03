@@ -82,3 +82,11 @@ fun prepareMenu(menuHost: MenuHost, viewLifecycleOwner:LifecycleOwner) {
         }
     }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 }
+
+// метод возвращает color темы по атрибуту
+fun Context.themeColor(attrRes: Int): Int{
+    val typedValue = TypedValue()
+    theme.resolveAttribute(attrRes, typedValue, true)
+    return typedValue.data
+}
+

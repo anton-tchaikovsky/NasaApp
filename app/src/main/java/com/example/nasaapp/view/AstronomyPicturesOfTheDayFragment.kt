@@ -2,6 +2,9 @@ package com.example.nasaapp.view
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Layout
+import android.text.SpannableString
+import android.text.style.*
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +23,7 @@ import com.example.nasaapp.utils.*
 import com.example.nasaapp.view_model.AppStateAstronomyPicturesOfTheDay
 import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
 import com.google.android.material.tabs.TabLayout
+
 
 class AstronomyPicturesOfTheDayFragment : Fragment() {
 
@@ -124,15 +128,23 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
 
     private fun setTitle(title: String){
         binding.title.apply {
-            setTypeface(Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf"), Typeface.BOLD)
-            text = title
+            typeface = Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf")
+            text = SpannableString(title).apply {
+                setSpan(AbsoluteSizeSpan(24, true), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                setSpan(ForegroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorPrimary)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                setSpan(BackgroundColorSpan(context.themeColor(com.google.android.material.R.attr.colorSurface)), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                setSpan(StyleSpan(Typeface.BOLD), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE )
+            }
         }
     }
 
     private fun setExplanation(explanation: String){
         binding.explanation.apply {
             typeface = Typeface.createFromAsset(requireActivity().assets, "fonts/volkhov.ttf")
-            text = explanation
+            text = SpannableString(explanation).apply {
+                setSpan(StyleSpan(Typeface.ITALIC), 0, length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+            }
         }
     }
 

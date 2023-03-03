@@ -61,15 +61,15 @@ class ChoosingThemeFragment : Fragment() {
                 backgroundTintList = when(theme){
                     Theme.THEME_RED -> {
                         setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.button_apply_text_color_theme_red))
-                    ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_red)
+                        ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_red)
                     }
                     Theme.THEME_BLUE ->{
                         setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.button_apply_text_color_theme_blue))
-                    ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_blue)
+                        ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_blue)
                     }
                     Theme.THEME_ORANGE -> {
                         setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.button_apply_text_color_theme_orange))
-                    ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_orange)
+                        ContextCompat.getColorStateList(requireContext(), R.color.button_apply_background_color_theme_orange)
                     }
                 }
             }
