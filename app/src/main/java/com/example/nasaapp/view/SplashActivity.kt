@@ -1,20 +1,17 @@
 package com.example.nasaapp.view
 
+import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nasaapp.databinding.ActivitySplashBinding
-import com.example.nasaapp.utils.DURATION
 
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
-    private val handler = Handler(Looper.getMainLooper())
-    private val rotationValue = 540F
-    private val durationValue = 5000L
+    private val rotationValue = 720F
+    private val durationValue = 3000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,18 +19,20 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.launcherForeground.animate()
             .rotation(rotationValue)
+            .alpha(0f)
             .setInterpolator(LinearInterpolator())
-            .duration = durationValue
-
-        handler.postDelayed ({
-            startActivity(Intent(this, ActivityNasaApp::class.java))
-            finish()
-        }, DURATION
-        )
-    }
-
-    override fun onDestroy() {
-        handler.removeCallbacksAndMessages(null)
-        super.onDestroy()
+            .setDuration(durationValue)
+            .setListener(object : Animator.AnimatorListener{
+                override fun onAnimationStart(animation: Animator?) {
+                }
+                override fun onAnimationEnd(animation: Animator?) {
+                    startActivity(Intent(this@SplashActivity, ActivityNasaApp::class.java))
+                    finish()
+                }
+                override fun onAnimationCancel(animation: Animator?) {
+                }
+                override fun onAnimationRepeat(animation: Animator?) {
+                }
+            })
     }
 }
