@@ -194,6 +194,7 @@ class ActivityNasaApp : AppCompatActivity() {
     // метод открывает фрагмент EatherPhotosFragment
     private fun openEatherPhotosFragment() {
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_x, R.anim.exit_x, R.anim.enter_x, R.anim.exit_x)
             .add(
                 R.id.container,
                 EarthPhotosFragment.newInstance(),
@@ -207,6 +208,7 @@ class ActivityNasaApp : AppCompatActivity() {
     // метод открывает фрагмент ViewPagerMarsRoverPhotosFragment
     private fun openViewPagerForMarsRoverPhotosFragment() {
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_x, R.anim.exit_x, R.anim.enter_x, R.anim.exit_x)
             .add(
                 R.id.container,
                 ViewPagerForMarsRoverPhotosFragment.newInstance(),
@@ -219,6 +221,7 @@ class ActivityNasaApp : AppCompatActivity() {
 
     private fun openMarsRoverPhotosRecyclerViewFragment() {
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_x, R.anim.exit_x, R.anim.enter_x, R.anim.exit_x)
             .add(R.id.container, MarsRoverPhotosRecyclerViewFragment(), TAG_MARS_ROVER_PHOTOS_RECYCLER_VIEW_FRAGMENT)
             .addToBackStack("")
             .commitAllowingStateLoss()
@@ -309,6 +312,7 @@ class ActivityNasaApp : AppCompatActivity() {
     // метод отображает фрагмент ChoosingThemeFragment
     private fun openChoosingThemeFragment() {
             supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_y, R.anim.exit_y, R.anim.enter_y, R.anim.exit_y)
                 .add(
                     R.id.container, ChoosingThemeFragment.newInstance(),
                     TAG_CHOOSING_THEME_FRAGMENT

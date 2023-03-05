@@ -164,6 +164,7 @@ class ChoosingTheDayFragment:Fragment() {
    fun openHdAstronomyPicturesOfTheDayFragment() {
             listAstronomyPictureOfTheDay[viewPager.currentItem].let {
                 requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.enter_x, R.anim.exit_x, R.anim.enter_x, R.anim.exit_x)
                     .add(
                         R.id.container,
                         HdAstronomyPicturesOfTheDayFragment.newInstance(it),
