@@ -5,14 +5,11 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.*
 import coil.api.load
@@ -25,14 +22,11 @@ import com.example.nasaapp.view_model.AppStateEarthPhotos
 import com.example.nasaapp.view_model.EarthPhotosViewModel
 
 
-class EarthPhotosFragment : Fragment() {
+class EarthPhotosFragment : BaseFragment<EarthPhotosFragmentBinding>(EarthPhotosFragmentBinding::inflate) {
 
     companion object {
         fun newInstance(): EarthPhotosFragment = EarthPhotosFragment()
     }
-
-    private var _binding: EarthPhotosFragmentBinding? = null
-    private val binding get() = _binding!!
 
     private val viewModel: EarthPhotosViewModel by lazy {
         ViewModelProvider(this)[EarthPhotosViewModel::class.java]
@@ -96,14 +90,6 @@ class EarthPhotosFragment : Fragment() {
             }
 
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = EarthPhotosFragmentBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -240,10 +226,5 @@ class EarthPhotosFragment : Fragment() {
             }
             it.layoutParams = layoutParams
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

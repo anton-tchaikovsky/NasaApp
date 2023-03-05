@@ -8,12 +8,9 @@ import android.text.Layout
 import android.text.SpannableString
 import android.text.style.*
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
@@ -27,7 +24,7 @@ import com.example.nasaapp.view_model.AppStateAstronomyPicturesOfTheDay
 import com.example.nasaapp.view_model.AstronomyPicturesOfTheDayViewModel
 import com.google.android.material.tabs.TabLayout
 
-class AstronomyPicturesOfTheDayFragment : Fragment() {
+class AstronomyPicturesOfTheDayFragment : BaseFragment<AstronomyPictureOfTheDayFragmentBinding>(AstronomyPictureOfTheDayFragmentBinding::inflate) {
 
     companion object {
         fun newInstance(day: Day): AstronomyPicturesOfTheDayFragment =
@@ -62,21 +59,10 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
         }
     }
 
-    private var _binding: AstronomyPictureOfTheDayFragmentBinding? = null
-    private val binding get() = _binding!!
-
     private lateinit var day:Day
 
     private val viewModel: AstronomyPicturesOfTheDayViewModel by lazy {
         ViewModelProvider(this)[AstronomyPicturesOfTheDayViewModel::class.java]
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = AstronomyPictureOfTheDayFragmentBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -191,8 +177,4 @@ class AstronomyPicturesOfTheDayFragment : Fragment() {
             Bundle().apply { putParcelable(KEY_ASTRONOMY_PICTURES_OF_THE_DAY, astronomyPictureOfTheDay) })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

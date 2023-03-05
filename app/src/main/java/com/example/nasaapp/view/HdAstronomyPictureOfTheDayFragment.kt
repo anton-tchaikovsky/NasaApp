@@ -3,13 +3,11 @@ package com.example.nasaapp.view
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.Fragment
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import coil.api.load
@@ -22,7 +20,7 @@ import com.example.nasaapp.utils.hideShowViews
 import com.example.nasaapp.utils.prepareMenu
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-class HdAstronomyPicturesOfTheDayFragment : Fragment() {
+class HdAstronomyPicturesOfTheDayFragment : BaseFragment<HdAstronomyPictureOfTheDayFragmentBinding>(HdAstronomyPictureOfTheDayFragmentBinding::inflate) {
     companion object {
         private const val KEY_ASTRONOMY_PICTURE_OF_THE_DAY = "KeyAstronomyPictureOfTheDay"
         fun newInstance(astronomyPictureOfTheDay: AstronomyPictureOfTheDay?): HdAstronomyPicturesOfTheDayFragment =
@@ -33,20 +31,9 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
             }
     }
 
-    private var _binding: HdAstronomyPictureOfTheDayFragmentBinding? = null
-    private val binding get() = _binding!!
-
     private var astronomyPictureOfTheDay:AstronomyPictureOfTheDay? = null
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = HdAstronomyPictureOfTheDayFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -168,11 +155,6 @@ class HdAstronomyPicturesOfTheDayFragment : Fragment() {
                 }
             )
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

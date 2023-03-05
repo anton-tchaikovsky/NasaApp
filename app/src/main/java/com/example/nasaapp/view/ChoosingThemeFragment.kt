@@ -14,14 +14,11 @@ import com.example.nasaapp.utils.KEY_CHOSEN_THEME
 import com.example.nasaapp.utils.Theme
 import com.example.nasaapp.utils.prepareMenu
 
-class ChoosingThemeFragment : Fragment() {
+class ChoosingThemeFragment : BaseFragment<ChoosingThemeLayoutBinding>(ChoosingThemeLayoutBinding::inflate) {
 
     companion object {
         fun newInstance() = ChoosingThemeFragment()
     }
-
-    private var _binding: ChoosingThemeLayoutBinding? = null
-    private val binding get() = _binding!!
 
     private val onClickListenerButtonApply: View.OnClickListener = View.OnClickListener {
         requireActivity().supportFragmentManager.setFragmentResult(
@@ -29,15 +26,6 @@ class ChoosingThemeFragment : Fragment() {
             Bundle().apply {
                 putString(KEY_CHOSEN_THEME, it.tag.toString())
             })
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = ChoosingThemeLayoutBinding.inflate(inflater)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,8 +75,4 @@ class ChoosingThemeFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

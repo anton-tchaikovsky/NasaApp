@@ -4,14 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ImageSpan
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.fragment.app.Fragment
 import androidx.transition.*
 import coil.api.load
 import com.example.nasaapp.R
@@ -22,7 +19,7 @@ import com.example.nasaapp.utils.KEY_MARS_ROVER_PHOTO
 import com.example.nasaapp.utils.hideShowViews
 
 
-class MarsRoverPhotosFragment : Fragment() {
+class MarsRoverPhotosFragment : BaseFragment<MarsPhotosFragmentBinding> (MarsPhotosFragmentBinding::inflate) {
 
     companion object {
         fun newInstance(marsPhoto: Photo): MarsRoverPhotosFragment =
@@ -46,9 +43,6 @@ class MarsRoverPhotosFragment : Fragment() {
             }
     }
 
-    private var _binding: MarsPhotosFragmentBinding? = null
-    private val binding get() = _binding!!
-
     // слушатель на mars_photo
     private val marsAnimatorListener = View.OnClickListener {
         val constraintSetZoom = ConstraintSet().apply { clone(context, R.layout.mars_photos_zoom) }
@@ -60,14 +54,6 @@ class MarsRoverPhotosFragment : Fragment() {
             .addTransition(ChangeImageTransform())
             .setDuration(DURATION))
         constraintSetZoom.applyTo(binding.containerForMarsPhoto)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-       _binding = MarsPhotosFragmentBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,8 +103,4 @@ class MarsRoverPhotosFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
