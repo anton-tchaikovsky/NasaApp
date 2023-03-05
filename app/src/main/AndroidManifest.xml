@@ -4,7 +4,7 @@
     package="com.example.nasaapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,15 +17,21 @@
         android:theme="@style/Theme.Splash"
         tools:targetApi="31">
         <activity
+            android:name=".view.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Splash">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
             android:name=".view.ActivityNasaApp"
             android:configChanges="uiMode"
             android:exported="true"
-            android:theme="@style/Theme.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            >
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
