@@ -22,7 +22,7 @@ import com.example.nasaapp.view_model.AppStateEarthPhotos
 import com.example.nasaapp.view_model.EarthPhotosViewModel
 
 
-class EarthPhotosFragment : BaseFragment<EarthPhotosFragmentBinding>(EarthPhotosFragmentBinding::inflate) {
+class EarthPhotosFragment: BaseFragment<EarthPhotosFragmentBinding>(EarthPhotosFragmentBinding::inflate) {
 
     companion object {
         fun newInstance(): EarthPhotosFragment = EarthPhotosFragment()
@@ -50,7 +50,8 @@ class EarthPhotosFragment : BaseFragment<EarthPhotosFragmentBinding>(EarthPhotos
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             super.onAnimationEnd(animation)
-                            binding.earthPhoto.isClickable = false
+                            if (isAdded)
+                                binding.earthPhoto.isClickable = false
                         }
                     })
                     .start()
@@ -76,7 +77,8 @@ class EarthPhotosFragment : BaseFragment<EarthPhotosFragmentBinding>(EarthPhotos
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             super.onAnimationEnd(animation)
-                            binding.earthPhoto.isClickable = true
+                            if (isAdded)
+                                binding.earthPhoto.isClickable = true
                         }
                     })
                     .start()
@@ -201,8 +203,9 @@ class EarthPhotosFragment : BaseFragment<EarthPhotosFragmentBinding>(EarthPhotos
             })
             .addListener(object : TransitionListenerAdapter() {
                 override fun onTransitionEnd(transition: Transition) {
+                    if (isAdded)
+                        settingAnimationChangeBounds()
                     super.onTransitionEnd(transition)
-                    settingAnimationChangeBounds()
                 }
                 })
         TransitionManager.beginDelayedTransition(binding.containerForEarthPhoto, transitionSet)

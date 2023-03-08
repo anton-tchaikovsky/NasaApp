@@ -6,7 +6,9 @@
     android:id="@+id/container_for_earth_photo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    android:clickable="true"
+    android:focusable="true">
 
     <include
         android:id="@+id/loading_layout"
